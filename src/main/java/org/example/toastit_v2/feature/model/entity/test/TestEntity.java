@@ -1,4 +1,4 @@
-package org.example.toastit_v2.feature.model.entity;
+package org.example.toastit_v2.feature.model.entity.test;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

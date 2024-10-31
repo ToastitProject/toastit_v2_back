@@ -2,7 +2,7 @@ package org.example.toastit_v2.feature.dto.test;
 
 import lombok.Getter;
 import org.example.toastit_v2.feature.domain.test.TestCreate;
-import org.example.toastit_v2.feature.model.entity.TestEntity;
+import org.example.toastit_v2.feature.model.entity.test.TestEntity;
 
 @Getter
 public class TestDto {
