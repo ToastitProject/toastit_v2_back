@@ -1,0 +1,51 @@
+spring:
+  application:
+    name: toastit_v2
+
+  profiles:
+    active: dev
+
+  jpa:
+    show-sql: true
+
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.MySQL8Dialect
+
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          batch_size: 500
+        order_inserts: true
+        order_updates: true
+
+cloud:
+  aws:
+    credentials:
+      instance-profile: false
+      accessKey: ${AWS_ACCESS_KEY}
+      secretKey: ${AWS_SECRET_KEY}
+
+    s3:
+      bucket: ${AWS_BUCKET_NAME}
+
+    region:
+      auto: false
+      static: ap-northeast-2
+
+    stack: false
+
+server:
+  servlet:
+    context-path: /api
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus, health, info
+
+  metrics:
+    tags:
+      application: ${spring.application.name}

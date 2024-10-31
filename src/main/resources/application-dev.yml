@@ -1,0 +1,43 @@
+spring:
+  datasource:
+    url: ${DEV_MYSQL_URL}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${DEV_MYSQL_USERNAME}
+    password: ${DEV_MYSQL_PASSWORD}
+
+  data:
+    redis:
+      host: ${AWS_ELASITCACHE_REDIS_URL}
+      port: ${AWS_ELASITCACHE_REDIS_PORT}
+
+    mongodb:
+      uri: ${ATLAS_MONGO_URI}
+      database: ${ATLAS_MONGO_DATABASE}
+
+cloud:
+  aws:
+    credentials:
+      instance-profile: false
+      accessKey: ${AWS_ACCESS_KEY}
+      secretKey: ${AWS_SECRET_KEY}
+
+    s3:
+      bucket: ${AWS_BUCKET_NAME}
+
+    region:
+      auto: false
+      static: ap-northeast-2
+
+    stack: false
+
+    cloudfront-path: ${AWS_FILE_PATH}
+
+ssh:
+  host: ${SSH_HOST}
+  port: ${SSH_PORT}
+  user: ${SSH_USER}
+  private_key_path: ${SSH_PRIVATE_KEY_PATH}
+
+rds:
+  database_url: ${AWS_RDS_MYSQL_URL}
+  database_port: ${AWS_RDS_MYSQL_PORT}
