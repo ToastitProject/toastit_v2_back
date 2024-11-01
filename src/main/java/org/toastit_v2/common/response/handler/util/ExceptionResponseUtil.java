@@ -9,13 +9,11 @@ public class ExceptionResponseUtil {
     private ExceptionResponseUtil() {}
 
     public static ResponseEntity<Object> handleResponseForException(final ResponseCode exceptionCode) {
-
         return ResponseEntity.status(exceptionCode.getHttpStatus())
                 .body(buildErrorResponse(exceptionCode));
     }
 
     private static ExceptionResponse buildErrorResponse(final ResponseCode exceptionCode) {
-
         return ExceptionResponse.builder()
                 .status(exceptionCode.getHttpStatus().toString())
                 .code(exceptionCode.name())

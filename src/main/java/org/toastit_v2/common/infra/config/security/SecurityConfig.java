@@ -23,7 +23,7 @@ public class SecurityConfig {
 //    private final JwtTokenizer jwtTokenizer;
 
     // 모든 유저 허용 페이지
-    private String[] allAllowPage = new String[] {
+    private final String[] allAllowPage = new String[] {
             "/", // 메인페이지
             "/error", // 에러페이지
             "/test/**", // 테스트 페이지
@@ -37,7 +37,7 @@ public class SecurityConfig {
     };
 
     // 비로그인 유저 허용 페이지
-    private String[] notLoggedAllowPage = new String[] {
+    private final String[] notLoggedAllowPage = new String[] {
             "/user/login", // 로그인 페이지
             "/user/join" // 회원가입 페이지
     };

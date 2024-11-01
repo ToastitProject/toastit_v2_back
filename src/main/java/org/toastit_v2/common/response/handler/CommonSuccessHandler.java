@@ -77,8 +77,8 @@ public class CommonSuccessHandler implements ResponseBodyAdvice<Object> {
     }
 
     private String handleStringResponse(String body, ServerHttpResponse response) {
-        try {
 
+        try {
             String jsonResponse = createJsonResponse("200 OK", "요청이 성공됐습니다", body, "SUCCESS");
 
             response.getHeaders().setContentType(MediaType.APPLICATION_JSON);

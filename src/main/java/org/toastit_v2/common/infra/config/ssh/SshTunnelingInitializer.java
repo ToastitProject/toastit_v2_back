@@ -43,7 +43,6 @@ public class SshTunnelingInitializer {
 
     @PreDestroy
     public void closeSSH() {
-
         if (session.isConnected()) {
             session.disconnect();
         }

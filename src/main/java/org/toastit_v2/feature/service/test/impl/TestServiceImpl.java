@@ -17,7 +17,9 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public Test createTest(TestCreate create) {
+
         Test test = Test.from(create);
+
         return testRepository.save(test);
     }
 }
