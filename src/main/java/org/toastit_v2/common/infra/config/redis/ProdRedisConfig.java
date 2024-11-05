@@ -12,7 +12,7 @@ import org.springframework.validation.annotation.Validated;
 @Profile("prod")
 @Validated
 @Configuration
-public class ProdRedisConfig extends RedisConnectionFactoryConfig{
+public class ProdRedisConfig extends RedisConnectionFactoryConfig {
 
     private final String host;
 

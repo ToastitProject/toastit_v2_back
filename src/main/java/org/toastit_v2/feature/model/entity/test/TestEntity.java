@@ -4,16 +4,18 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import org.toastit_v2.feature.domain.test.Test;
 
+@Entity
 @Builder
 @AllArgsConstructor
+@Table(name = "tests")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity(name = "tests")
 public class TestEntity {
 
     @Id
@@ -30,8 +32,8 @@ public class TestEntity {
 
     public Test toModel() {
         return Test.builder()
-                .id(id)
-                .test(test)
+                .id(this.id)
+                .test(this.test)
                 .build();
     }
 }

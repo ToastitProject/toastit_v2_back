@@ -14,7 +14,7 @@ import org.springframework.validation.annotation.Validated;
 @Profile("dev")
 @Validated
 @Configuration
-public class DevRedisConfig extends RedisConnectionFactoryConfig{
+public class DevRedisConfig extends RedisConnectionFactoryConfig {
 
     private String host;
 

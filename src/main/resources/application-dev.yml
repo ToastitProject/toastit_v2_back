@@ -32,12 +32,18 @@ cloud:
 
     cloudfront-path: ${AWS_FILE_PATH}
 
+    rds:
+      database_url: ${AWS_RDS_MYSQL_URL}
+      database_port: ${AWS_RDS_MYSQL_PORT}
+
 ssh:
   host: ${SSH_HOST}
   port: ${SSH_PORT}
   user: ${SSH_USER}
   private_key_path: ${SSH_PRIVATE_KEY_PATH}
 
-rds:
-  database_url: ${AWS_RDS_MYSQL_URL}
-  database_port: ${AWS_RDS_MYSQL_PORT}
+jwt:
+  accessSecret: ${DEV_JWT_ACCESS_SECRET}
+  refreshSecret: ${DEV_JWT_REFRESH_SECRET}
+  accessTokenExpire: ${DEV_JWT_ACCESS_EXPIRE}
+  refreshTokenExpire: ${DEV_JWT_REFRESH_EXPIRE}

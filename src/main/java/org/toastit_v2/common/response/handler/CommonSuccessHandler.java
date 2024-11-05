@@ -45,7 +45,7 @@ public class CommonSuccessHandler implements ResponseBodyAdvice<Object> {
         HttpServletResponse httpServletResponse = ((ServletServerHttpResponse) response).getServletResponse();
         int statusCode = httpServletResponse.getStatus();
 
-        if (isSuccessful(statusCode)) {
+        if (statusCode >= 200 && statusCode < 300) {
             CommonResponseCode responseCode = getResponseCodeByStatus(statusCode);
 
             if (shouldWrapBody(responsePayload)) {
@@ -58,10 +58,6 @@ public class CommonSuccessHandler implements ResponseBodyAdvice<Object> {
         }
 
         return responsePayload;
-    }
-
-    private boolean isSuccessful(int statusCode) {
-        return statusCode >= 200 && statusCode < 300;
     }
 
     private boolean shouldWrapBody(Object body) {
