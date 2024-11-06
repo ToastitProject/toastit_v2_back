@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.toastit_v2.common.response.ExceptionResponse;
 import org.toastit_v2.common.response.SuccessResponse;
@@ -22,14 +23,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 @Slf4j
+@RequiredArgsConstructor
 @RestControllerAdvice(basePackages = "org.toastit_v2")
 public class CommonSuccessHandler implements ResponseBodyAdvice<Object> {
 
     private final ObjectMapper objectMapper;
-
-    public CommonSuccessHandler(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
-    }
 
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
@@ -48,7 +46,7 @@ public class CommonSuccessHandler implements ResponseBodyAdvice<Object> {
         if (statusCode >= 200 && statusCode < 300) {
             CommonResponseCode responseCode = getResponseCodeByStatus(statusCode);
 
-            if (shouldWrapBody(responsePayload)) {
+            if (!(responsePayload instanceof SuccessResponse || responsePayload instanceof String || responsePayload instanceof ProblemDetail || responsePayload instanceof ExceptionResponse)) {
                 return SuccessResponseUtil.handleResponseForSuccess(responseCode, responsePayload).getBody();
             }
 
@@ -58,10 +56,6 @@ public class CommonSuccessHandler implements ResponseBodyAdvice<Object> {
         }
 
         return responsePayload;
-    }
-
-    private boolean shouldWrapBody(Object body) {
-        return !(body instanceof SuccessResponse || body instanceof String || body instanceof ProblemDetail || body instanceof ExceptionResponse);
     }
 
     private CommonResponseCode getResponseCodeByStatus(int statusCode) {

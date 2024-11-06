@@ -23,11 +23,11 @@ public class SortUtil {
     /**
      * 주어진 {@link SortType}에 따라 적절한 {@link Sort} 객체를 반환한다.
      *
-     * @param sortType 적용할 정렬 방식 (VIEWCOUNT, LIKECOUNT, OLDEST, NEWEST)
+     * @param type 적용할 정렬 방식 (VIEWCOUNT, LIKECOUNT, OLDEST, NEWEST)
      * @return 필드 기준과 방향이 설정된 {@link Sort} 객체
      */
-    public static Sort getSort(SortType sortType) {
-        return switch (sortType) {
+    public static Sort getSort(SortType type) {
+        return switch (type) {
             case VIEWCOUNT -> Sort.by(Sort.Direction.DESC, VIEW_COUNT_FIELD);
             case LIKECOUNT -> Sort.by(Sort.Direction.DESC, LIKE_COUNT_FIELD);
             case OLDEST -> Sort.by(Sort.Direction.ASC, CREATE_DATE_FIELD);

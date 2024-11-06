@@ -1,10 +1,13 @@
 package org.toastit_v2.feature.service.aws;
 
 import com.amazonaws.services.s3.AmazonS3;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 @Service
+@Validated
 public class AWSService {
 
     private final AmazonS3 s3Client;
@@ -15,8 +18,8 @@ public class AWSService {
 
     public AWSService(
             AmazonS3 s3Client,
-            @Value("${cloud.aws.s3.bucket}") String bucketName,
-            @Value("${cloud.aws.cloudfront-path}") String filePath
+            @NotNull @Value("${cloud.aws.s3.bucket}") String bucketName,
+            @NotNull @Value("${cloud.aws.cloudfront-path}") String filePath
     ) {
         this.s3Client = s3Client;
         this.bucketName = bucketName;

@@ -6,7 +6,8 @@ import org.springframework.http.ResponseEntity;
 
 public class ExceptionResponseUtil {
 
-    private ExceptionResponseUtil() {}
+    private ExceptionResponseUtil() {
+    }
 
     public static ResponseEntity<Object> handleResponseForException(final ResponseCode exceptionCode) {
         return ResponseEntity.status(exceptionCode.getHttpStatus())

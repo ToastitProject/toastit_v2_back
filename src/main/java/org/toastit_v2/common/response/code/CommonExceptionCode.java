@@ -32,9 +32,9 @@ public enum CommonExceptionCode implements ResponseCode {
     /**
      * JWT Token Error
      */
-    // TOKEN 만료
+    // 토큰 만료
     JWT_EXPIRED_ERROR(HttpStatus.UNAUTHORIZED, "토큰이 만료되었습니다."),
-    // Token 오류
+    // 토큰 오류
     JWT_INVALID_ERROR(HttpStatus.UNAUTHORIZED, "토큰이 유효하지 않습니다."),
     // 토큰 오류
     JWT_UNKNOWN_ERROR(HttpStatus.UNAUTHORIZED, "토큰이 존재하지 않습니다."),

@@ -6,6 +6,9 @@ import org.springframework.http.ResponseEntity;
 
 public class SuccessResponseUtil {
 
+    private SuccessResponseUtil() {
+    }
+
     public static <T> ResponseEntity<Object> handleResponseForSuccess(final ResponseCode responseCode, T data) {
         return ResponseEntity.status(responseCode.getHttpStatus())
                 .body(buildSuccessResponse(responseCode, data));
