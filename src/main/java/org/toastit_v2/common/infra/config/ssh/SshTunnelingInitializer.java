@@ -25,7 +25,7 @@ public class SshTunnelingInitializer {
 
     private String user;
 
-    private int sshPort;
+    private Integer sshPort;
 
     private String privateKeyPath;
 
@@ -34,7 +34,7 @@ public class SshTunnelingInitializer {
     public SshTunnelingInitializer(
             @NotNull @Value("${ssh.host}") String host,
             @NotNull @Value("${ssh.user}") String user,
-            @NotNull @Value("${ssh.port}") int sshPort,
+            @NotNull @Value("${ssh.port}") Integer sshPort,
             @NotNull @Value("${ssh.private_key_path}") String privateKeyPath
     ) {
         this.host = host;
