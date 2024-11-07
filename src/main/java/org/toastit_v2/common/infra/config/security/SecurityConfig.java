@@ -24,7 +24,7 @@ public class SecurityConfig {
     private final JwtTokenizer jwtTokenizer;
 
     // 모든 유저 허용 페이지
-    private final String[] allAllowPage = new String[] {
+    private final String[] allAllowPage = new String[]{
             "/", // 메인페이지
             "/error", // 에러페이지
             "/test/**", // 테스트 페이지
@@ -38,7 +38,7 @@ public class SecurityConfig {
     };
 
     // 비로그인 유저 허용 페이지
-    private final String[] notLoggedAllowPage = new String[] {
+    private final String[] notLoggedAllowPage = new String[]{
             "/user/login", // 로그인 페이지
             "/user/join" // 회원가입 페이지
     };
@@ -47,46 +47,45 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         // 유저별 페이지 접근 허용
-        http.authorizeHttpRequests(
-                auth -> auth.requestMatchers(allAllowPage).permitAll() // 모든 유저
-                        .requestMatchers(notLoggedAllowPage).not().authenticated() // 비로그인 유저
-                        .anyRequest().authenticated()
-        );
+        http.authorizeHttpRequests(auth -> {
+            auth.requestMatchers(allAllowPage).permitAll()
+                                              .requestMatchers(notLoggedAllowPage).not().authenticated()
+                                              .anyRequest().authenticated();
+        });
 
         //// 인증 실패 시 호출하는 AuthenticationEntryPoint 설정
-        http.exceptionHandling(
-                exceptionHandling -> exceptionHandling.authenticationEntryPoint(new AuthenticationEntryPointImpl())
-        );
+        http.exceptionHandling(exceptionHandling -> {
+            exceptionHandling.authenticationEntryPoint(new AuthenticationEntryPointImpl());
+        });
 
         // 세션 관리 Stateless 설정(서버가 클라이언트 상태 저장x)
-        http.sessionManagement(
-                auth -> auth.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        );
+        http.sessionManagement(auth -> {
+            auth.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        });
 
         // corf 비활성화
-        http.csrf(
-                csrf -> csrf.disable()
-        );
+        http.csrf(csrf -> {
+            csrf.disable();
+        });
 
         // cors 허용
-        http.cors(
-                httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource())
-        );
+        http.cors(httpSecurityCorsConfigurer -> {
+            httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource());
+        });
 
         // 로그인 폼 비활성화
-        http.formLogin(
-                auth -> auth.disable()
-        );
+        http.formLogin(auth -> {
+            auth.disable();
+        });
 
         // http 기본 인증(헤더) 비활성화
-        http.httpBasic(
-                auth -> auth.disable()
-        );
+        http.httpBasic(auth -> {
+            auth.disable();
+        });
 
         // JWT 필터 사용
         http.addFilterBefore(new TokenAuthenticationFilter(jwtTokenizer), UsernamePasswordAuthenticationFilter.class);
 
-        // SecurityFilterChain을 빌드 후 반환
         return http.build();
     }
 
@@ -110,4 +109,5 @@ public class SecurityConfig {
 
         return source;
     }
+
 }

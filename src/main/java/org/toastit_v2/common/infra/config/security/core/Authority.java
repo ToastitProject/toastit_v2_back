@@ -14,4 +14,5 @@ public enum Authority implements GrantedAuthority {
     public String getAuthority() {
         return name();
     }
+
 }

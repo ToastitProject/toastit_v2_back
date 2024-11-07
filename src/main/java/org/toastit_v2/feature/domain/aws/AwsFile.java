@@ -24,4 +24,5 @@ public class AwsFile {
         this.fileType = fileType;
         this.filePath = filePath;
     }
+
 }

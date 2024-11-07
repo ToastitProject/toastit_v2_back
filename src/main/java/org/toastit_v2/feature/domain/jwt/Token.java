@@ -38,4 +38,5 @@ public class Token {
                 .grantType(this.grantType)
                 .build();
     }
+
 }

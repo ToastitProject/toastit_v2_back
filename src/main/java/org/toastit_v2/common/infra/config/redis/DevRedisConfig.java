@@ -43,4 +43,5 @@ public class DevRedisConfig extends RedisConnectionFactoryConfig {
 
         return new LettuceConnectionFactory(standaloneConfiguration);
     }
+
 }

@@ -28,4 +28,5 @@ public class MongoConfig {
     public MongoTemplate mongoTemplate() {
         return new MongoTemplate(MongoClients.create(url), database);
     }
+
 }

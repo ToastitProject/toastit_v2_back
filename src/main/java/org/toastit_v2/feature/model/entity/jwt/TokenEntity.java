@@ -54,4 +54,5 @@ public class TokenEntity extends AuditingFields {
                 .grantType(this.grantType)
                 .build();
     }
+
 }

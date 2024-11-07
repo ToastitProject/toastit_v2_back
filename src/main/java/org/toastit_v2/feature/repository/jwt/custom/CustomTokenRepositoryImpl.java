@@ -15,7 +15,7 @@ public class CustomTokenRepositoryImpl implements CustomTokenRepository {
     private final QTokenEntity qToken = QTokenEntity.tokenEntity;
 
     @Override
-    public void update(Token token) {
+    public Long update(Token token) {
 
         queryFactory.update(qToken)
                 .set(qToken.accessToken, token.getAccessToken())
@@ -33,4 +33,5 @@ public class CustomTokenRepositoryImpl implements CustomTokenRepository {
                 .where(qToken.refreshToken.eq(refreshToken))
                 .execute();
     }
+
 }

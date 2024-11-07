@@ -34,4 +34,5 @@ public class SortUtil {
             case NEWEST -> Sort.by(Sort.Direction.DESC, CREATE_DATE_FIELD);
         };
     }
+
 }

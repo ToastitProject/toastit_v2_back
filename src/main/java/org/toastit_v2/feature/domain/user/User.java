@@ -40,4 +40,5 @@ public class User {
                 .authority(this.authority)
                 .build();
     }
+
 }

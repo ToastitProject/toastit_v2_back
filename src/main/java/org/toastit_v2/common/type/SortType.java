@@ -25,4 +25,5 @@ public enum SortType {
      * 좋아요 순으로 정렬.
      */
     LIKECOUNT
+
 }

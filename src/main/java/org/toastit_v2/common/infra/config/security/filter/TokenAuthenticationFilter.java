@@ -83,4 +83,5 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
                 throw new RestApiException(CommonExceptionCode.JWT_INTERNAL_ERROR);
         }
     }
+
 }

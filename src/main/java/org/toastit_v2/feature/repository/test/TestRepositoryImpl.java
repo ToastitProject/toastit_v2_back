@@ -18,4 +18,5 @@ public class TestRepositoryImpl implements TestRepository {
     public Test save(Test domain) {
         return repository.save(TestEntity.fromModel(domain)).toModel();
     }
+
 }

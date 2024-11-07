@@ -14,4 +14,5 @@ public interface JpaTokenRepository extends JpaRepository<TokenEntity, Long>, Cu
     @Modifying
     @Query("DELETE FROM TokenEntity t WHERE t.accessToken = :token")
     void deleteByAccessToken(String token);
+
 }

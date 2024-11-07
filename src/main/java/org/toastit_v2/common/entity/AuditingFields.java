@@ -35,4 +35,5 @@ public abstract class AuditingFields {
     @LastModifiedDate
     @Column(nullable = false)
     protected LocalDateTime modifyDate;
+
 }

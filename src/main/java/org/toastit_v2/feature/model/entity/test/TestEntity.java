@@ -36,4 +36,5 @@ public class TestEntity {
                 .test(this.test)
                 .build();
     }
+
 }

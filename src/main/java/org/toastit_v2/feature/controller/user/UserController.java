@@ -25,4 +25,5 @@ public class UserController {
     public UserResponse getCurrentUser(@AuthenticationPrincipal CustomUserDetails userDetails) {
         return userService.getByUserDetails(userDetails);
     }
+
 }

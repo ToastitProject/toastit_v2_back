@@ -25,4 +25,5 @@ public class AWSService {
         this.bucketName = bucketName;
         this.filePath = filePath;
     }
+
 }

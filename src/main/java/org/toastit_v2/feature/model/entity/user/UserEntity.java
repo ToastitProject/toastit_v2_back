@@ -63,4 +63,5 @@ public class UserEntity extends AuditingFields {
                 .authority(this.authority)
                 .build();
     }
+
 }

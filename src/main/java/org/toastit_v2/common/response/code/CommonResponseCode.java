@@ -26,4 +26,5 @@ public enum CommonResponseCode implements ResponseCode {
         this.httpStatus = httpStatus;
         this.data = data;
     }
+
 }

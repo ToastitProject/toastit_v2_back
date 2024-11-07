@@ -18,4 +18,5 @@ public class ExceptionResponse {
         this.code = code;
         this.data = data;
     }
+
 }

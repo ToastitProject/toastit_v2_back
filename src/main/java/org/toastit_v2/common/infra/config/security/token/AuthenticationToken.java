@@ -33,4 +33,5 @@ public class AuthenticationToken extends AbstractAuthenticationToken {
     public Object getPrincipal() {
         return this.principal;
     }
+
 }

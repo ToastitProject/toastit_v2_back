@@ -30,4 +30,5 @@ public class ProdRedisConfig extends RedisConnectionFactoryConfig {
     public RedisConnectionFactory redisConnectionFactory() {
         return new LettuceConnectionFactory(host, port);
     }
+
 }

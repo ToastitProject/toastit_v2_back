@@ -4,7 +4,8 @@ import org.toastit_v2.feature.domain.jwt.Token;
 
 public interface CustomTokenRepository {
 
-    void update(Token token);
+    Long update(Token token);
 
     Long updateByRefreshToken(String refreshToken, String accessToken);
+
 }

@@ -8,16 +8,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(force = true)
 public class SuccessResponse<T> {
 
-    // 응답 상태
     private final String status;
 
-    // 응답 메시지
     private final String msg;
 
-    // 응답 데이터
     private final T data;
 
-    // 응답 코드
     private final String code;
 
     @Builder
@@ -27,4 +23,5 @@ public class SuccessResponse<T> {
         this.data = data;
         this.code = code;
     }
+
 }

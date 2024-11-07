@@ -7,12 +7,12 @@ import org.springframework.http.HttpStatus;
 public enum CommonExceptionCode implements ResponseCode {
 
     /**
-     * file error
+     * File Error
      */
     FILE_ERROR(HttpStatus.BAD_REQUEST, "파일 에러"),
 
     /**
-     *  image Error
+     *  Image Error
      */
     // 파일 전역 IO Error 처리
     IMAGE_ERROR(HttpStatus.BAD_REQUEST, "이미지 업로드 에러"),
@@ -30,8 +30,12 @@ public enum CommonExceptionCode implements ResponseCode {
     IMAGE_NOT_TEMP(HttpStatus.BAD_REQUEST, "이미지 에러"),
 
     /**
-     * JWT Token Error
+     * Token Error for JWT
      */
+    // 토큰 업데이트 실패
+    UPDATE_FAIL_TOKEN(HttpStatus.BAD_REQUEST, "토큰 업데이트 오류"),
+    // 액세스 토큰 업데이트 실패
+    UPDATE_FAIL_ACCESS_TOKEN(HttpStatus.BAD_REQUEST, "액세스 토큰 업데이트 실패"),
     // 토큰 만료
     JWT_EXPIRED_ERROR(HttpStatus.UNAUTHORIZED, "토큰이 만료되었습니다."),
     // 토큰 오류
@@ -65,7 +69,7 @@ public enum CommonExceptionCode implements ResponseCode {
     NOT_FOUND_LIKE(HttpStatus.BAD_REQUEST, "미정"),
 
     /**
-     * 4** client
+     * 4** Client Error
      */
     // 400
     BAD_REQUEST(HttpStatus.BAD_REQUEST, "잘못된 매개 변수가 포함됨"),
@@ -108,4 +112,5 @@ public enum CommonExceptionCode implements ResponseCode {
         this.httpStatus = httpStatus;
         this.data = data;
     }
+
 }

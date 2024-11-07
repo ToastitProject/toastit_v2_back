@@ -109,4 +109,5 @@ public class JwtTokenizer {
             throw new RestApiException(CommonExceptionCode.JWT_INVALID_ERROR);
         }
     }
+
 }
