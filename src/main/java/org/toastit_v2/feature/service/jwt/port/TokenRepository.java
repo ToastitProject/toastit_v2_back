@@ -7,11 +7,12 @@ public interface TokenRepository {
 
     Token save(Token token);
 
-    void update(Token token);
+    Long update(Token token);
 
-    void updateByAccessToken(String refreshToken, String accessToken);
+    Long updateByRefreshToken(String refreshToken, String accessToken);
 
     void deleteByAccessToken(String token);
 
     Optional<Token> findByUserId(Long id);
+
 }

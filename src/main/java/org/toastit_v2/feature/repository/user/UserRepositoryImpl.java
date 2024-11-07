@@ -17,20 +17,21 @@ public class UserRepositoryImpl implements UserRepository {
     private final JpaUserRepository repository;
 
     @Override
-    public User getByUsername(String nickname) {
-        return getByCriteria(repository::findByNickname, nickname);
+    public Optional<User> findByNickname(String nickname) {
+        return repository.findByNickname(nickname).map(UserEntity::toModel);
     }
 
     @Override
-    public User getByEmail(String email) {
-        return getByCriteria(repository::findByEmail, email);
+    public Optional<User> findByEmail(String email) {
+        return repository.findByEmail(email).map(UserEntity::toModel);
     }
 
-    private <T> User getByCriteria(Function<T, Optional<UserEntity>> finderFunction, T value) {
-        return finderFunction.apply(value)
-                .map(UserEntity::toModel)
-                .orElseThrow(
-                        () -> new RestApiException(CommonExceptionCode.NOT_FOUND_USER)
-                );
-    }
+//    private <T> User getByCriteria(Function<T, Optional<UserEntity>> finderFunction, T value) {
+//        return finderFunction.apply(value)
+//                .map(UserEntity::toModel)
+//                .orElseThrow(
+//                        () -> new RestApiException(CommonExceptionCode.NOT_FOUND_USER)
+//                );
+//    }
+
 }

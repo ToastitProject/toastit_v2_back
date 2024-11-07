@@ -29,4 +29,5 @@ public class UserResponse {
                 .imageUrl(user.getImageUrl())
                 .build();
     }
+
 }

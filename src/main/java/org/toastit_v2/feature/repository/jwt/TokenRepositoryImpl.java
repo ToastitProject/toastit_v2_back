@@ -5,8 +5,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.toastit_v2.common.response.code.CommonExceptionCode;
-import org.toastit_v2.common.response.exception.RestApiException;
 import org.toastit_v2.feature.domain.jwt.Token;
 import org.toastit_v2.feature.model.entity.jwt.TokenEntity;
 import org.toastit_v2.feature.service.jwt.port.TokenRepository;
@@ -24,17 +22,13 @@ public class TokenRepositoryImpl implements TokenRepository {
     }
 
     @Override
-    public void update(Token token) {
-        repository.update(token);
+    public Long update(Token token) {
+        return repository.update(token);
     }
 
     @Override
-    public void updateByAccessToken(String refreshToken, String accessToken) {
-
-        if (repository.updateByRefreshToken(refreshToken, accessToken) < 0) {
-            log.error("리프레시 토큰 '{}'에 대한 액세스 토큰 업데이트 실패", refreshToken);
-            throw new RestApiException(CommonExceptionCode.JWT_UNKNOWN_ERROR);
-        }
+    public Long updateByRefreshToken(String refreshToken, String accessToken) {
+        return repository.updateByRefreshToken(refreshToken, accessToken);
     }
 
     @Override
@@ -48,4 +42,5 @@ public class TokenRepositoryImpl implements TokenRepository {
         return repository.findByUserId(userId)
                 .map(TokenEntity::toModel);
     }
+
 }
