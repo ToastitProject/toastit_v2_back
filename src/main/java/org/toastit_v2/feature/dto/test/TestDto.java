@@ -7,9 +7,9 @@ import org.toastit_v2.feature.model.entity.test.TestEntity;
 @Getter
 public class TestDto {
 
-    private  String test;
+    private String test;
 
-    public TestEntity toModel(TestCreate create) {
+    public TestEntity from(TestCreate create) {
         return TestEntity.builder()
                 .test(create.getTest())
                 .build();

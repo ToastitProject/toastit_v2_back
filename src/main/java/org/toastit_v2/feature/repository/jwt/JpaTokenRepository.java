@@ -4,6 +4,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.toastit_v2.common.infra.config.querydsl.ExcludeFromJpaRepositories;
 import org.toastit_v2.feature.model.entity.jwt.TokenEntity;
 import org.toastit_v2.feature.repository.jwt.custom.CustomTokenRepository;
 

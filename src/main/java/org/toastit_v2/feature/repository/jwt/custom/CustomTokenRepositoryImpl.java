@@ -16,8 +16,7 @@ public class CustomTokenRepositoryImpl implements CustomTokenRepository {
 
     @Override
     public Long update(Token token) {
-
-        queryFactory.update(qToken)
+        return queryFactory.update(qToken)
                 .set(qToken.accessToken, token.getAccessToken())
                 .set(qToken.refreshToken, token.getRefreshToken())
                 .set(qToken.grantType, token.getGrantType())
@@ -27,7 +26,6 @@ public class CustomTokenRepositoryImpl implements CustomTokenRepository {
 
     @Override
     public Long updateByRefreshToken(String refreshToken, String accessToken) {
-
         return queryFactory.update(qToken)
                 .set(qToken.accessToken, accessToken)
                 .where(qToken.refreshToken.eq(refreshToken))

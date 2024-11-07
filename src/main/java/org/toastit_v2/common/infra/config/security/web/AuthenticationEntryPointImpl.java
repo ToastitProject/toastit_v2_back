@@ -18,9 +18,7 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
 
         response.setContentType("application/json");
-
         response.setCharacterEncoding("UTF-8");
-
         response.getWriter().write(
                 new ObjectMapper().writeValueAsString(
                         ExceptionResponseUtil.handleResponseForException(CommonExceptionCode.FORBIDDEN).getBody()

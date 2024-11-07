@@ -1,13 +1,9 @@
 package org.toastit_v2.feature.domain.test;
 
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
 
 @Getter
-@ToString
-@EqualsAndHashCode
 public class Test {
 
     private Long id;

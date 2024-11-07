@@ -24,7 +24,6 @@ public class TokenServiceImpl implements TokenService {
     public void saveOrUpdate(Token token) {
 
         Optional<Token> oldToken = repository.findByUserId(token.getUserId());
-
         oldToken.ifPresentOrElse(
                 existingToken -> {
                     existingToken.update(token);
