@@ -27,7 +27,7 @@ public class TestController {
 
         testService.createTest(create);
 
-        return "success";
+        return "테스트 코드 실행 성공";
     }
 
 }
