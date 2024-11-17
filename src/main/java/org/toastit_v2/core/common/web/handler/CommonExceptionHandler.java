@@ -1,7 +1,9 @@
 package org.toastit_v2.core.common.web.handler;
 
 import jakarta.validation.ConstraintViolationException;
+import javax.naming.ServiceUnavailableException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.connector.ClientAbortException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.method.annotation.HandlerMethodValidationException;
@@ -100,6 +102,18 @@ public class CommonExceptionHandler {
         }
 
         return ExceptionResponseUtil.handleResponseForException(CommonExceptionCode.FILE_ERROR);
+    }
+
+    @ExceptionHandler(ClientAbortException.class)
+    public ResponseEntity<Object> handleRequestTimeoutException(ClientAbortException e) {
+        log.error("ClientAbortException : {}", e.getMessage(), e);
+        return ExceptionResponseUtil.handleResponseForException(CommonExceptionCode.REQUEST_TIMEOUT);
+    }
+
+    @ExceptionHandler(ServiceUnavailableException.class)
+    public ResponseEntity<Object> handleServiceUnavailableException(ServiceUnavailableException e) {
+        log.error("ServiceUnavailableException : {}", e.getMessage(), e);
+        return ExceptionResponseUtil.handleResponseForException(CommonExceptionCode.SERVICE_UNAVAILABLE);
     }
 
 }
