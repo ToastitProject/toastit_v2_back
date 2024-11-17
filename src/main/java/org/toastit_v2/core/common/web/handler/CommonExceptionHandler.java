@@ -4,6 +4,7 @@ import jakarta.validation.ConstraintViolationException;
 import javax.naming.ServiceUnavailableException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.connector.ClientAbortException;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.method.annotation.HandlerMethodValidationException;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @Slf4j
 @RestControllerAdvice(basePackages = "org.toastit_v2")
-public class CommonExceptionHandler {
+public class CommonExceptionHandler implements ErrorController {
 
     /**
      * RestApiException을 처리하는 핸들러
