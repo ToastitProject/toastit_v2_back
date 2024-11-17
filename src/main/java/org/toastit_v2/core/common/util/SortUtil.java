@@ -1,6 +1,7 @@
-package org.toastit_v2.core.common.util.sort;
+package org.toastit_v2.core.common.util;
 
 import org.springframework.data.domain.Sort;
+import org.toastit_v2.core.common.application.type.SortType;
 
 /**
  * 정렬 방식에 따라 Sort 객체를 생성하는 유틸리티 클래스.

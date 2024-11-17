@@ -1,4 +1,4 @@
-package org.toastit_v2.core.common.util.sort;
+package org.toastit_v2.core.common.application.type;
 
 /**
  * 정렬 방식에 대한 열거형(Enum).
