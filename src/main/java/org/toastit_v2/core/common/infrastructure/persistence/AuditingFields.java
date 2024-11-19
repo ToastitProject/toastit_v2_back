@@ -1,4 +1,4 @@
-package org.toastit_v2.core.common.infrastructure.persistence.entity;
+package org.toastit_v2.core.common.infrastructure.persistence;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

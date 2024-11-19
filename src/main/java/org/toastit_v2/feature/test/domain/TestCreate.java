@@ -8,7 +8,7 @@ import org.toastit_v2.feature.test.web.request.TestCreateRequest;
 @Builder
 public class TestCreate {
 
-    String test;
+    final String test;
 
     public static TestCreate from(TestCreateRequest request) {
         return TestCreate.builder()

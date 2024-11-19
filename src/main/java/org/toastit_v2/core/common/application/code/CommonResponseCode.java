@@ -19,7 +19,6 @@ public enum CommonResponseCode implements ResponseCode {
     PARTIAL_CONTENT(HttpStatus.PARTIAL_CONTENT, "부분적인 내용이 반환되었습니다");
 
     private final HttpStatus httpStatus;
-
     private final String data;
 
     CommonResponseCode(HttpStatus httpStatus, String data) {

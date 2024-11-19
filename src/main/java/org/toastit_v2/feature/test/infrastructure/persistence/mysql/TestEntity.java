@@ -1,4 +1,4 @@
-package org.toastit_v2.feature.test.infrastructure.persistence.mysql.entity;
+package org.toastit_v2.feature.test.infrastructure.persistence.mysql;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,7 +24,7 @@ public class TestEntity {
 
     private String test;
 
-    public static TestEntity fromModel(Test test) {
+    public static TestEntity from(Test test) {
         return TestEntity.builder()
                 .test(test.getTest())
                 .build();

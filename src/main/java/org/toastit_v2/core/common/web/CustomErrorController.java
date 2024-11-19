@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.toastit_v2.core.common.application.code.CommonExceptionCode;
-import org.toastit_v2.core.common.util.response.ExceptionResponseUtil;
+import org.toastit_v2.core.common.application.util.response.ExceptionResponseUtil;
 
 @Controller
 public class CustomErrorController {

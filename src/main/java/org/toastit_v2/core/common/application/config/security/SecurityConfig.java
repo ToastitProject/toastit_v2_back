@@ -14,7 +14,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.toastit_v2.core.security.web.filter.TokenAuthenticationFilter;
 import org.toastit_v2.core.security.web.AuthenticationEntryPointImpl;
-import org.toastit_v2.core.common.util.JwtTokenizer;
+import org.toastit_v2.core.common.application.util.JwtTokenizer;
 
 @Configuration
 @EnableWebSecurity
@@ -35,13 +35,16 @@ public class SecurityConfig {
             "/swagger-ui.html", // Swagger HTML
             "/webjars/**",// Webjars for Swagger
             "/swagger/**",// Swagger try it out
-            "/actuator/**" // Actuator for Prometheus
+            "/actuator/**", // Actuator for Prometheus
+            "/user/**",
+            "/token/**"
     };
 
     // 비로그인 유저 허용 페이지
     private final String[] notLoggedAllowPage = new String[]{
             "/user/login", // 로그인 페이지
-            "/user/join" // 회원가입 페이지
+            "/user/join", // 회원가입 페이지
+            "/email/**" // 이메일 페이지
     };
 
     @Bean

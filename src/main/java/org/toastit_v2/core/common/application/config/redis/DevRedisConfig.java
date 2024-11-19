@@ -16,9 +16,8 @@ import org.springframework.validation.annotation.Validated;
 @Configuration
 public class DevRedisConfig extends RedisConnectionFactoryConfig {
 
-    private String host;
-
-    private Integer port;
+    private final String host;
+    private final Integer port;
 
     private SshTunnelingInitializer sshTunnelingInitializer;
 

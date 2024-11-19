@@ -2,14 +2,11 @@ package org.toastit_v2.core.security.domain;
 
 import java.util.List;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
-import org.toastit_v2.feature.user.domain.Authority;
 
 public class AuthenticationToken extends AbstractAuthenticationToken {
 
     private String token;
-
     private Object principal;
-
     private Object credentials;
 
     public AuthenticationToken(List<Authority> authorities, Object principal, Object credentials) {

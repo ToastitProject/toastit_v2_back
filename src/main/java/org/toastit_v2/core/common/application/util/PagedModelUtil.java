@@ -1,4 +1,4 @@
-package org.toastit_v2.core.common.util;
+package org.toastit_v2.core.common.application.util;
 
 import java.util.List;
 import java.util.stream.Collectors;

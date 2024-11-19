@@ -7,22 +7,18 @@ import lombok.Getter;
 public class AwsFile {
 
     private String filename;
-
     private String contentType;
-
+    private String fileType;
+    private String filePath;
     private Long size;
 
-    private String fileType;
-
-    private String filePath;
-
     @Builder
-    public AwsFile(String filename, String contentType, Long size, String fileType, String filePath) {
+    public AwsFile(String filename, String contentType, String fileType, String filePath, Long size) {
         this.filename = filename;
         this.contentType = contentType;
-        this.size = size;
         this.fileType = fileType;
         this.filePath = filePath;
+        this.size = size;
     }
 
 }

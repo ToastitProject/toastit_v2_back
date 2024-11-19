@@ -1,4 +1,4 @@
-package org.toastit_v2.core.common.util;
+package org.toastit_v2.core.common.application.util;
 
 import org.springframework.data.domain.Sort;
 import org.toastit_v2.core.common.application.type.SortType;
@@ -9,9 +9,7 @@ import org.toastit_v2.core.common.application.type.SortType;
 public class SortUtil {
 
     private static final String VIEW_COUNT_FIELD = "view_count";
-
     private static final String LIKE_COUNT_FIELD = "like_count";
-
     private static final String CREATE_DATE_FIELD = "create_date";
 
     /**

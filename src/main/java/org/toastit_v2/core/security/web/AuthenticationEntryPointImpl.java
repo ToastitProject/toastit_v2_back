@@ -9,7 +9,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 import org.toastit_v2.core.common.application.code.CommonExceptionCode;
-import org.toastit_v2.core.common.util.response.ExceptionResponseUtil;
+import org.toastit_v2.core.common.application.util.response.ExceptionResponseUtil;
 
 @Component
 public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
@@ -26,4 +26,5 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
 
         response.getWriter().write(responseBody);
     }
+
 }

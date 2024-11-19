@@ -7,9 +7,8 @@ import org.toastit_v2.feature.test.domain.Test;
 @Getter
 public class TestResponse {
 
-    private Long id;
-
-    private String test;
+    private final Long id;
+    private final String test;
 
     @Builder
     public TestResponse(Long id, String test) {

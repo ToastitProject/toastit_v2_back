@@ -1,12 +1,13 @@
 package org.toastit_v2.core.jwt.application.service;
 
-import org.toastit_v2.core.jwt.domain.Token;
+import java.util.Optional;
 
 public interface TokenService {
 
-    void saveOrUpdate(Token token);
+    Optional<String> findById(Long userId);
 
-    void updateAccessToken(String refreshToken, String accessToken);
+    void save(Long userId, String refreshToken);
 
-    void deleteAccessToken(String token);
+    void deleteById(Long userId);
+
 }

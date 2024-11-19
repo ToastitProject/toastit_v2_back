@@ -1,4 +1,4 @@
-package org.toastit_v2.core.common.util.response;
+package org.toastit_v2.core.common.application.util.response;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,6 +10,9 @@ import org.toastit_v2.core.common.web.response.ExceptionResponse.ValidationExcep
 
 public class ExceptionResponseUtil {
 
+    /**
+     * 유틸리티 클래스이므로 인스턴스화 방지를 위한 private 생성자.
+     */
     private ExceptionResponseUtil() {
     }
 
@@ -25,12 +28,12 @@ public class ExceptionResponseUtil {
 
     public static ResponseEntity<Object> handleResponseForException(final ResponseCode exceptionCode, final MethodArgumentNotValidException exception
     ) {
-        List<ValidationException> validationExceptions = to(exception);
+        List<ValidationException> validationExceptions = from(exception);
         return ResponseEntity.status(exceptionCode.getHttpStatus())
                 .body(buildErrorResponse(exceptionCode, validationExceptions));
     }
 
-    private static List<ValidationException> to(MethodArgumentNotValidException exception) {
+    private static List<ValidationException> from(MethodArgumentNotValidException exception) {
         return exception.getBindingResult()
                 .getFieldErrors()
                 .stream()

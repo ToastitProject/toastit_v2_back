@@ -1,8 +1,9 @@
-package org.toastit_v2.feature.user.domain;
+package org.toastit_v2.core.security.domain;
 
 import org.springframework.security.core.GrantedAuthority;
 
 public enum Authority implements GrantedAuthority {
+
     ADMIN,
     USER;
 

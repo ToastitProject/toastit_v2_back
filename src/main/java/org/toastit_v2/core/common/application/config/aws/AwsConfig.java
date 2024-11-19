@@ -15,9 +15,7 @@ import org.springframework.validation.annotation.Validated;
 public class AwsConfig {
 
     private final String accessKey;
-
     private final String secretKey;
-
     private final String region;
 
     public AwsConfig(

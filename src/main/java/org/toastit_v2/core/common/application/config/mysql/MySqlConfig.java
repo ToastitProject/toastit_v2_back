@@ -18,14 +18,12 @@ import org.springframework.validation.annotation.Validated;
 public class MySqlConfig {
 
     private final String databaseUrl;
-
     private final Integer databasePort;
-
     private final SshTunnelingInitializer initializer;
 
     public MySqlConfig(
-            @NotNull @Value("${cloud.aws.rds.database_url}") String databaseUrl,
-            @NotNull @Value("${cloud.aws.rds.database_port}") Integer databasePort,
+            @NotNull @Value("${cloud.aws.rds.database.url}") String databaseUrl,
+            @NotNull @Value("${cloud.aws.rds.database.port}") Integer databasePort,
             SshTunnelingInitializer initializer
     ) {
         this.databaseUrl = databaseUrl;
