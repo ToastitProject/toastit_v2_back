@@ -31,8 +31,8 @@ public class MySqlConfig {
         this.initializer = initializer;
     }
 
-    @Bean("dataSource")
     @Primary
+    @Bean("dataSource")
     public DataSource dataSource(DataSourceProperties properties) {
         Integer forwardedPort = initializer.buildSshConnection(databaseUrl, databasePort);
         String url = properties.getUrl().replace("[forwardedPort]", Integer.toString(forwardedPort));
