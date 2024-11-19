@@ -21,7 +21,7 @@ jobs:
       - name: Secret Prod Env File Download
         run: |
           mkdir -p ./src/main/resources/properties
-          echo "${{ secrets.PROD_ENV_FILE }}" > ./src/main/resources/properties/env.properties
+          echo "${{ secrets.PROD_ENV_FILE }}" > ./src/main/resources/properties/prod-env.properties
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4.0.0
