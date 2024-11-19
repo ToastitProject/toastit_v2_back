@@ -56,9 +56,9 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            docker-compose -f /home/ubuntu/itzip/docker-compose.yml down
-            docker-compose -f /home/ubuntu/itzip/docker-compose.yml pull
-            docker-compose -f /home/ubuntu/itzip/docker-compose.yml up -d
+            docker-compose -f /home/ec2-user/toastit/docker-compose.yml down
+            docker-compose -f /home/ec2-user/toastit/docker-compose.yml pull
+            docker-compose -f /home/ec2-user/toastit/docker-compose.yml up -d
             docker system prune -a -f
 
       - name: Send Success Discord Notification
