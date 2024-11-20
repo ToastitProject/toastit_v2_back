@@ -1,9 +1,8 @@
 package org.toastit_v2.feature.test.web.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
-import lombok.Builder;
 import lombok.Getter;
 
 @Getter
@@ -13,10 +12,8 @@ public class TestCreateRequest {
     @Schema(description = "이메일", example = "example@gmail.com")
     private final String test;
 
-    @Builder
-    public TestCreateRequest(
-            @JsonProperty("test") String test
-    ) {
+    @JsonCreator
+    public TestCreateRequest(String test) {
         this.test = test;
     }
 

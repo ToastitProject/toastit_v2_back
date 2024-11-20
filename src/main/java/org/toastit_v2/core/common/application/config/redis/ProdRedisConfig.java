@@ -15,7 +15,6 @@ import org.springframework.validation.annotation.Validated;
 public class ProdRedisConfig extends RedisConnectionFactoryConfig {
 
     private final String host;
-
     private final Integer port;
 
     public ProdRedisConfig(

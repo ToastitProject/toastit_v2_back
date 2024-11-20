@@ -5,4 +5,5 @@ import org.toastit_v2.feature.test.domain.Test;
 public interface TestRepository {
 
     Test save(Test test);
+
 }

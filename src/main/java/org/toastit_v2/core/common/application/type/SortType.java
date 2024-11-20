@@ -6,24 +6,9 @@ package org.toastit_v2.core.common.application.type;
  */
 public enum SortType {
 
-    /**
-     * 최신순으로 정렬.
-     */
     NEWEST,
-
-    /**
-     * 오래된 순으로 정렬.
-     */
     OLDEST,
-
-    /**
-     * 조회수 순으로 정렬.
-     */
     VIEWCOUNT,
-
-    /**
-     * 좋아요 순으로 정렬.
-     */
     LIKECOUNT
 
 }

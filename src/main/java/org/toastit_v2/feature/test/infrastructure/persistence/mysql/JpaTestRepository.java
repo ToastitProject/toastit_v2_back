@@ -1,7 +1,8 @@
 package org.toastit_v2.feature.test.infrastructure.persistence.mysql;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.toastit_v2.feature.test.infrastructure.persistence.mysql.entity.TestEntity;
+import org.springframework.stereotype.Repository;
+import org.toastit_v2.core.common.infrastructure.persistence.JpaBaseRepository;
 
-public interface JpaTestRepository extends JpaRepository<TestEntity, Long> {
+@Repository
+public interface JpaTestRepository extends JpaBaseRepository<TestEntity, Long> {
 }

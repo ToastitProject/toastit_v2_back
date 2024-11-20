@@ -57,7 +57,7 @@ public class SwaggerConfig {
                     .map(ResponseCodeAnnotation::value)
                     .orElse(CommonResponseCode.SUCCESS);
 
-            applyResponseSchemaWrapper(operation, SuccessResponse.class, "data", responseCode);
+            this.applyResponseSchemaWrapper(operation, SuccessResponse.class, "data", responseCode);
 
             Optional.ofNullable(handlerMethod.getMethodAnnotation(ExceptionCodeAnnotations.class))
                     .map(ExceptionCodeAnnotations::value)
@@ -83,14 +83,18 @@ public class SwaggerConfig {
             manageNon200Response(responses, responseCodeKey);
         }
 
-        ApiResponse response = responses.computeIfAbsent(responseCodeKey, key -> new ApiResponse());
+        ApiResponse response = responses.computeIfAbsent(String.valueOf(responseCode.getHttpStatus().value()), key -> new ApiResponse());
         response.setDescription(responseCode.getData());
         Content content = response.getContent();
 
-        Optional.ofNullable(content).ifPresent(c -> c.values().stream()
-                .filter(Objects::nonNull)
-                .map(MediaType::getSchema)
-                .forEach(schema -> createWrappedSchema(schema, type, wrapFieldName, responseCode)));
+        if (content != null) {
+            content.keySet().forEach(mediaTypeKey -> {
+                MediaType mediaType = content.get(mediaTypeKey);
+                if (mediaType != null) {
+                    mediaType.setSchema(createWrappedSchema(mediaType.getSchema(), type, wrapFieldName, responseCode));
+                }
+            });
+        }
     }
 
     private boolean isNonSuccessCode(String responseCodeKey) {

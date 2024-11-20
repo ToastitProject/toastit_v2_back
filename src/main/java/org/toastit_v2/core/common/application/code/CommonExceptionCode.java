@@ -12,6 +12,12 @@ public enum CommonExceptionCode implements ResponseCode {
     FILE_ERROR(HttpStatus.BAD_REQUEST, "파일 에러"),
 
     /**
+     * SSH Error
+     */
+    SSH_CONNECTION_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "SSH 연결 실패"),
+    SSH_PORT_FORWARDING_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "포트 포워딩 설정 실패"),
+
+    /**
      *  Image Error
      */
     // 파일 전역 IO Error 처리
@@ -32,10 +38,6 @@ public enum CommonExceptionCode implements ResponseCode {
     /**
      * Token Error for JWT
      */
-    // 토큰 업데이트 실패
-    UPDATE_FAIL_TOKEN(HttpStatus.BAD_REQUEST, "토큰 업데이트 오류"),
-    // 액세스 토큰 업데이트 실패
-    UPDATE_FAIL_ACCESS_TOKEN(HttpStatus.BAD_REQUEST, "액세스 토큰 업데이트 실패"),
     // 토큰 만료
     JWT_EXPIRED_ERROR(HttpStatus.UNAUTHORIZED, "토큰이 만료되었습니다."),
     // 토큰 오류
@@ -46,22 +48,28 @@ public enum CommonExceptionCode implements ResponseCode {
     JWT_UNSUPPORTED_ERROR(HttpStatus.UNAUTHORIZED, "변조된 토큰입니다."),
     // 알 수 없는 오류
     JWT_INTERNAL_ERROR(HttpStatus.UNAUTHORIZED, "알 수 없는 오류가 발생했습니다."),
+    // 토큰을 찾을 수 없음
+    NOT_FOUND_REFRESH_TOKEN(HttpStatus.BAD_REQUEST, "리프레시 토큰을 찾을 수 없습니다."),
 
     /**
-     * User Error
+     * Email Error for User
      */
     // 사용 중인 이메일
     EXIST_EMAIL_ERROR(HttpStatus.BAD_REQUEST, "이미 사용 중인 이메일입니다."),
-    // 사용 중인 닉네임
-    EXIST_NICKNAME_ERROR(HttpStatus.BAD_REQUEST, "이미 사용 중인 닉네임입니다."),
-    // 올바르지 않은 요청값
-    FILED_ERROR(HttpStatus.BAD_REQUEST, "요청값이 올바르지 않습니다."),
     // 이메일 인증번호 불일치
     NOT_MATCH_AUTH_CODE(HttpStatus.BAD_REQUEST, "인증번호가 일치하지 않습니다."),
     // 이메일 비밀번호 불일치
     NOT_MATCH_PASSWORD(HttpStatus.BAD_REQUEST, "이메일과 비밀번호가 일치하지 않습니다."),
+
+    /**
+     * User Error
+     */
     // 유저를 찾을 수 없음
     NOT_FOUND_USER(HttpStatus.BAD_REQUEST, "사용자를 찾을 수 없습니다."),
+    // 회원 업데이트 오류
+    UPDATE_FAIL_USER(HttpStatus.BAD_REQUEST, "회원 정보 업데이트 실패"),
+    // 사용 중인 닉네임
+    EXIST_NICKNAME_ERROR(HttpStatus.BAD_REQUEST, "이미 사용 중인 닉네임입니다."),
 
     /**
      * Like Error
@@ -73,6 +81,8 @@ public enum CommonExceptionCode implements ResponseCode {
      */
     // 400
     BAD_REQUEST(HttpStatus.BAD_REQUEST, "잘못된 매개 변수가 포함됨"),
+    // 400
+    FILED_ERROR(HttpStatus.BAD_REQUEST, "요청값이 올바르지 않습니다."),
     // 401
     UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "인증이 필요합니다"),
     // 403
@@ -105,7 +115,6 @@ public enum CommonExceptionCode implements ResponseCode {
     NETWORK_AUTHENTICATION_REQUIRED(HttpStatus.NETWORK_AUTHENTICATION_REQUIRED, "네트워크 인증이 필요합니다");
 
     private final HttpStatus httpStatus;
-
     private final String data;
 
     CommonExceptionCode(HttpStatus httpStatus, String data) {

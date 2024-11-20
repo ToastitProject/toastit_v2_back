@@ -6,9 +6,8 @@ import lombok.Getter;
 @Getter
 public class Test {
 
-    private Long id;
-
-    private String test;
+    private final Long id;
+    private final String test;
 
     @Builder
     public Test(Long id, String test) {

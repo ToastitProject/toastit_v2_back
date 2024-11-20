@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.toastit_v2.core.common.web.response.ExceptionResponse;
 import org.toastit_v2.core.common.web.response.SuccessResponse;
 import org.toastit_v2.core.common.application.code.CommonResponseCode;
-import org.toastit_v2.core.common.util.response.SuccessResponseUtil;
+import org.toastit_v2.core.common.application.util.response.SuccessResponseUtil;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
@@ -89,7 +89,7 @@ public class CommonSuccessHandler implements ResponseBodyAdvice<Object> {
 
     private String createJsonResponse(String status, String msg, Object data, String code) throws JsonProcessingException {
         Map<String, Object> responseMap = new HashMap<>();
-        responseMap.put("status", status);  // 200 OK로 고정
+        responseMap.put("status", status);
         responseMap.put("msg", msg);
         responseMap.put("data", data);
         responseMap.put("code", code);

@@ -14,12 +14,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
-import org.toastit_v2.feature.user.domain.Authority;
+import org.toastit_v2.core.security.domain.Authority;
 import org.toastit_v2.core.security.domain.CustomUserDetails;
 import org.toastit_v2.core.security.domain.AuthenticationToken;
 import org.toastit_v2.core.common.application.code.CommonExceptionCode;
 import org.toastit_v2.core.common.application.exception.RestApiException;
-import org.toastit_v2.core.common.util.JwtTokenizer;
+import org.toastit_v2.core.common.application.util.JwtTokenizer;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -29,7 +29,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String accessToken = jwtTokenizer.findAccessTokenFromRequest(request);
+        String accessToken = jwtTokenizer.findAccessTokenFrom(request);
         log.debug("요청에서 추출한 액세스 토큰 : {}", accessToken);
 
         if (StringUtils.hasText(accessToken)) {
@@ -48,13 +48,14 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     private void getAuthentication(String accessToken) {
         Claims claims = jwtTokenizer.parseAccessToken(accessToken);
+        Long userId = claims.get("userId", Long.class);
         String email = claims.getSubject();
         String nickname = claims.get("nickname", String.class);
         Authority authority = Authority.valueOf(claims.get("authority", String.class));
 
         List<Authority> authorities = Collections.singletonList(authority);
 
-        CustomUserDetails userDetails = new CustomUserDetails(email, "", nickname, authorities);
+        CustomUserDetails userDetails = new CustomUserDetails(userId, email, "", nickname, authorities);
         Authentication authentication = new AuthenticationToken(authorities, userDetails, null);
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
@@ -62,10 +63,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     private void handleAuthenticationException(Exception e, String accessToken) {
         String exceptionType = e.getClass().getSimpleName();
         switch (exceptionType) {
-            case "ExpiredJwtException":
-                log.warn("만료된 JWT 토큰 : {}", accessToken, e);
-                throw new RestApiException(CommonExceptionCode.JWT_UNKNOWN_ERROR);
-            case "UnsupportedJwtException":
+            case "ExpiredJwtException", "UnsupportedJwtException":
                 log.error("만료된 JWT 토큰 : {}", accessToken, e);
                 throw new RestApiException(CommonExceptionCode.JWT_UNKNOWN_ERROR);
             case "MalformedJwtException":

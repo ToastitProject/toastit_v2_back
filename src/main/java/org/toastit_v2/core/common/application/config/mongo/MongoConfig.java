@@ -13,7 +13,6 @@ import org.springframework.validation.annotation.Validated;
 public class MongoConfig {
 
     private final String url;
-
     private final String database;
 
     public MongoConfig(

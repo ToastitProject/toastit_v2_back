@@ -11,7 +11,7 @@ import org.springframework.web.method.annotation.HandlerMethodValidationExceptio
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
 import org.toastit_v2.core.common.application.code.CommonExceptionCode;
 import org.toastit_v2.core.common.application.exception.RestApiException;
-import org.toastit_v2.core.common.util.response.ExceptionResponseUtil;
+import org.toastit_v2.core.common.application.util.response.ExceptionResponseUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -68,8 +68,7 @@ public class CommonExceptionHandler implements ErrorController {
     @ExceptionHandler(UnsupportedOperationException.class)
     public ResponseEntity<Object> handleUnsupportedOperationException(UnsupportedOperationException e) {
         log.error("UnsupportedOperationException: {}", e.getMessage(), e);
-        return ExceptionResponseUtil.handleResponseForException(CommonExceptionCode.UNSUPPORTED_MEDIA_TYPE,
-                e.getMessage());
+        return ExceptionResponseUtil.handleResponseForException(CommonExceptionCode.UNSUPPORTED_MEDIA_TYPE, e.getMessage());
     }
 
     /**
