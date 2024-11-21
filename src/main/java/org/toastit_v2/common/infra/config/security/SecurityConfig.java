@@ -34,13 +34,16 @@ public class SecurityConfig {
             "/swagger-ui.html", // Swagger HTML
             "/webjars/**",// Webjars for Swagger
             "/swagger/**",// Swagger try it out
-            "/actuator/**", // Actuator for Prometheus
+            "/actuator/**" // Actuator for Prometheus
+
     };
 
     // 비로그인 유저 허용 페이지
     private final String[] notLoggedAllowPage = new String[]{
             "/user/login", // 로그인 페이지
-            "/user/join" // 회원가입 페이지
+            "/user/join", // 회원가입 페이지
+            "/test/upload"
+
     };
 
     @Bean
