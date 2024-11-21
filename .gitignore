@@ -39,3 +39,5 @@ out/
 ### env ###
 /src/main/resources/properties/dev-env.properties
 /src/test/resources/properties/test-env.properties
+
+.DS_Store
