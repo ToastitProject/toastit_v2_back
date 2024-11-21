@@ -1,9 +1,9 @@
 spring:
   datasource:
-    url: ${DEV_MYSQL_URL}
+    url: ${AWS_RDS_MYSQL_URL}
+    username: ${AWS_RDS_MYSQL_USERNAME}
+    password: ${AWS_RDS_MYSQL_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: ${DEV_MYSQL_USERNAME}
-    password: ${DEV_MYSQL_PASSWORD}
 
   data:
     redis:
@@ -13,11 +13,6 @@ spring:
     mongodb:
       uri: ${ATLAS_MONGO_URI}
       database: ${ATLAS_MONGO_DATABASE}
-  servlet:
-    multipart:
-      enabled: true
-      max-request-size: 10MB
-      max-file-size: 10MB
 
 cloud:
   aws:
@@ -37,11 +32,6 @@ cloud:
 
     cloudfront-path: ${AWS_FILE_PATH}
 
-    rds:
-      database:
-        url: ${AWS_RDS_MYSQL_URL}
-        port: ${AWS_RDS_MYSQL_PORT}
-
 ssh:
   host: ${SSH_HOST}
   port: ${SSH_PORT}
@@ -50,11 +40,11 @@ ssh:
 
 jwt:
   access:
-    secret: ${DEV_JWT_ACCESS_SECRET}
-    expire: ${DEV_JWT_ACCESS_EXPIRE}
+    secret: ${JWT_ACCESS_SECRET}
+    expire: ${JWT_ACCESS_EXPIRE}
 
   refresh:
-    secret: ${DEV_JWT_REFRESH_SECRET}
-    expire: ${DEV_JWT_REFRESH_EXPIRE}
+    secret: ${JWT_REFRESH_SECRET}
+    expire: ${JWT_REFRESH_EXPIRE}
     ttl:
-      seconds: ${DEV_JWT_REFRESH_TTL_SECONDS}
+      seconds: ${JWT_REFRESH_TTL_SECONDS}

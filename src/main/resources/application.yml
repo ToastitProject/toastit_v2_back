@@ -3,14 +3,13 @@ spring:
     name: toastit_v2
 
   profiles:
-    active: dev
+    active: prod
 
   jpa:
     show-sql: true
 
     hibernate:
       ddl-auto: update
-      dialect: org.hibernate.dialect.MySQL8Dialect
 
     properties:
       hibernate:
@@ -19,6 +18,39 @@ spring:
           batch_size: 500
         order_inserts: true
         order_updates: true
+
+  webflux:
+    problemdetails:
+      enabled: true
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${GMAIL_USERNAME}
+    password: ${GMAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          timeout: 5000
+          starttls:
+            enable: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    groups-order: desc
+    tags-sorter: alpha
+    operations-sorter: method
+    display-request-duration: true
+    disable-swagger-default-url: true
+
+  api-docs:
+    path: /v2/toastit/docs
+
+  show-actuator: true
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
 
 cloud:
   aws:
@@ -34,7 +66,8 @@ cloud:
       auto: false
       static: ap-northeast-2
 
-    stack: false
+    stack:
+      auto: false
 
 server:
   servlet:
