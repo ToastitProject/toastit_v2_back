@@ -2,17 +2,19 @@ package org.toastit_v2.core.common.application.config.aws;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.validation.annotation.Validated;
 
 @Validated
 @Configuration
-public class AwsConfig {
+public abstract class AwsConfig {
 
     private final String accessKey;
     private final String secretKey;
@@ -39,4 +41,6 @@ public class AwsConfig {
                 .build();
     }
 
+    @Bean
+    public abstract AmazonS3 amazonS3();
 }
