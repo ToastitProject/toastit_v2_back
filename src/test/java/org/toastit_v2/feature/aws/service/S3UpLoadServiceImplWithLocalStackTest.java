@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
+import org.toastit_v2.feature.aws.application.service.S3UpLoadServiceImplWithLocalStack;
+
 import java.io.IOException;
 
 

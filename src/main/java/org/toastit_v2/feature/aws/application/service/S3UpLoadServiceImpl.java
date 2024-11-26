@@ -1,22 +1,17 @@
-package org.toastit_v2.feature.aws.service;
+package org.toastit_v2.feature.aws.application.service;
 
-import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.util.UUID;
 
 @Primary
 @Service
-public class S3UpLoadServiceImplWithLocalStack implements S3UpLoadService {
+public class S3UpLoadServiceImpl implements S3UpLoadService {
 
     private final AmazonS3Client amazonS3Client;
 
@@ -26,40 +21,47 @@ public class S3UpLoadServiceImplWithLocalStack implements S3UpLoadService {
 
     private final String targetFolder = "final/";
 
-    /**
-     *
-     * localStack 에서 AWS S3 버킷 테스트를 위한 생성자 입니다.
-     *
-     * @param amazonS3Client localStack 에 생성한 객체입니다.
-     * @param bucketName localStack 에 생성한 버켓 이름입니다.
-     */
-    public S3UpLoadServiceImplWithLocalStack(
+    public S3UpLoadServiceImpl(
             AmazonS3Client amazonS3Client,
-            @Value("${AWS_TEST_BUCKET_NAME}") String bucketName) {
-        this.amazonS3Client = (AmazonS3Client) AmazonS3ClientBuilder.standard()
-                .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration("http://localhost:4566","us-east-1"))
-                .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("test","test")))
-                .enablePathStyleAccess()
-                .build();
+            @Value("${AWS_BUCKET_NAME}") String bucketName) {
+        this.amazonS3Client = amazonS3Client;
         this.bucketName = bucketName;
-        if (!amazonS3Client.doesBucketExistV2(bucketName)) {
-            amazonS3Client.createBucket(bucketName);
-        }
     }
 
-    static String makeFileName(MultipartFile file) {
+    /**
+     *
+     * 업로드 할 파일의 이름에 UUID 를 추가합니다
+     *
+     * @param file 업로드할 파일 입니다
+     * @return UUID 가 추가된 파일 명
+     */
+    public static String makeFileName(MultipartFile file) {
         String originalFilename = file.getOriginalFilename();
         String uuid = UUID.randomUUID().toString();
         return uuid + "_" + originalFilename;
     }
 
-    static ObjectMetadata makeObjectMetadata(MultipartFile file) {
+    /**
+     *
+     * 업로드 할 파일의 메타데이터를 생성합니다.
+     *
+     * @param file 업로드 할 파일입니다.
+     * @return 파일의 size, type 을 담아 ObjectMetadata 타입으로 반환합니다.
+     */
+    public static ObjectMetadata makeObjectMetadata(MultipartFile file) {
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentLength(file.getSize());
         metadata.setContentType(file.getContentType());
         return metadata;
     }
-    static String parseFileNameFromUrl(String url) {
+    /**
+     * 주어진 URL에서 파일명을 추출합니다.
+     *
+     * @param url 파일의 전체 URL
+     * String basePath : 제거할 URL
+     * @return 추출된 파일명
+     */
+    public static String parseFileNameFromUrl(String url) {
         String basePath = "http://localhost:4566/testbucket/temporary/";
         if (url.startsWith(basePath)) {
             return url.substring(basePath.length());
@@ -94,9 +96,9 @@ public class S3UpLoadServiceImplWithLocalStack implements S3UpLoadService {
 
     @Override
     public String moveFileToFinal(String tempFileUrl) {
-        String FileNameInTempFolder = parseFileNameFromUrl(tempFileUrl);
-        String sourceKey = tempFolder + FileNameInTempFolder;
-        String destinationKey = targetFolder + FileNameInTempFolder;
+        String FileNameWithUUIDInTempFolder = parseFileNameFromUrl(tempFileUrl);
+        String sourceKey = tempFolder + FileNameWithUUIDInTempFolder;
+        String destinationKey = targetFolder + FileNameWithUUIDInTempFolder;
         if (amazonS3Client.doesObjectExist(bucketName, sourceKey)) {
             amazonS3Client.copyObject(bucketName, sourceKey, bucketName, destinationKey);
             amazonS3Client.deleteObject(bucketName, sourceKey);
