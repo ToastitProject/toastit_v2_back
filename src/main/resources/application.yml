@@ -3,7 +3,7 @@ spring:
     name: toastit_v2
 
   profiles:
-    active: dev
+    active: prod
 
   jpa:
     show-sql: true
