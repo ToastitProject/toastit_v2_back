@@ -1,4 +1,4 @@
-package org.toastit_v2.feature.aws.application.service;
+package org.toastit_v2.feature.aws.service;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -7,16 +7,15 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.UUID;
 
-//@Primary
-@Service
-public class S3UpLoadServiceImplWithLocalStack implements S3UpLoadService {
+@Component
+public class S3UpLoadServiceLocalStack {
 
     private final AmazonS3Client amazonS3Client;
 
@@ -26,14 +25,7 @@ public class S3UpLoadServiceImplWithLocalStack implements S3UpLoadService {
 
     private final String targetFolder = "final/";
 
-    /**
-     *
-     * localStack 에서 AWS S3 버킷 테스트를 위한 생성자 입니다.
-     *
-     * @param amazonS3Client localStack 에 생성한 객체입니다.
-     * @param bucketName localStack 에 생성한 버켓 이름입니다.
-     */
-    public S3UpLoadServiceImplWithLocalStack(
+    public S3UpLoadServiceLocalStack(
             AmazonS3Client amazonS3Client,
             @Value("${AWS_TEST_BUCKET_NAME}") String bucketName) {
         this.amazonS3Client = (AmazonS3Client) AmazonS3ClientBuilder.standard()
@@ -47,28 +39,6 @@ public class S3UpLoadServiceImplWithLocalStack implements S3UpLoadService {
         }
     }
 
-    static String makeFileName(MultipartFile file) {
-        String originalFilename = file.getOriginalFilename();
-        String uuid = UUID.randomUUID().toString();
-        return uuid + "_" + originalFilename;
-    }
-
-    static ObjectMetadata makeObjectMetadata(MultipartFile file) {
-        ObjectMetadata metadata = new ObjectMetadata();
-        metadata.setContentLength(file.getSize());
-        metadata.setContentType(file.getContentType());
-        return metadata;
-    }
-    static String parseFileNameFromUrl(String url) {
-        String basePath = "http://localhost:4566/testbucket/temporary/";
-        if (url.startsWith(basePath)) {
-            return url.substring(basePath.length());
-        } else {
-            throw new IllegalArgumentException("주어진 URL이 올바른 형식이 아닙니다: " + url);
-        }
-    }
-
-    @Override
     public String uploadFile(MultipartFile file) throws IOException {
         String uniqueFileName = makeFileName(file);
         ObjectMetadata metadata = makeObjectMetadata(file);
@@ -80,7 +50,7 @@ public class S3UpLoadServiceImplWithLocalStack implements S3UpLoadService {
         return amazonS3Client.getUrl(bucketName, uniqueFileName).toString();
     }
 
-    @Override
+
     public String uploadFileToTemp(MultipartFile file) throws IOException {
         String uniqueFileName = tempFolder + makeFileName(file);
         ObjectMetadata metadata = makeObjectMetadata(file);
@@ -92,11 +62,11 @@ public class S3UpLoadServiceImplWithLocalStack implements S3UpLoadService {
         return amazonS3Client.getUrl(bucketName, uniqueFileName).toString();
     }
 
-    @Override
+
     public String moveFileToFinal(String tempFileUrl) {
-        String FileNameInTempFolder = parseFileNameFromUrl(tempFileUrl);
-        String sourceKey = tempFolder + FileNameInTempFolder;
-        String destinationKey = targetFolder + FileNameInTempFolder;
+        String FileNameWithUUIDInTempFolder = parseFileNameFromUrl(tempFileUrl);
+        String sourceKey = tempFolder + FileNameWithUUIDInTempFolder;
+        String destinationKey = targetFolder + FileNameWithUUIDInTempFolder;
         if (amazonS3Client.doesObjectExist(bucketName, sourceKey)) {
             amazonS3Client.copyObject(bucketName, sourceKey, bucketName, destinationKey);
             amazonS3Client.deleteObject(bucketName, sourceKey);
@@ -104,5 +74,40 @@ public class S3UpLoadServiceImplWithLocalStack implements S3UpLoadService {
             throw new RuntimeException("해당 파일이 임시 폴더에 존재하지 않습니다: " + sourceKey);
         }
         return amazonS3Client.getUrl(bucketName, destinationKey).toString();
+    }
+
+    public static String makeFileName(MultipartFile file) {
+        String originalFilename = file.getOriginalFilename();
+        String uuid = UUID.randomUUID().toString();
+        return uuid + "_" + originalFilename;
+    }
+
+    /**
+     *
+     * 업로드 할 파일의 메타데이터를 생성합니다.
+     *
+     * @param file 업로드 할 파일입니다.
+     * @return 파일의 size, type 을 담아 ObjectMetadata 타입으로 반환합니다.
+     */
+    public static ObjectMetadata makeObjectMetadata(MultipartFile file) {
+        ObjectMetadata metadata = new ObjectMetadata();
+        metadata.setContentLength(file.getSize());
+        metadata.setContentType(file.getContentType());
+        return metadata;
+    }
+    /**
+     * 주어진 URL에서 파일명을 추출합니다.
+     *
+     * @param url 파일의 전체 URL
+     * String basePath : 제거할 URL
+     * @return 추출된 파일명
+     */
+    public static String parseFileNameFromUrl(String url) {
+        String basePath = "http://localhost:4566/testbucket/temporary/";
+        if (url.startsWith(basePath)) {
+            return url.substring(basePath.length());
+        } else {
+            throw new IllegalArgumentException("주어진 URL이 올바른 형식이 아닙니다: " + url);
+        }
     }
 }
