@@ -15,7 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 import org.toastit_v2.feature.aws.application.service.S3UpLoadService;
-import org.toastit_v2.feature.aws.application.service.S3UpLoadServiceImpl;
+
 
 import java.io.IOException;
 
@@ -24,9 +24,6 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest
 class S3UpLoadServiceImplTest {
-
-    @Autowired
-    private S3UpLoadServiceImpl s3UpLoadService;
 
     @Autowired
     private S3UpLoadServiceLocalStack s3UpLoadServiceLocalStack;
@@ -49,14 +46,14 @@ class S3UpLoadServiceImplTest {
     @Test
     @DisplayName("UUID 파일 이름 생성 테스트")
     void makeUUIDFilename(){
-        String fileName = s3UpLoadService.makeFileName(file);
+        String fileName = s3UpLoadServiceLocalStack.makeFileName(file);
         Assertions.assertThat(fileName).isNotEqualTo(file.getOriginalFilename());
     }
 
     @Test
     @DisplayName("메타데이터 생성 확인 테스트")
     void makeMetaDataTest() {
-        ObjectMetadata objectMetadata = s3UpLoadService.makeObjectMetadata(file);
+        ObjectMetadata objectMetadata = s3UpLoadServiceLocalStack.makeObjectMetadata(file);
         String contentType = objectMetadata.getContentType();
         long contentLength = objectMetadata.getContentLength();
         Assertions.assertThat(contentType).isEqualTo("text/plain");
@@ -76,6 +73,7 @@ class S3UpLoadServiceImplTest {
         assertEquals("url-to-file", result);
 
     }
+
     @Test
     @DisplayName("localStack 버킷에 파일 업로드 테스트")
     void uploadFile() throws IOException {
