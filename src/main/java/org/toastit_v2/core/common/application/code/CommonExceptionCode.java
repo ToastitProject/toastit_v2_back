@@ -72,6 +72,14 @@ public enum CommonExceptionCode implements ResponseCode {
     EXIST_NICKNAME_ERROR(HttpStatus.BAD_REQUEST, "이미 사용 중인 닉네임입니다."),
 
     /**
+     *  Cocktail Search Error
+     */
+    // 칵테일을 찾을 수 없음
+    NOT_FOUND_COCKTAIL(HttpStatus.NOT_FOUND, "칵테일을 찾을 수 없습니다."),
+    // 검색 조건이 올바르지 않음
+    INVALID_COCKTAIL_SEARCH(HttpStatus.BAD_REQUEST, "잘못된 칵테일 검색 조건입니다."),
+
+    /**
      * Like Error
      */
     NOT_FOUND_LIKE(HttpStatus.BAD_REQUEST, "미정"),
