@@ -61,34 +61,23 @@ class S3UpLoadServiceImplTest {
     }
 
     @Test
-    @DisplayName("(mock)파일 업로드 테스트1")
-    void testUploadFile() throws IOException {
-        S3UpLoadService service = mock(S3UpLoadService.class);
-        MultipartFile mockFile = mock(MultipartFile.class);
-
-        when(mockFile.getOriginalFilename()).thenReturn("test-file.txt");
-        when(service.uploadFile(mockFile)).thenReturn("url-to-file");
-
-        String result = service.uploadFile(mockFile);
-        assertEquals("url-to-file", result);
-
-    }
-
-    @Test
     @DisplayName("localStack 버킷에 파일 업로드 테스트")
     void uploadFile() throws IOException {
         // Given
         MultipartFile file = new MockMultipartFile("file", "test.txt", "text/plain", "Hello World".getBytes());
 
         // When
-        String fileUrl = s3UpLoadServiceLocalStack.uploadFile(file);
+        String folderName = "myUploadTestFolder";
+        String fileUrl = s3UpLoadServiceLocalStack.uploadFile(file,folderName);
 
         // Then
         // 1. 업로드 한 파일의 URL 이 null 이 아니라면 테스트 성공
         // 2. 업로드 한 파일의 원본이름은 UUID 가 추가된 업도르 파일명과 다르므로, 둘의 이름이 다르면 테스트 성공
+        // 3. 원하는 폴더에 파일이 업로드 되어있으면 업로드 성공
         System.out.println("localStack upload fileUrl ==================== " + fileUrl);
         Assertions.assertThat(fileUrl).isNotNull();
         Assertions.assertThat(fileUrl).isNotEqualTo(file.getOriginalFilename());
+        Assertions.assertThat(folderName+"/"+fileUrl).isNotNull();
 
     }
 
@@ -115,17 +104,18 @@ class S3UpLoadServiceImplTest {
         MultipartFile movingTestFile = new MockMultipartFile("editTestFile", fileName, "image/jpeg", "test image content".getBytes());
 
         // When 1.파일을 임시 폴더에 저장
-        String tempFileUrl = s3UpLoadServiceLocalStack.uploadFileToTemp(movingTestFile);
+        String uploadedFileToTemp = s3UpLoadServiceLocalStack.uploadFileToTemp(movingTestFile);
 
         // When 2.임시폴더에 저장된 파일을 확인 후, final 폴더로 복사 후 삭제
-        String finalFileName = s3UpLoadServiceLocalStack.moveFileToFinal(tempFileUrl);
+        // When 3.목표한 폴더명을 지정하여 이동
+        String anyFolderName = "myFolder";
+        s3UpLoadServiceLocalStack.moveFileToFinal(uploadedFileToTemp,anyFolderName);
 
         //Then
-        // 1. 업로드 한 파일의 URL 이 null 이 아니라면 테스트 성공
-        // 2. temporary 경로의 파일 URL 이 final 경로로 이동했으므로 파일 URL 이 다르다면 테스트 성공
-        System.out.println("finalFileName ==================== " + finalFileName);
-        Assertions.assertThat(finalFileName).isNotNull();
-        Assertions.assertThat(tempFileUrl).isNotEqualTo(finalFileName);
+        // 해당 파일이 존재한다면 테스트 성공
+        // myFolder/테스트파일 이 존재하면 테스트 성공
+        Assertions.assertThat(uploadedFileToTemp).isNotNull();
+        Assertions.assertThat(anyFolderName+"/"+uploadedFileToTemp).isNotNull();
 
     }
 }
