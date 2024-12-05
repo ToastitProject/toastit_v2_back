@@ -22,12 +22,4 @@ public interface FileNameService {
      */
     ObjectMetadata makeObjectMetadata(MultipartFile file);
 
-    /**
-     * 주어진 URL에서 파일명을 추출합니다.
-     *
-     * @param url 파일의 전체 URL
-     * String basePath : 제거할 URL
-     * @return 추출된 파일명
-     */
-    String parseFileNameFromUrl(String url);
 }
