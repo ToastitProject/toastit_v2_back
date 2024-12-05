@@ -17,8 +17,6 @@ public class S3UpLoadServiceImpl implements S3UpLoadService, FileNameService {
 
     private final String tempFolder = "temporary/";
 
-    private final String targetFolder = "final/";
-
     public S3UpLoadServiceImpl(
             AmazonS3Client amazonS3Client,
             @Value("${AWS_BUCKET_NAME}") String bucketName) {
@@ -41,51 +39,43 @@ public class S3UpLoadServiceImpl implements S3UpLoadService, FileNameService {
         return metadata;
     }
 
-    @Override
-    public String parseFileNameFromUrl(String url) {
-        String basePath = "http://localhost:4566/testbucket/temporary/";
-        if (url.startsWith(basePath)) {
-            return url.substring(basePath.length());
-        } else {
-            throw new IllegalArgumentException("주어진 URL이 올바른 형식이 아닙니다: " + url);
-        }
-    }
 
     @Override
-    public String uploadFile(MultipartFile file) throws IOException {
-        String uniqueFileName = makeFileName(file);
+    public String uploadFile(MultipartFile file,String folderName) throws IOException {
+        String url= folderName + "/";
+        String uniqueFileName = url + makeFileName(file);
         ObjectMetadata metadata = makeObjectMetadata(file);
         try {
             amazonS3Client.putObject(bucketName, uniqueFileName, file.getInputStream(), metadata);
         } catch (IOException exceptionMessage) {
             throw new RuntimeException("파일 업로드 과정에서 문제가 발생했습니다.", exceptionMessage);
         }
-        return amazonS3Client.getUrl(bucketName, uniqueFileName).toString();
+        return uniqueFileName;
     }
 
     @Override
     public String uploadFileToTemp(MultipartFile file) throws IOException {
-        String uniqueFileName = tempFolder + makeFileName(file);
+        String originFileNane = makeFileName(file);
+        String uniqueFileName = tempFolder + originFileNane;
         ObjectMetadata metadata = makeObjectMetadata(file);
         try {
             amazonS3Client.putObject(bucketName, uniqueFileName, file.getInputStream(), metadata);
         } catch (IOException exceptionMessage) {
             throw new RuntimeException("임시 폴더에 파일 업로드 과정에서 문제가 발생했습니다.", exceptionMessage);
         }
-        return amazonS3Client.getUrl(bucketName, uniqueFileName).toString();
+        return originFileNane;
     }
 
     @Override
-    public String moveFileToFinal(String tempFileUrl) {
-        String FileNameWithUUIDInTempFolder = parseFileNameFromUrl(tempFileUrl);
-        String sourceKey = tempFolder + FileNameWithUUIDInTempFolder;
-        String destinationKey = targetFolder + FileNameWithUUIDInTempFolder;
+    public void moveFileToFinal(String fileName, String targetFolder) {
+        String sourceKey = tempFolder + fileName;
+        String destinationKey = targetFolder + "/" + fileName;
         if (amazonS3Client.doesObjectExist(bucketName, sourceKey)) {
             amazonS3Client.copyObject(bucketName, sourceKey, bucketName, destinationKey);
             amazonS3Client.deleteObject(bucketName, sourceKey);
         } else {
             throw new RuntimeException("해당 파일이 임시 폴더에 존재하지 않습니다: " + sourceKey);
         }
-        return amazonS3Client.getUrl(bucketName, destinationKey).toString();
+
     }
 }

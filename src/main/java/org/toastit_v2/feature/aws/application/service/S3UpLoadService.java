@@ -14,7 +14,7 @@ public interface S3UpLoadService {
      * @return 업로드된 파일의 URL
      * @throws IOException 파일 업로드 중 오류 발생 시
      */
-    String uploadFile(MultipartFile file) throws IOException;
+    String uploadFile(MultipartFile file,String folderName) throws IOException;
 
     /**
      * 임시 폴더에 파일을 업로드합니다.
@@ -30,5 +30,5 @@ public interface S3UpLoadService {
      *
      * @param tempFileName 이동할 임시 파일의 이름
      */
-    String moveFileToFinal(String tempFileName);
+    void moveFileToFinal(String tempFileName,String folderName) throws IOException;
 }
