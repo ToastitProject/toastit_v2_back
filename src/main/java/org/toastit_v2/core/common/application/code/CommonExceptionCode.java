@@ -77,7 +77,9 @@ public enum CommonExceptionCode implements ResponseCode {
     // 칵테일을 찾을 수 없음
     NOT_FOUND_COCKTAIL(HttpStatus.NOT_FOUND, "칵테일을 찾을 수 없습니다."),
     // 검색 조건이 올바르지 않음
-    INVALID_COCKTAIL_SEARCH(HttpStatus.BAD_REQUEST, "잘못된 칵테일 검색 조건입니다."),
+    INVALID_COCKTAIL_SEARCH(HttpStatus.BAD_REQUEST, "검색 조건이 올바르지 않습니다."),
+    // 칵테일 개수가 올바르지 않음
+    INVALID_COCKTAIL_COUNT(HttpStatus.BAD_REQUEST, "유효하지 않은 칵테일 개수입니다."),
 
     /**
      * Like Error
