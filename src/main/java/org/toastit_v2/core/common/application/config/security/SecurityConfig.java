@@ -37,7 +37,8 @@ public class SecurityConfig {
             "/swagger/**",// Swagger try it out
             "/actuator/**", // Actuator for Prometheus
             "/user/**",
-            "/token/**"
+            "/token/**",
+            "/cocktails/**" // 기본 칵테일 페이지. 테스트를 위해 일단 전부 허용
     };
 
     // 비로그인 유저 허용 페이지
