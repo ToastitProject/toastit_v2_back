@@ -1,4 +1,4 @@
-package org.toastit_v2.feature.aws.application.service;
+package org.toastit_v2.feature.aws.application.util;
 
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import org.springframework.web.multipart.MultipartFile;

@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.toastit_v2.feature.aws.application.service.FileNameService;
+import org.toastit_v2.feature.aws.application.util.FileNameService;
 import org.toastit_v2.feature.aws.application.service.S3UpLoadService;
 
 import java.io.IOException;
