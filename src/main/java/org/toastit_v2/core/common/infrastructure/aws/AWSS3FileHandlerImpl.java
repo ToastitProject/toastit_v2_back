@@ -12,6 +12,7 @@ import org.toastit_v2.core.common.application.port.AWSS3FileHandler;
 public class AWSS3FileHandlerImpl implements AWSS3FileHandler {
 
     private final String bucketName;
+
     private final String filePath;
 
     private final AmazonS3 s3Client;
@@ -25,5 +26,4 @@ public class AWSS3FileHandlerImpl implements AWSS3FileHandler {
         this.filePath = filePath;
         this.s3Client = s3Client;
     }
-
 }
