@@ -58,3 +58,8 @@ jwt:
     expire: ${DEV_JWT_REFRESH_EXPIRE}
     ttl:
       seconds: ${DEV_JWT_REFRESH_TTL_SECONDS}
+
+api:
+  naver:
+    client-id: ${NAVER_API_ID}
+    client-secret: ${NAVER_API_SECRET}
