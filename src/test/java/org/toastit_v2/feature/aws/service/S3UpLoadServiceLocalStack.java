@@ -26,6 +26,7 @@ public class S3UpLoadServiceLocalStack implements S3UpLoadService , FileNameServ
 
     private final String tempFolder = "temporary/";
 
+
     public S3UpLoadServiceLocalStack(
             AmazonS3Client amazonS3Client,
             @Value("${AWS_TEST_BUCKET_NAME}") String bucketName) {
