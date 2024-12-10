@@ -72,7 +72,7 @@ class S3UpLoadServiceImplTest {
 
         // Then
         // 1. 업로드 한 파일의 URL 이 null 이 아니라면 테스트 성공
-        // 2. 업로드 한 파일의 원본이름은 UUID 가 추가된 업도르 파일명과 다르므로, 둘의 이름이 다르면 테스트 성공
+        // 2. 업로드 한 파일의 원본이름은 UUID 가 추가된 업로드 파일명과 다르므로, 둘의 이름이 다르면 테스트 성공
         // 3. 원하는 폴더에 파일이 업로드 되어있으면 업로드 성공
         System.out.println("localStack upload fileUrl ==================== " + fileUrl);
         Assertions.assertThat(fileUrl).isNotNull();
