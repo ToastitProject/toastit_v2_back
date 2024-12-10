@@ -1,4 +1,4 @@
-package org.toastit_v2.feature.trendcocktail.application.service.utill;
+package org.toastit_v2.feature.trendcocktail.application.service.utilly;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
