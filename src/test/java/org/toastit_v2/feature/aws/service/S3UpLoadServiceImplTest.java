@@ -14,13 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
-import org.toastit_v2.feature.aws.application.service.S3UpLoadService;
-
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 @SpringBootTest
 class S3UpLoadServiceImplTest {
@@ -28,10 +24,12 @@ class S3UpLoadServiceImplTest {
     @Autowired
     private S3UpLoadServiceLocalStack s3UpLoadServiceLocalStack;
 
+
     @Autowired
     private AmazonS3 s3Client;
 
     MultipartFile file = new MockMultipartFile("file", "test.txt", "text/plain", "123456789".getBytes());
+
 
     @BeforeEach
     public void setUp() {
@@ -40,7 +38,6 @@ class S3UpLoadServiceImplTest {
                 .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("test", "test")))
                 .enablePathStyleAccess()
                 .build();
-
     }
 
     @Test
@@ -78,7 +75,6 @@ class S3UpLoadServiceImplTest {
         Assertions.assertThat(fileUrl).isNotNull();
         Assertions.assertThat(fileUrl).isNotEqualTo(file.getOriginalFilename());
         Assertions.assertThat(folderName+"/"+fileUrl).isNotNull();
-
     }
 
     @Test
@@ -116,6 +112,5 @@ class S3UpLoadServiceImplTest {
         // myFolder/테스트파일 이 존재하면 테스트 성공
         Assertions.assertThat(uploadedFileToTemp).isNotNull();
         Assertions.assertThat(anyFolderName+"/"+uploadedFileToTemp).isNotNull();
-
     }
 }
