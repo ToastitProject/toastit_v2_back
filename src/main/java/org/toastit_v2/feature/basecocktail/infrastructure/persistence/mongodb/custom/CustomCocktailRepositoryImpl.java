@@ -10,6 +10,8 @@ import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.toastit_v2.feature.basecocktail.domain.CocktailSearch;
+import org.toastit_v2.feature.basecocktail.domain.SearchType; // SearchType import 추가
+import org.toastit_v2.feature.basecocktail.domain.AlcoholType; // AlcoholType import 추가
 import org.toastit_v2.feature.basecocktail.infrastructure.persistence.mongodb.CocktailDocument;
 
 import java.util.List;
@@ -52,7 +54,7 @@ public class CustomCocktailRepositoryImpl implements CustomCocktailRepository {
 
             // 알코올 타입 조건 추가
             if (searchCondition.getAlcoholType() != null &&
-                    searchCondition.getSearchType() != CocktailSearch.SearchType.ALCOHOL_ONLY) {
+                    searchCondition.getSearchType() != SearchType.ALCOHOL_ONLY) {
                 criteria = new Criteria().andOperator(
                         criteria,
                         Criteria.where("strAlcoholic").regex(searchCondition.getAlcoholType().toString(), "i")

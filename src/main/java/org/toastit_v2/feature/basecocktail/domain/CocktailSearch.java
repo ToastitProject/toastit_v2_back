@@ -61,17 +61,4 @@ public class CocktailSearch {
         // 단일 검색 (칵테일 이름 또는 단일 재료)
         return new CocktailSearch(SearchType.SINGLE_KEYWORD, keyword, null, alcoholType);
     }
-
-    // enum이라 차후에 외부로 뺄 예정
-    public enum SearchType {
-        NONE,                  // 검색어 없음
-        SINGLE_KEYWORD,        // 단일 키워드 (칵테일 이름 또는 단일 재료)
-        MULTIPLE_INGREDIENTS,  // 복수 재료
-        ALCOHOL_ONLY          // 알코올 유무만 검색
-    }
-
-    public enum AlcoholType {
-        ALCOHOLIC,      // 알코올
-        NON_ALCOHOLIC   // 논알코올
-    }
 }
