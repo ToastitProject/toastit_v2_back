@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import org.toastit_v2.feature.basecocktail.domain.Cocktail;
 
 @Getter
-@Document(collection = "cocktails")
+@Document(collection = "test")
 public class CocktailDocument {
 
     @Id
