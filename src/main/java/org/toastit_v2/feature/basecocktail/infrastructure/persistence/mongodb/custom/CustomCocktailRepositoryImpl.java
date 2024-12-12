@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.toastit_v2.feature.basecocktail.domain.CocktailSearch;
@@ -96,7 +97,10 @@ public class CustomCocktailRepositoryImpl implements CustomCocktailRepository {
                 Aggregation.sample(count)
         );
 
-        return mongoTemplate.aggregate(aggregation, "cocktails", CocktailDocument.class)
-                .getMappedResults();
+        AggregationResults<CocktailDocument> results = mongoTemplate.aggregate(
+                aggregation, "test", CocktailDocument.class
+        );
+
+        return results.getMappedResults();
     }
 }

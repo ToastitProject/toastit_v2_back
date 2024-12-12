@@ -13,6 +13,7 @@ import org.toastit_v2.feature.basecocktail.application.service.CocktailService;
 import org.toastit_v2.feature.basecocktail.web.response.CocktailResponse;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Tag(name = "Cocktail", description = "칵테일 기본 레시피 API")
 @RestController
@@ -42,20 +43,20 @@ public class CocktailController {
     }
 
     @Operation(
-            summary = "랜덤 칵테일",
-            description = "지정된 개수만큼 랜덤하게 칵테일을 조회합니다."
+            summary = "랜덤 칵테일 조회",
+            description = "지정된 개수만큼 랜덤으로 칵테일을 조회합니다."
     )
     @ExceptionCodeAnnotations({
+            CommonExceptionCode.FILED_ERROR,
             CommonExceptionCode.BAD_REQUEST
     })
     @GetMapping("/random")
     public List<CocktailResponse> getRandom(
-            @Parameter(description = "조회할 칵테일 개수")
+            @Parameter(description = "조회할 개수", example = "5")
             @RequestParam(defaultValue = "5") int count
     ) {
-        return cocktailService.getRandomCocktails(count)
-                .stream()
+        return cocktailService.getRandomCocktails(count).stream()
                 .map(CocktailResponse::from)
-                .toList();
+                .collect(Collectors.toList());
     }
 }
