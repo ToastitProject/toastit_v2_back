@@ -104,6 +104,9 @@ dependencies {
 
     // Prometheus
     implementation 'io.micrometer:micrometer-registry-prometheus'
+
+    //localStack for Aws Test
+    testImplementation "org.testcontainers:localstack:1.16.3"
 }
 
 // QueryDsl Test Code 실행 시, QClass 생성
