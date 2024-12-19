@@ -34,14 +34,14 @@ public class CocktailServiceImpl implements CocktailService {
                 .orElseThrow(() -> new RestApiException(CommonExceptionCode.NOT_FOUND_COCKTAIL));
     }
 
-//    @Override
-//    public List<Cocktail> getCocktailsByIds(List<ObjectId> ids) {
-//        List<Cocktail> cocktails = cocktailRepository.findByIdIn(ids);
-//        if (cocktails.isEmpty()) {
-//            throw new RestApiException(CommonExceptionCode.NOT_FOUND_COCKTAIL);
-//        }
-//        return cocktails;
-//    }
+    @Override
+    public List<Cocktail> getCocktailsByIds(List<ObjectId> ids) {
+        List<Cocktail> cocktails = cocktailRepository.findByIdIn(ids);
+        if (cocktails.isEmpty()) {
+            throw new RestApiException(CommonExceptionCode.NOT_FOUND_COCKTAIL);
+        }
+        return cocktails;
+    }
 
     @Override
     public List<Cocktail> getRandomCocktails(int count) {
