@@ -33,7 +33,7 @@ public class CocktailController {
     })
     @GetMapping("/search")
     public Page<CocktailResponse> search(
-            @Parameter(description = "검색 키워드", example = "알코올 레몬")
+            @Parameter(description = "검색 키워드", example = "알코올, 레몬")
             @RequestParam String keyword,
             @RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "size", defaultValue = "20") int size
