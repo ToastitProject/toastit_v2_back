@@ -31,16 +31,20 @@ public class CocktailSearch {
 
         // 알코올 타입 체크
         AlcoholType alcoholType = null;
-        if (keyword.contains("논알코올")) {
+
+        // 무알콜/논알콜 체크
+        if (containsAny(keyword, "무알콜", "무알코올", "논알콜", "논알코올")) {
             alcoholType = AlcoholType.NON_ALCOHOLIC;
-            keyword = keyword.replace("논알코올", "").trim();
-        } else if (keyword.contains("알코올")) {
+            keyword = removeWords(keyword, "무알콜", "무알코올", "논알콜", "논알코올");
+        }
+        // 알코올 체크
+        else if (containsAny(keyword, "알코올", "알콜")) {
             alcoholType = AlcoholType.ALCOHOLIC;
-            keyword = keyword.replace("알코올", "").trim();
+            keyword = removeWords(keyword, "알코올", "알콜");
         }
 
         // 키워드가 알코올 타입만 있었다면...
-        if (keyword.isEmpty()) {
+        if (keyword.trim().isEmpty()) {
             return new CocktailSearch(SearchType.ALCOHOL_ONLY, null, null, alcoholType);
         }
 
@@ -60,5 +64,20 @@ public class CocktailSearch {
 
         // 단일 검색 (칵테일 이름 또는 단일 재료)
         return new CocktailSearch(SearchType.SINGLE_KEYWORD, keyword, null, alcoholType);
+    }
+
+    // 여러 단어 중 하나라도 포함되는지 체크
+    private static boolean containsAny(String text, String... words) {
+        return Arrays.stream(words)
+                .anyMatch(text::contains);
+    }
+
+    // 주어진 단어들을 모두 제거하고 정리
+    private static String removeWords(String text, String... words) {
+        String result = text;
+        for (String word : words) {
+            result = result.replace(word, "");
+        }
+        return result.trim().replaceAll("\\s+", " "); // 중복된 공백 제거
     }
 }
