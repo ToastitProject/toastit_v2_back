@@ -20,4 +20,7 @@ public interface CocktailService {
 
     // 랜덤 조회
     List<Cocktail> getRandomCocktails(int count);
+
+    // 전체 조회
+    Page<Cocktail> getAllCocktails(Pageable pageable);
 }

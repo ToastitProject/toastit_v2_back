@@ -19,4 +19,7 @@ public interface CocktailRepository {
 
     // 랜덤 조회
     List<Cocktail> findRandom(int count);
+
+    // 전체 조회
+    Page<Cocktail> findAll(Pageable pageable);
 }

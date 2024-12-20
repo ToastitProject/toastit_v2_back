@@ -50,4 +50,9 @@ public class CocktailServiceImpl implements CocktailService {
         }
         return cocktailRepository.findRandom(count);
     }
+
+    @Override
+    public Page<Cocktail> getAllCocktails(Pageable pageable) {
+        return cocktailRepository.findAll(pageable);
+    }
 }
