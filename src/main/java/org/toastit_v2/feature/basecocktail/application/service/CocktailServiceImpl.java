@@ -53,6 +53,11 @@ public class CocktailServiceImpl implements CocktailService {
 
     @Override
     public Page<Cocktail> getAllCocktails(Pageable pageable) {
-        return cocktailRepository.findAll(pageable);
+        Page<Cocktail> cocktails = cocktailRepository.findAll(pageable);
+        // 만약 페이징 처리후에 없으면
+        if (cocktails.isEmpty()) {
+            throw new RestApiException(CommonExceptionCode.NOT_FOUND_COCKTAIL);
+        }
+        return cocktails;
     }
 }
