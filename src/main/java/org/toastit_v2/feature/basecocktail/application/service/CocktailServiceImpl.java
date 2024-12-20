@@ -34,14 +34,14 @@ public class CocktailServiceImpl implements CocktailService {
                 .orElseThrow(() -> new RestApiException(CommonExceptionCode.NOT_FOUND_COCKTAIL));
     }
 
-//    @Override
-//    public List<Cocktail> getCocktailsByIds(List<ObjectId> ids) {
-//        List<Cocktail> cocktails = cocktailRepository.findByIdIn(ids);
-//        if (cocktails.isEmpty()) {
-//            throw new RestApiException(CommonExceptionCode.NOT_FOUND_COCKTAIL);
-//        }
-//        return cocktails;
-//    }
+    @Override
+    public List<Cocktail> getCocktailsByIds(List<ObjectId> ids) {
+        List<Cocktail> cocktails = cocktailRepository.findByIdIn(ids);
+        if (cocktails.isEmpty()) {
+            throw new RestApiException(CommonExceptionCode.NOT_FOUND_COCKTAIL);
+        }
+        return cocktails;
+    }
 
     @Override
     public List<Cocktail> getRandomCocktails(int count) {
@@ -49,5 +49,15 @@ public class CocktailServiceImpl implements CocktailService {
             throw new RestApiException(CommonExceptionCode.INVALID_COCKTAIL_COUNT);
         }
         return cocktailRepository.findRandom(count);
+    }
+
+    @Override
+    public Page<Cocktail> getAllCocktails(Pageable pageable) {
+        Page<Cocktail> cocktails = cocktailRepository.findAll(pageable);
+        // 만약 페이징 처리후에 없으면
+        if (cocktails.isEmpty()) {
+            throw new RestApiException(CommonExceptionCode.NOT_FOUND_COCKTAIL);
+        }
+        return cocktails;
     }
 }
