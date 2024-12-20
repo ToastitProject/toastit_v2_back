@@ -86,4 +86,24 @@ public class CocktailController {
                 .map(CocktailResponse::from)
                 .collect(Collectors.toList());
     }
+
+    // 전체 목록 조회
+    @Operation(
+            summary = "칵테일 전체 목록 조회",
+            description = "모든 칵테일을 페이징하여 조회합니다."
+    )
+    @ExceptionCodeAnnotations({
+            CommonExceptionCode.FILED_ERROR,
+            CommonExceptionCode.BAD_REQUEST
+    })
+    @GetMapping
+    public Page<CocktailResponse> getAllCocktails(
+            @Parameter(description = "페이지 번호 (0부터 시작)")
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @Parameter(description = "페이지 크기")
+            @RequestParam(name = "size", defaultValue = "20") int size
+    ) {
+        return cocktailService.getAllCocktails(PageRequest.of(page, size))
+                .map(CocktailResponse::from);
+    }
 }
