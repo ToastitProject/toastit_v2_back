@@ -10,15 +10,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.toastit_v2.feature.aws.application.util.FileNameService;
+import org.toastit_v2.core.common.application.code.CommonExceptionCode;
+import org.toastit_v2.core.common.application.exception.RestApiException;
 import org.toastit_v2.feature.aws.application.service.S3UpLoadService;
-
 import java.io.IOException;
-import java.util.UUID;
 
 @Primary
 @Service
-public class S3UpLoadServiceLocalStack implements S3UpLoadService , FileNameService {
+public class S3UpLoadServiceImplWithLocalStack implements S3UpLoadService {
 
     private final AmazonS3Client amazonS3Client;
 
@@ -26,8 +25,10 @@ public class S3UpLoadServiceLocalStack implements S3UpLoadService , FileNameServ
 
     private final String tempFolder = "temporary/";
 
+    public org.toastit_v2.feature.aws.application.util.FileUtil FileUtil;
 
-    public S3UpLoadServiceLocalStack(
+
+    public S3UpLoadServiceImplWithLocalStack(
             AmazonS3Client amazonS3Client,
             @Value("${AWS_TEST_BUCKET_NAME}") String bucketName) {
         this.amazonS3Client = (AmazonS3Client) AmazonS3ClientBuilder.standard()
@@ -42,42 +43,28 @@ public class S3UpLoadServiceLocalStack implements S3UpLoadService , FileNameServ
     }
 
     @Override
-    public String makeFileName(MultipartFile file) {
-        String originalFilename = file.getOriginalFilename();
-        String uuid = UUID.randomUUID().toString();
-        return uuid + "_" + originalFilename;
-    }
-
-    @Override
-    public ObjectMetadata makeObjectMetadata(MultipartFile file) {
-        ObjectMetadata metadata = new ObjectMetadata();
-        metadata.setContentLength(file.getSize());
-        metadata.setContentType(file.getContentType());
-        return metadata;
-    }
-
-    @Override
     public String uploadFile(MultipartFile file,String folderName) throws IOException {
         String url = folderName + "/";
-        String uniqueFileName = url + makeFileName(file);
-        ObjectMetadata metadata = makeObjectMetadata(file);
+        String uniqueFileName = url + FileUtil.makeFileName(file);
+        ObjectMetadata metadata = FileUtil.makeObjectMetadata(file);
         try {
             amazonS3Client.putObject(bucketName, uniqueFileName, file.getInputStream(), metadata);
         } catch (IOException exceptionMessage) {
-            throw new RuntimeException("파일 업로드 과정에서 문제가 발생했습니다.", exceptionMessage);
+            throw new RestApiException(CommonExceptionCode.IMAGE_FORMAT_ERROR);
         }
         return uniqueFileName;
     }
 
     @Override
     public String uploadFileToTemp(MultipartFile file) throws IOException {
-        String originalFilename = makeFileName(file);
+        String originalFilename = FileUtil.makeFileName(file);
         String uniqueFileName = tempFolder + originalFilename ;
-        ObjectMetadata metadata = makeObjectMetadata(file);
+        ObjectMetadata metadata = FileUtil.makeObjectMetadata(file);
+
         try {
             amazonS3Client.putObject(bucketName, uniqueFileName, file.getInputStream(), metadata);
         } catch (IOException exceptionMessage) {
-            throw new RuntimeException("임시 폴더에 파일 업로드 과정에서 문제가 발생했습니다.", exceptionMessage);
+            throw new RestApiException(CommonExceptionCode.IMAGE_ERROR);
         }
         return originalFilename;
     }
@@ -86,13 +73,12 @@ public class S3UpLoadServiceLocalStack implements S3UpLoadService , FileNameServ
     public void moveFileToFinal(String fileName,String targetFolder) {
         String sourceKey = tempFolder + fileName;
         String destinationKey = targetFolder + "/" + fileName;
+
         if (amazonS3Client.doesObjectExist(bucketName, sourceKey)) {
             amazonS3Client.copyObject(bucketName, sourceKey, bucketName, destinationKey);
             amazonS3Client.deleteObject(bucketName, sourceKey);
         } else {
-            throw new RuntimeException("해당 파일이 임시 폴더에 존재하지 않습니다: " + sourceKey);
+            throw new RestApiException(CommonExceptionCode.IMAGE_NOT_TEMP);
         }
-
     }
-
 }
