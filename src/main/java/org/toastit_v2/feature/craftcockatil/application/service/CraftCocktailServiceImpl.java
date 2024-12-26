@@ -12,10 +12,13 @@ import java.util.List;
 
 @Service
 @Transactional
-@RequiredArgsConstructor
 public class CraftCocktailServiceImpl implements CraftCocktailService {
 
     private final CraftCocktailRepository craftCocktailRepository;
+
+    public CraftCocktailServiceImpl(CraftCocktailRepository craftCocktailRepository) {
+        this.craftCocktailRepository = craftCocktailRepository;
+    }
 
     public CraftCocktail findById(Long id) {
         return craftCocktailRepository.findById(id)
