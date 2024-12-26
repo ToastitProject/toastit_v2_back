@@ -11,3 +11,4 @@ public enum SearchType {
     ALCOHOL_ONLY,          // 알코올 유무만 검색
 
 }
+

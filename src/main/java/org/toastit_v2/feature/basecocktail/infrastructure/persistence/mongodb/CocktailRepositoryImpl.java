@@ -53,3 +53,4 @@ public class CocktailRepositoryImpl implements CocktailRepository {
         return documents.map(CocktailDocument::toDomain);
     }
 }
+
