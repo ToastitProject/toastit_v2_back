@@ -56,4 +56,5 @@ public class CraftCocktailRepositoryImpl implements CraftCocktailRepository {
 
         jpaCraftCocktailRepository.deleteById(id);
     }
+    
 }
