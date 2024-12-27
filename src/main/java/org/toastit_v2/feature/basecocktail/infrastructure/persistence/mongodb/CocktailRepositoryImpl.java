@@ -52,5 +52,12 @@ public class CocktailRepositoryImpl implements CocktailRepository {
         Page<CocktailDocument> documents = mongoRepository.findAll(pageable);
         return documents.map(CocktailDocument::toDomain);
     }
+
+    @Override
+    public List<Cocktail> findAllNames() {
+        return mongoRepository.findAllNames().stream()
+                .map(CocktailDocument::toDomain)
+                .collect(Collectors.toList());
+    }
 }
 

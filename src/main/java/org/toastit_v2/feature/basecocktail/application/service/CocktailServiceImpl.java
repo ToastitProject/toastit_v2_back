@@ -10,6 +10,7 @@ import org.toastit_v2.core.common.application.exception.RestApiException;
 import org.toastit_v2.feature.basecocktail.application.port.CocktailRepository;
 import org.toastit_v2.feature.basecocktail.domain.Cocktail;
 import org.toastit_v2.feature.basecocktail.domain.CocktailSearch;
+import org.toastit_v2.feature.basecocktail.web.response.CocktailResponse;
 
 import java.util.List;
 
@@ -59,6 +60,11 @@ public class CocktailServiceImpl implements CocktailService {
             throw new RestApiException(CommonExceptionCode.NOT_FOUND_COCKTAIL);
         }
         return cocktails;
+    }
+
+    @Override
+    public List<Cocktail> getCocktailNames() {
+        return cocktailRepository.findAllNames();
     }
 }
 

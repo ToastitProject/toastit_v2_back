@@ -23,5 +23,8 @@ public interface CocktailService {
 
     // 전체 조회
     Page<Cocktail> getAllCocktails(Pageable pageable);
+
+    // 이름만 조회
+    List<Cocktail> getCocktailNames();
 }
 

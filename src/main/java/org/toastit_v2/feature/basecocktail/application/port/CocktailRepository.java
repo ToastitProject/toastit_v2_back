@@ -22,5 +22,8 @@ public interface CocktailRepository {
 
     // 전체 조회
     Page<Cocktail> findAll(Pageable pageable);
+
+    // 이름만 조회
+    List<Cocktail> findAllNames();
 }
 

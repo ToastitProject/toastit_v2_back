@@ -120,5 +120,18 @@ public class CustomCocktailRepositoryImpl implements CustomCocktailRepository {
 
         return results.getMappedResults();
     }
+
+    @Override
+    public List<CocktailDocument> findAllNames() {
+        Aggregation aggregation = Aggregation.newAggregation(
+                Aggregation.project("strDrink")
+        );
+
+        AggregationResults<CocktailDocument> results = mongoTemplate.aggregate(
+                aggregation, "test", CocktailDocument.class
+        );
+
+        return results.getMappedResults();
+    }
 }
 

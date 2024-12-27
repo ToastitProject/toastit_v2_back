@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.toastit_v2.core.common.application.code.CommonExceptionCode;
 import org.toastit_v2.core.common.application.config.swagger.ExceptionCodeAnnotations;
 import org.toastit_v2.feature.basecocktail.application.service.CocktailService;
+import org.toastit_v2.feature.basecocktail.web.response.CocktailNameResponse;
 import org.toastit_v2.feature.basecocktail.web.response.CocktailResponse;
 
 import java.util.List;
@@ -105,6 +106,18 @@ public class CocktailController {
     ) {
         return cocktailService.getAllCocktails(PageRequest.of(page, size))
                 .map(CocktailResponse::from);
+    }
+
+    // 이름만 조회
+    @Operation(
+            summary = "칵테일 이름 목록 조회",
+            description = "모든 칵테일의 이름 목록을 조회합니다."
+    )
+    @GetMapping("/names")
+    public List<CocktailNameResponse> getCocktailNames() {
+        return cocktailService.getCocktailNames().stream()
+                .map(CocktailNameResponse::from)
+                .collect(Collectors.toList());
     }
 }
 
