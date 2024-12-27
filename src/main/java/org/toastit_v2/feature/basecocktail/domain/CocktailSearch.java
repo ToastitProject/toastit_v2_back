@@ -81,3 +81,4 @@ public class CocktailSearch {
         return result.trim().replaceAll("\\s+", " "); // 중복된 공백 제거
     }
 }
+

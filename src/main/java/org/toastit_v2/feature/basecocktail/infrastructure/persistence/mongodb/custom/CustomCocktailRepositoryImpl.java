@@ -121,3 +121,4 @@ public class CustomCocktailRepositoryImpl implements CustomCocktailRepository {
         return results.getMappedResults();
     }
 }
+
