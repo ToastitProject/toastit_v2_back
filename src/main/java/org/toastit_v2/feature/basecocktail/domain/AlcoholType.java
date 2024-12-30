@@ -9,3 +9,4 @@ public enum AlcoholType {
     NON_ALCOHOLIC   // 논알코올
 
 }
+

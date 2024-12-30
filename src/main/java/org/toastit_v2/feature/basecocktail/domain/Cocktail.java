@@ -98,3 +98,4 @@ public class Cocktail {
         return Objects.hash(id);
     }
 }
+

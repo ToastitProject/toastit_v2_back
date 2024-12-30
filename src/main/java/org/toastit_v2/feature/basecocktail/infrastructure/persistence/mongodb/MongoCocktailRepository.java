@@ -8,3 +8,4 @@ import org.toastit_v2.feature.basecocktail.infrastructure.persistence.mongodb.cu
 @ExcludeFromJpaRepositories
 public interface MongoCocktailRepository extends MongoRepository<CocktailDocument, ObjectId>, CustomCocktailRepository {
 }
+

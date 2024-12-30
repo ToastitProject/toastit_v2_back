@@ -30,14 +30,38 @@ public class CustomCocktailRepositoryImpl implements CustomCocktailRepository {
                 case ALCOHOL_ONLY:
                     // 알코올 유무만 검색
                     if (searchCondition.getAlcoholType() != null) {
-                        criteria = Criteria.where("strAlcoholic").regex(searchCondition.getAlcoholType().toString(), "i");
+                        String alcoholValue = searchCondition.getAlcoholType() == AlcoholType.ALCOHOLIC ? "알코올" : "무알콜";
+                        criteria = new Criteria().orOperator(
+                                Criteria.where("strAlcoholic").regex("^" + alcoholValue + "$", "i"),
+                                Criteria.where("strAlcoholic").regex("알코올 / 무알콜", "i")
+                        );
                     }
                     break;
 
                 case MULTIPLE_INGREDIENTS:
-                    // 복합 재료 검색
+                    // 복합 검색 조건 (복합 재료 / 재료와 알코올 타입)
+                    Criteria ingredientsCriteria = null;
                     if (searchCondition.getIngredients() != null && !searchCondition.getIngredients().isEmpty()) {
-                        criteria = createIngredientsSearchCriteria(searchCondition.getIngredients());
+                        ingredientsCriteria = createIngredientsSearchCriteria(searchCondition.getIngredients());
+                    }
+
+                    // 알코올 타입 조건
+                    Criteria alcoholCriteria = null;
+                    if (searchCondition.getAlcoholType() != null) {
+                        String alcoholValue = searchCondition.getAlcoholType() == AlcoholType.ALCOHOLIC ? "알코올" : "무알콜";
+                        alcoholCriteria = new Criteria().orOperator(
+                                Criteria.where("strAlcoholic").regex("^" + alcoholValue + "$", "i"),
+                                Criteria.where("strAlcoholic").regex("알코올 / 무알콜", "i")
+                        );
+                    }
+
+                    // 조건 조합
+                    if (ingredientsCriteria != null && alcoholCriteria != null) {
+                        criteria = new Criteria().andOperator(ingredientsCriteria, alcoholCriteria);
+                    } else if (ingredientsCriteria != null) {
+                        criteria = ingredientsCriteria;
+                    } else if (alcoholCriteria != null) {
+                        criteria = alcoholCriteria;
                     }
                     break;
 
@@ -50,15 +74,6 @@ public class CustomCocktailRepositoryImpl implements CustomCocktailRepository {
                         );
                     }
                     break;
-            }
-
-            // 알코올 타입 조건 추가
-            if (searchCondition.getAlcoholType() != null &&
-                    searchCondition.getSearchType() != SearchType.ALCOHOL_ONLY) {
-                criteria = new Criteria().andOperator(
-                        criteria,
-                        Criteria.where("strAlcoholic").regex(searchCondition.getAlcoholType().toString(), "i")
-                );
             }
         }
 
@@ -105,4 +120,18 @@ public class CustomCocktailRepositoryImpl implements CustomCocktailRepository {
 
         return results.getMappedResults();
     }
+
+    @Override
+    public List<CocktailDocument> findAllNames() {
+        Aggregation aggregation = Aggregation.newAggregation(
+                Aggregation.project("strDrink")
+        );
+
+        AggregationResults<CocktailDocument> results = mongoTemplate.aggregate(
+                aggregation, "test", CocktailDocument.class
+        );
+
+        return results.getMappedResults();
+    }
 }
+

@@ -16,8 +16,15 @@ public interface CocktailService {
     Cocktail getCocktailById(ObjectId id);
 
     // ID 목록으로 조회 (좋아요 목록 등에서 사용)
-//    List<Cocktail> getCocktailsByIds(List<ObjectId> ids);
+    List<Cocktail> getCocktailsByIds(List<ObjectId> ids);
 
     // 랜덤 조회
     List<Cocktail> getRandomCocktails(int count);
+
+    // 전체 조회
+    Page<Cocktail> getAllCocktails(Pageable pageable);
+
+    // 이름만 조회
+    List<Cocktail> getCocktailNames();
 }
+
