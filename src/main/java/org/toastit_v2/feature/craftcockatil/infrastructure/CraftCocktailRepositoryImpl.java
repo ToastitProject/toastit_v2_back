@@ -19,20 +19,23 @@ public class CraftCocktailRepositoryImpl implements CraftCocktailRepository {
 
     @Override
     public Optional<CraftCocktail> findById(Long id) {
-        return jpaCraftCocktailRepository.findById(id).map(CraftCocktailEntity::toModel);
+        return jpaCraftCocktailRepository.findById(id)
+                .filter(entity -> !entity.isDeleted()) // 비활성화된 게시물 제외
+                .map(CraftCocktailEntity::toModel);
     }
 
     @Override
     public List<CraftCocktail> findAll() {
         return jpaCraftCocktailRepository.findAll()
                 .stream()
+                .filter(entity -> !entity.isDeleted()) // 비활성화된 게시물 제외
                 .map(CraftCocktailEntity::toModel)
                 .collect(Collectors.toList());
     }
 
     @Override
     public CraftCocktail save(CraftCocktail craftCocktail) {
-        CraftCocktailEntity savedEntity = jpaCraftCocktailRepository.save(CraftCocktailEntity.fromModel(craftCocktail));
+        CraftCocktailEntity savedEntity = jpaCraftCocktailRepository.save(CraftCocktailEntity.model(craftCocktail));
         return savedEntity.toModel();
     }
 
@@ -43,18 +46,17 @@ public class CraftCocktailRepositoryImpl implements CraftCocktailRepository {
             throw new RestApiException(CommonExceptionCode.NOT_FOUND_USER);
         }
 
-        CraftCocktailEntity updatedEntity = jpaCraftCocktailRepository.save(CraftCocktailEntity.fromModel(craftCocktail));
+        CraftCocktailEntity updatedEntity = jpaCraftCocktailRepository.save(CraftCocktailEntity.model(craftCocktail));
         return updatedEntity.toModel();
     }
 
     @Override
     public void deleteById(Long id) {
+        CraftCocktailEntity entity = jpaCraftCocktailRepository.findById(id)
+                .orElseThrow(() -> new RestApiException(CommonExceptionCode.NOT_FOUND_USER));
 
-        if (!jpaCraftCocktailRepository.existsById(id)) {
-            throw new RestApiException(CommonExceptionCode.NOT_FOUND_USER);
-        }
-
-        jpaCraftCocktailRepository.deleteById(id);
+        entity.setDeleted(true); // 실제 삭제 대신 비활성화
+        jpaCraftCocktailRepository.save(entity);
     }
     
 }

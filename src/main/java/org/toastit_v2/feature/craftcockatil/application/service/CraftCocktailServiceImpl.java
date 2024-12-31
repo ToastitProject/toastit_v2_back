@@ -40,7 +40,6 @@ public class CraftCocktailServiceImpl implements CraftCocktailService {
         return craftCocktailRepository.update(craftCocktail);
     }
 
-
     public void deleteById(Long id) {
         craftCocktailRepository.findById(id)
                 .orElseThrow(() -> new RestApiException(CommonExceptionCode.NOT_FOUND_USER));
