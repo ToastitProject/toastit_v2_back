@@ -14,4 +14,7 @@ public interface CustomCocktailRepository {
 
     // 랜덤 칵테일 조회
     List<CocktailDocument> findRandom(int count);
+
+    List<CocktailDocument> findAllNames();
 }
+

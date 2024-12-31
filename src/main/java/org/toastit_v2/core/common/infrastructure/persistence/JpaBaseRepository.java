@@ -12,4 +12,5 @@ public interface JpaBaseRepository<T, ID> extends Repository<T, ID> {
     <S extends T> T save(T entity);
 
     boolean deleteById(ID id);
+
 }
