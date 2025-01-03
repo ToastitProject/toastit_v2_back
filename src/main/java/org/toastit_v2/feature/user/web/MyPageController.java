@@ -43,7 +43,8 @@ public class MyPageController {
     @GetMapping("/nickname/duplicate")
     public String checkDuplicate(
             @Parameter(
-                    description = "사용할 닉네임"
+                    description = "사용할 닉네임",
+                    example = "성실한 791번째 호랑이"
             )
             @RequestParam("nickname") @NotBlank String nickname
     ) {

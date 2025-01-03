@@ -19,11 +19,12 @@ public class AWSS3FileHandlerImpl implements AWSS3FileHandler {
 
     public AWSS3FileHandlerImpl(
             @NotNull @Value("${cloud.aws.s3.bucket}") String bucketName,
-            @NotNull @Value("${cloud.aws.cloudfront-path}") String filePath,
+            @NotNull @Value("${cloud.aws.cloudfront.path}") String filePath,
             AmazonS3 s3Client
     ) {
         this.bucketName = bucketName;
         this.filePath = filePath;
         this.s3Client = s3Client;
     }
+
 }

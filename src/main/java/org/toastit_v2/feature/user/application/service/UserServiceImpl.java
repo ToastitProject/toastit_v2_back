@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.toastit_v2.core.security.domain.CustomUserDetails;
 import org.toastit_v2.core.common.application.code.CommonExceptionCode;
 import org.toastit_v2.core.common.application.exception.RestApiException;
 import org.toastit_v2.feature.user.application.port.UserRepository;
