@@ -1,9 +1,9 @@
 spring:
   datasource:
     url: ${DEV_MYSQL_URL}
-    driver-class-name: com.mysql.cj.jdbc.Driver
     username: ${DEV_MYSQL_USERNAME}
     password: ${DEV_MYSQL_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   data:
     redis:
@@ -13,30 +13,9 @@ spring:
     mongodb:
       uri: ${ATLAS_MONGO_URI}
       database: ${ATLAS_MONGO_DATABASE}
-  servlet:
-    multipart:
-      enabled: true
-      max-request-size: 10MB
-      max-file-size: 10MB
 
 cloud:
   aws:
-    credentials:
-      instance-profile: false
-      accessKey: ${AWS_ACCESS_KEY}
-      secretKey: ${AWS_SECRET_KEY}
-
-    s3:
-      bucket: ${AWS_BUCKET_NAME}
-
-    region:
-      auto: false
-      static: ap-northeast-2
-
-    stack: false
-
-    cloudfront-path: ${AWS_FILE_PATH}
-
     rds:
       database:
         url: ${AWS_RDS_MYSQL_URL}
