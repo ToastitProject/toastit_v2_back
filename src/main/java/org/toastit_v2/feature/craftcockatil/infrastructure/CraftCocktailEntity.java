@@ -34,7 +34,17 @@ public class CraftCocktailEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
-    public static CraftCocktailEntity fromModel(CraftCocktail craftCocktail) {
+    private boolean isDeleted = false;
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
+    public static CraftCocktailEntity model(CraftCocktail craftCocktail) {
         return CraftCocktailEntity.builder()
                 .id(craftCocktail.getId())
                 .title(craftCocktail.getTitle())
@@ -42,6 +52,7 @@ public class CraftCocktailEntity {
                 .recipe(craftCocktail.getRecipe())
                 .ingredients(craftCocktail.getIngredients())
                 .user(UserEntity.from(craftCocktail.getUser()))
+                .isDeleted(craftCocktail.isDeleted())
                 .build();
     }
 

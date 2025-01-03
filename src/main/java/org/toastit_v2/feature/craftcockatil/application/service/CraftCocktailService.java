@@ -15,4 +15,5 @@ public interface CraftCocktailService {
     CraftCocktail update(CraftCocktail craftCocktail);
 
     void deleteById(Long id);
+
 }

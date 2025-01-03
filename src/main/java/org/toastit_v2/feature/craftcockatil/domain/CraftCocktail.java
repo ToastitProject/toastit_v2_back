@@ -21,14 +21,17 @@ public class CraftCocktail {
 
     private final User user;
 
+    private final boolean isDeleted;
+
     @Builder
-    public CraftCocktail(Long id, String title, String description, String recipe, String ingredients, User user) {
+    public CraftCocktail(Long id, String title, String description, String recipe, String ingredients, User user, boolean isDeleted) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.recipe = recipe;
         this.ingredients = ingredients;
         this.user = user;
+        this.isDeleted = isDeleted;
     }
 
     public CraftCocktailEntity toEntity() {
@@ -39,6 +42,7 @@ public class CraftCocktail {
                 .recipe(this.recipe)
                 .ingredients(this.ingredients)
                 .user(UserEntity.from(this.user))
+                .isDeleted(this.isDeleted)
                 .build();
     }
 
