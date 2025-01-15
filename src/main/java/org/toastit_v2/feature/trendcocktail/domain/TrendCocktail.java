@@ -2,9 +2,8 @@ package org.toastit_v2.feature.trendcocktail.domain;
 
 import lombok.Builder;
 import lombok.Getter;
-import org.toastit_v2.feature.trendcocktail.application.dto.TrendCocktailDTO;
+import org.toastit_v2.feature.trendcocktail.application.dto.NaverTrendCocktailDTO;
 import org.toastit_v2.feature.trendcocktail.infrastructure.persistence.mysql.entity.TrendCocktailEntity;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -31,11 +30,11 @@ public class TrendCocktail {
         }
     }
 
-    public static List<String> getTopFiveKeywords(Map<String, List<TrendCocktailDTO.Result>> keywordMap) {
+    public static List<String> getTopFiveKeywords(Map<String, List<NaverTrendCocktailDTO.Result>> keywordMap) {
         List<Map.Entry<String, Double>> keywordDifferences = new ArrayList<>();
-        for (Map.Entry<String, List<TrendCocktailDTO.Result>> entry : keywordMap.entrySet()) {
+        for (Map.Entry<String, List<NaverTrendCocktailDTO.Result>> entry : keywordMap.entrySet()) {
             String keyword = entry.getKey();
-            List<TrendCocktailDTO.Result> results = entry.getValue();
+            List<NaverTrendCocktailDTO.Result> results = entry.getValue();
             double maxDifference = calculateMaxDifference(results);
             if (maxDifference > 0) {
                 keywordDifferences.add(new AbstractMap.SimpleEntry<>(keyword, maxDifference));
@@ -44,7 +43,7 @@ public class TrendCocktail {
         return getTopKeywords(keywordDifferences);
     }
 
-    private static double calculateMaxDifference(List<TrendCocktailDTO.Result> results) {
+    private static double calculateMaxDifference(List<NaverTrendCocktailDTO.Result> results) {
         if (results == null || results.isEmpty()) {
             return 0;
         }
@@ -54,7 +53,7 @@ public class TrendCocktail {
                 .orElse(0);
     }
 
-    private static double calculateRatioDifference(TrendCocktailDTO.Result result) {
+    private static double calculateRatioDifference(NaverTrendCocktailDTO.Result result) {
         if (result.getData().size() > 1) {
             double ratio1 = result.getData().get(0).getRatio();
             double ratio2 = result.getData().get(1).getRatio();
