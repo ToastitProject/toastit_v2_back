@@ -3,15 +3,13 @@ package org.toastit_v2.feature.trendcocktail.domain;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.toastit_v2.feature.trendcocktail.application.dto.TrendCocktailDTO;
+import org.toastit_v2.feature.trendcocktail.application.dto.NaverTrendCocktailDTO;
 import org.toastit_v2.feature.trendcocktail.infrastructure.persistence.mysql.entity.TrendCocktailEntity;
 import org.toastit_v2.feature.trendcocktail.web.response.TrendCocktailResponse;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class TrendCocktailTest {
 
@@ -34,8 +32,8 @@ class TrendCocktailTest {
                 "{\"title\":\"블랙 러시안\",\"keywords\":[\"블랙 러시안\"],\"data\":[{\"period\":\"2024-10-01\",\"ratio\":50},{\"period\":\"2024-11-01\",\"ratio\":48}]}]}";
 
         //2. When 응답을 DTO -> 자료구조 저장 -> 상위 검색량 5개 추출
-        TrendCocktailDTO trendCocktailDTO = TrendCocktailResponse.fromNaverResponse(jsonResponse);
-        Map<String, List<TrendCocktailDTO.Result>> resultsByKeyword = trendCocktailDTO.getResultsByKeyword();
+        NaverTrendCocktailDTO trendCocktailDTO = TrendCocktailResponse.fromNaverResponse(jsonResponse);
+        Map<String, List<NaverTrendCocktailDTO.Result>> resultsByKeyword = trendCocktailDTO.getResultsByKeyword();
         List<String> topFiveKeywords = TrendCocktail.getTopFiveKeywords(resultsByKeyword);
 
         //3. Then 5개의 키워드 출력

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 
-class TrendCocktailDTOTest {
+class NaverTrendCocktailDTOTest {
 
     @Test
     @DisplayName("DTO 객체를 자료구조에 저장하는 테스트")
@@ -20,10 +20,10 @@ class TrendCocktailDTOTest {
                 "[{\"title\":\"모히또\",\"keywords\":[\"모히또\"],\"data\":[{\"period\":\"2024-10-01\",\"ratio\":100}," + "{\"period\":\"2024-11-01\",\"ratio\":90.33435}]}," +
                 "{\"title\":\"마티니\",\"keywords\":[\"마티니\"],\"data\":[{\"period\":\"2024-10-01\",\"ratio\":81.50705},{\"period\":\"2024-11-01\",\"ratio\":78.88351}]}]}";
 
-        TrendCocktailDTO trendCocktailDTO = TrendCocktailResponse.fromNaverResponse(jsonResponse);
+        NaverTrendCocktailDTO naverTrendCocktailDTO = TrendCocktailResponse.fromNaverResponse(jsonResponse);
 
         // 2. When Map 자료구조에 DTO 객체 삽입
-        Map<String, List<TrendCocktailDTO.Result>> resultsByKeyword = trendCocktailDTO.getResultsByKeyword();
+        Map<String, List<NaverTrendCocktailDTO.Result>> resultsByKeyword = naverTrendCocktailDTO.getResultsByKeyword();
 
         // 3. Then 사이즈 확인
         Assertions.assertThat(resultsByKeyword).isNotNull();

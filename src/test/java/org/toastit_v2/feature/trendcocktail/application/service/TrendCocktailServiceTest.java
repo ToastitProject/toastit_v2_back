@@ -9,7 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-import org.toastit_v2.feature.trendcocktail.application.service.utilly.dateService;
+import org.toastit_v2.feature.trendcocktail.application.service.utilly.DateCalculator;
 
 
 import java.util.ArrayList;
@@ -44,8 +44,8 @@ class TrendCocktailServiceTest {
         }
         keywordGroupBuilder.append("]");
         return String.format("{\"startDate\":\"%s\",\"endDate\":\"%s\",\"timeUnit\":\"month\",%s}",
-                dateService.firstDayOfTwoMonthsAgo(),
-                dateService.lastDayOfLastMonth(),
+                DateCalculator.firstDayOfTwoMonthsAgo(),
+                DateCalculator.lastDayOfLastMonth(),
                 keywordGroupBuilder.toString());
     }
 
