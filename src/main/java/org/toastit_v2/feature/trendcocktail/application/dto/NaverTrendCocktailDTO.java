@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor
-public class TrendCocktailDTO {
+public class NaverTrendCocktailDTO {
     @JsonProperty("startDate")
     private String startDate;
 
@@ -29,10 +29,10 @@ public class TrendCocktailDTO {
     private List<Result> results;
 
     @JsonCreator
-    public TrendCocktailDTO(@JsonProperty("startDate") String startDate,
-                            @JsonProperty("endDate") String endDate,
-                            @JsonProperty("timeUnit") String timeUnit,
-                            @JsonProperty("results") List<Result> results) {
+    public NaverTrendCocktailDTO(@JsonProperty("startDate") String startDate,
+                                 @JsonProperty("endDate") String endDate,
+                                 @JsonProperty("timeUnit") String timeUnit,
+                                 @JsonProperty("results") List<Result> results) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.timeUnit = timeUnit;

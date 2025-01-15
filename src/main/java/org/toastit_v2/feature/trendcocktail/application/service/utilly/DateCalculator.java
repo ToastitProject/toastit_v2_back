@@ -3,7 +3,7 @@ package org.toastit_v2.feature.trendcocktail.application.service.utilly;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class dateService {
+public class dateCalculator {
 
     static LocalDate now = LocalDate.now();
 
