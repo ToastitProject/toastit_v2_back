@@ -30,23 +30,11 @@ public class TrendCocktailController {
 
 
     @PostMapping("/test/naver/TrendCocktail")
-    public String  trendCocktailSearchResult(){
+    public String trendCocktailSearchResult() {
         List<String> cocktailList = new ArrayList<>();
         cocktailList.add("모히또");
         cocktailList.add("마티니");
 
         return trendCocktailService.naverTrendAPIRequest(cocktailList);
     }
-
-    @Scheduled(cron = "0 0 0 1 * ?")
-    public void scheduledTask() {
-        List<String> cocktailList = new ArrayList<>();
-        cocktailList.add("모히또");
-        cocktailList.add("마티니");
-
-        String naverResponse = trendCocktailService.naverTrendAPIRequest(cocktailList);
-        NaverTrendCocktailDTO trendCocktailDTO = TrendCocktailResponse.fromNaverResponse(naverResponse);
-        Map<String, List<NaverTrendCocktailDTO.Result>> resultsByKeyword = trendCocktailDTO.getResultsByKeyword();
-        List<String> topFiveKeywords = TrendCocktail.getTopFiveKeywords(resultsByKeyword);
-        trendCocktailService.save(topFiveKeywords);}
 }
