@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.toastit_v2.core.security.domain.Authority;
-import org.toastit_v2.feature.user.application.util.RandomNickname;
+import org.toastit_v2.feature.user.infrastructure.util.RandomNickname;
 import org.toastit_v2.feature.user.web.request.UserJoinRequest;
 
 @Getter

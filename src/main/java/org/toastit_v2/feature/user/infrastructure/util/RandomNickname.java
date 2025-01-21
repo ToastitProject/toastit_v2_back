@@ -1,4 +1,4 @@
-package org.toastit_v2.feature.user.application.util;
+package org.toastit_v2.feature.user.infrastructure.util;
 
 import java.text.MessageFormat;
 import java.util.Random;
