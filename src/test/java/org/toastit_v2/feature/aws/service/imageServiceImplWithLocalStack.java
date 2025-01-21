@@ -6,18 +6,21 @@ import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.toastit_v2.core.common.application.code.CommonExceptionCode;
 import org.toastit_v2.core.common.application.exception.RestApiException;
-import org.toastit_v2.feature.aws.application.service.S3UpLoadService;
+import org.toastit_v2.feature.aws.application.service.ImageService;
 import java.io.IOException;
 
-@Primary
-@Service
-public class S3UpLoadServiceImplWithLocalStack implements S3UpLoadService {
+@Component
+@Qualifier("test")
+public class imageServiceImplWithLocalStack implements ImageService {
 
     private final AmazonS3Client amazonS3Client;
 
@@ -28,7 +31,7 @@ public class S3UpLoadServiceImplWithLocalStack implements S3UpLoadService {
     public org.toastit_v2.feature.aws.application.util.FileUtil FileUtil;
 
 
-    public S3UpLoadServiceImplWithLocalStack(
+    public imageServiceImplWithLocalStack(
             AmazonS3Client amazonS3Client,
             @Value("${AWS_TEST_BUCKET_NAME}") String bucketName) {
         this.amazonS3Client = (AmazonS3Client) AmazonS3ClientBuilder.standard()
@@ -43,7 +46,7 @@ public class S3UpLoadServiceImplWithLocalStack implements S3UpLoadService {
     }
 
     @Override
-    public String uploadFile(MultipartFile file,String folderName) throws IOException {
+    public String uploadFile(MultipartFile file,String folderName) {
         String url = folderName + "/";
         String uniqueFileName = url + FileUtil.makeFileName(file);
         ObjectMetadata metadata = FileUtil.makeObjectMetadata(file);
@@ -56,7 +59,7 @@ public class S3UpLoadServiceImplWithLocalStack implements S3UpLoadService {
     }
 
     @Override
-    public String uploadFileToTemp(MultipartFile file) throws IOException {
+    public String uploadFileToTemp(MultipartFile file) {
         String originalFilename = FileUtil.makeFileName(file);
         String uniqueFileName = tempFolder + originalFilename ;
         ObjectMetadata metadata = FileUtil.makeObjectMetadata(file);
@@ -70,7 +73,7 @@ public class S3UpLoadServiceImplWithLocalStack implements S3UpLoadService {
     }
 
     @Override
-    public void moveFileToFinal(String fileName,String targetFolder) {
+    public void moveTempToFinal(String fileName, String targetFolder) {
         String sourceKey = tempFolder + fileName;
         String destinationKey = targetFolder + "/" + fileName;
 
@@ -80,5 +83,15 @@ public class S3UpLoadServiceImplWithLocalStack implements S3UpLoadService {
         } else {
             throw new RestApiException(CommonExceptionCode.IMAGE_NOT_TEMP);
         }
+    }
+
+    @Override
+    public void deleteImageFile(String FileName) {
+
+    }
+
+    @Override
+    public String uploadProfileImage(MultipartFile file, int targetWidth, int targetHeight) {
+        return "";
     }
 }
