@@ -2,7 +2,6 @@ package org.toastit_v2.feature.aws.web;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,11 +10,11 @@ import org.toastit_v2.feature.aws.application.service.ImageService;
 import java.io.IOException;
 
 @RestController
-public class S3ImageController {
+public class ImageUploadController {
 
     private final ImageService imageService;
 
-    public S3ImageController(@Qualifier("prod") ImageService imageService) {
+    public ImageUploadController(@Qualifier("prod") ImageService imageService) {
         this.imageService = imageService;
     }
 
@@ -33,18 +32,8 @@ public class S3ImageController {
        return imageService.uploadFileToTemp(file);
     }
 
-    @PostMapping("/move")
-    public void move(String fileName, String folderName) throws IOException {
-        imageService.moveTempToFinal(fileName,folderName);
-    }
-
     @PostMapping("/uploads/profileImage")
     public String uploadProfileImage(@RequestParam("file") MultipartFile file){
         return imageService.uploadProfileImage(file,100,100);
-    }
-
-    @DeleteMapping("/deleteImage")
-    public void deleteImage(@RequestParam("file") MultipartFile file){
-        return imageService.deleteImageFile(file.getOriginalFilename());
     }
 }
