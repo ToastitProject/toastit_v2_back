@@ -1,13 +1,17 @@
 package org.toastit_v2.feature.aws.application.service;
 
 import org.springframework.web.multipart.MultipartFile;
-import java.io.IOException;
 
-public interface imageService {
+public interface ImageService {
 
-    String uploadFile(MultipartFile file,String folderName) throws IOException;
+    String uploadFile(MultipartFile file,String folderName);
 
-    String uploadFileToTemp(MultipartFile file) throws IOException;
+    String uploadFileToTemp(MultipartFile file);
 
-    void moveFileToFinal(String tempFileName,String folderName) throws IOException;
+    void moveTempToFinal(String tempFileName, String folderName);
+
+    void deleteImageFile(String FileName);
+
+    String uploadProfileImage(MultipartFile file, int targetWidth, int targetHeight);
+
 }
