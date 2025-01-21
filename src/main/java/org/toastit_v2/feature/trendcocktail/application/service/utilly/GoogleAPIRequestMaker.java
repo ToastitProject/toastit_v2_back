@@ -13,7 +13,7 @@ public class GoogleAPIRequestMaker {
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper ;
 
-    @Value("b30de08e5e9aa6333714a9ba9b9e01d11c0ddc972ce5a423b7c37aabcacdd7a3")
+    @Value("${api.google.key}")
     private String googleAPIKey;
 
     public GoogleAPIRequestMaker(RestTemplate restTemplate, ObjectMapper objectMapper) {

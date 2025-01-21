@@ -42,3 +42,5 @@ api:
   naver:
     client-id: ${NAVER_API_ID}
     client-secret: ${NAVER_API_SECRET}
+  google:
+    key: ${GOOGLE_API_KEY}
