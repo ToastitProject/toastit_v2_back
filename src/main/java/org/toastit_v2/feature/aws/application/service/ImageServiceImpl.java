@@ -10,25 +10,28 @@ import org.springframework.web.multipart.MultipartFile;
 import org.toastit_v2.core.common.application.code.CommonExceptionCode;
 import org.toastit_v2.core.common.application.exception.RestApiException;
 import org.toastit_v2.feature.aws.application.util.FileUtil;
+import org.toastit_v2.feature.aws.application.util.ImageUploader;
+
 import java.io.IOException;
 
 import static org.toastit_v2.feature.aws.application.util.FileUtil.makeFileName;
 
 @Validated
 @Service
-public class S3UpLoadServiceImpl implements S3UpLoadService {
+public class imageServiceImpl implements imageService {
 
-    private final AmazonS3Client amazonS3Client;
-    private final String bucketName;
+    private final ImageUploader imageUploader;
+
 
     private final String tempFolder = "temporary/";
 
-    public S3UpLoadServiceImpl(
-            AmazonS3Client amazonS3Client,
-            @NotNull @Value("${AWS_BUCKET_NAME}") String bucketName) {
-        this.amazonS3Client = amazonS3Client;
-        this.bucketName = bucketName;
+    public imageServiceImpl(
+            ImageUploader imageUploader) {
+        this.imageUploader = imageUploader;
+
     }
+
+
 
     /**
      * AWS bucket 에 파일과 폴더명을 입력하여 파일을 해당 폴더에 업로드 하는 메서드 입니다.
@@ -36,19 +39,10 @@ public class S3UpLoadServiceImpl implements S3UpLoadService {
      * @param file 업로드 하고자 하는 파일입니다
      * @param folderName 파일을 올리려는 폴더명 입니다.
      * @return UUID 가 포함된 파일명을 반환합니다.
-     * @throws IOException 파일의 형식이 다를경우 에러 메시지를 반환합니다.
      */
     @Override
-    public String uploadFile(MultipartFile file,String folderName) throws IOException {
-        String url= folderName + "/";
-        String uniqueFileName = url + makeFileName(file);
-        ObjectMetadata metadata = FileUtil.makeObjectMetadata(file);
-        try {
-            amazonS3Client.putObject(bucketName, uniqueFileName, file.getInputStream(), metadata);
-        } catch (IOException exceptionMessage) {
-            throw new RestApiException(CommonExceptionCode.IMAGE_FORMAT_ERROR);
-        }
-        return uniqueFileName;
+    public String uploadFile(MultipartFile file,String folderName)  {
+        return imageUploader.uploadFile(file, folderName);
     }
 
     /**
