@@ -4,7 +4,6 @@ spring:
     database: mysql
     hibernate:
       ddl-auto: update
-
   datasource:
     url: ${TEST_MYSQL_URL}
     username: ${TEST_MYSQL_USERNAME}

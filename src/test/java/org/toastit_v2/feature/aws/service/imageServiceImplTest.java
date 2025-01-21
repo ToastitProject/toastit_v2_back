@@ -2,19 +2,23 @@ package org.toastit_v2.feature.aws.service;
 
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
+import org.toastit_v2.feature.aws.application.service.ImageService;
 import org.toastit_v2.feature.aws.application.util.FileUtil;
 import java.io.IOException;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-class S3UpLoadServiceImplTest {
+class imageServiceImplTest {
 
-    @Autowired
-    private S3UpLoadServiceImplWithLocalStack s3UpLoadServiceImplWithLocalStack;
+    private ImageService imageService;
+
+    public imageServiceImplTest(@Qualifier("test")ImageService imageService) {
+        this.imageService = imageService;
+    }
 
     MultipartFile file = new MockMultipartFile("file", "test.txt", "text/plain", "123456789".getBytes());
 
@@ -51,7 +55,7 @@ class S3UpLoadServiceImplTest {
     void 파일_업로드_테스트() throws IOException {
         MultipartFile file = new MockMultipartFile("file", "test.txt", "text/plain", "Hello World".getBytes());
         String folderName = "myUploadTestFolder";
-        String fileUrl = s3UpLoadServiceImplWithLocalStack.uploadFile(file,folderName);
+        String fileUrl = imageService.uploadFile(file,folderName);
         assertThat(fileUrl).isNotNull();
         assertThat(fileUrl).isNotEqualTo(file.getOriginalFilename());
         assertThat(folderName+"/"+fileUrl).isNotNull();
@@ -66,7 +70,7 @@ class S3UpLoadServiceImplTest {
     @Test
     void 임시저장_업로드_테스트() throws IOException {
         MultipartFile tempFile = new MockMultipartFile("tempFile", "test.txt", "text/plain", "Hello World".getBytes());
-        String tempFileUrl = s3UpLoadServiceImplWithLocalStack.uploadFileToTemp(tempFile);
+        String tempFileUrl = imageService.uploadFileToTemp(tempFile);
         assertThat(tempFileUrl).isNotNull();
     }
 
@@ -81,9 +85,9 @@ class S3UpLoadServiceImplTest {
     void 특정폴더로_파일을_옮기는_테스트() throws IOException {
         String fileName = "editTestFile.jpg";
         MultipartFile movingTestFile = new MockMultipartFile("editTestFile", fileName, "image/jpeg", "test image content".getBytes());
-        String uploadedFileToTemp = s3UpLoadServiceImplWithLocalStack.uploadFileToTemp(movingTestFile);
+        String uploadedFileToTemp = imageService.uploadFileToTemp(movingTestFile);
         String anyFolderName = "myFolder";
-        s3UpLoadServiceImplWithLocalStack.moveFileToFinal(uploadedFileToTemp,anyFolderName);
+        imageService.moveTempToFinal(uploadedFileToTemp,anyFolderName);
         assertThat(uploadedFileToTemp).isNotNull();
         assertThat(anyFolderName+"/"+uploadedFileToTemp).isNotNull();
     }
