@@ -2,8 +2,8 @@ package org.toastit_v2.feature.user.infrastructure.persistence.mysql;
 
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.toastit_v2.core.common.application.code.CommonExceptionCode;
-import org.toastit_v2.core.common.application.exception.RestApiException;
+import org.toastit_v2.common.common.application.code.CommonExceptionCode;
+import org.toastit_v2.common.common.application.exception.RestApiException;
 import org.toastit_v2.feature.user.domain.User;
 import org.toastit_v2.feature.user.application.port.UserRepository;
 import org.springframework.stereotype.Repository;

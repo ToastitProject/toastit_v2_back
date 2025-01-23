@@ -2,7 +2,7 @@ package org.toastit_v2.feature.user.domain;
 
 import lombok.Builder;
 import lombok.Getter;
-import org.toastit_v2.core.security.domain.Authority;
+import org.toastit_v2.common.security.domain.Authority;
 import org.toastit_v2.feature.user.web.request.UserUpdateNicknameRequest;
 
 @Getter

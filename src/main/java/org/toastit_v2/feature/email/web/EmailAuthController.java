@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.toastit_v2.core.common.application.code.CommonExceptionCode;
-import org.toastit_v2.core.common.application.config.swagger.ExceptionCodeAnnotations;
+import org.toastit_v2.common.common.application.code.CommonExceptionCode;
+import org.toastit_v2.common.common.application.config.swagger.ExceptionCodeAnnotations;
 import org.toastit_v2.feature.email.application.service.EmailAuthService;
 import org.toastit_v2.feature.email.web.request.EmailAuthRequest;
 

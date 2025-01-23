@@ -1,7 +1,7 @@
 package org.toastit_v2.feature.user.application.service;
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.toastit_v2.core.security.domain.CustomUserDetails;
+import org.toastit_v2.common.security.domain.CustomUserDetails;
 import org.toastit_v2.feature.user.domain.User;
 import org.toastit_v2.feature.user.web.request.UserUpdateNicknameRequest;
 import org.toastit_v2.feature.user.web.request.UserUpdatePasswordRequest;

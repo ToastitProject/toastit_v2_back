@@ -1,15 +1,13 @@
 package org.toastit_v2.feature.user.application.service;
 
-import jakarta.mail.Multipart;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import org.toastit_v2.core.common.application.code.CommonExceptionCode;
-import org.toastit_v2.core.common.application.exception.RestApiException;
-import org.toastit_v2.core.security.domain.CustomUserDetails;
+import org.toastit_v2.common.common.application.code.CommonExceptionCode;
+import org.toastit_v2.common.common.application.exception.RestApiException;
+import org.toastit_v2.common.security.domain.CustomUserDetails;
 import org.toastit_v2.feature.user.application.port.UserRepository;
 import org.toastit_v2.feature.user.domain.User;
 import org.toastit_v2.feature.user.domain.UserStatus;

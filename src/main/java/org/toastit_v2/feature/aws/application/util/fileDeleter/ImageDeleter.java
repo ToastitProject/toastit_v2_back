@@ -1,10 +1,9 @@
 package org.toastit_v2.feature.aws.application.util.fileDeleter;
 
 import org.springframework.stereotype.Component;
-import org.toastit_v2.core.common.application.code.CommonExceptionCode;
-import org.toastit_v2.core.common.application.exception.RestApiException;
+import org.toastit_v2.common.common.application.code.CommonExceptionCode;
+import org.toastit_v2.common.common.application.exception.RestApiException;
 import org.toastit_v2.feature.aws.application.awsS3ClientProvider.AWSS3ClientProvider;
-import org.toastit_v2.feature.aws.application.util.FileUtil;
 
 @Component
 public class ImageDeleter {

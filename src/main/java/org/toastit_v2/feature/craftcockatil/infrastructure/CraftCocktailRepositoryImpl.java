@@ -2,8 +2,8 @@ package org.toastit_v2.feature.craftcockatil.infrastructure;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import org.toastit_v2.core.common.application.code.CommonExceptionCode;
-import org.toastit_v2.core.common.application.exception.RestApiException;
+import org.toastit_v2.common.common.application.code.CommonExceptionCode;
+import org.toastit_v2.common.common.application.exception.RestApiException;
 import org.toastit_v2.feature.craftcockatil.application.port.CraftCocktailRepository;
 import org.toastit_v2.feature.craftcockatil.domain.CraftCocktail;
 
