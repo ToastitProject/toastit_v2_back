@@ -1,10 +1,10 @@
-package org.toastit_v2.feature.craftcockatil.infrastructure;
+package org.toastit_v2.core.infrastructure.persistence.craftcocktail;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
-import org.toastit_v2.feature.craftcockatil.domain.CraftCocktail;
+import org.toastit_v2.core.domain.craftcocktail.CraftCocktail;
 import org.toastit_v2.feature.user.infrastructure.persistence.mysql.UserEntity;
 
 @Entity
@@ -44,8 +44,8 @@ public class CraftCocktailEntity {
         isDeleted = deleted;
     }
 
-    public static CraftCocktailEntity model(CraftCocktail craftCocktail) {
-        return CraftCocktailEntity.builder()
+    public static org.toastit_v2.feature.craftcockatil.infrastructure.CraftCocktailEntity model(CraftCocktail craftCocktail) {
+        return org.toastit_v2.feature.craftcockatil.infrastructure.CraftCocktailEntity.builder()
                 .id(craftCocktail.getId())
                 .title(craftCocktail.getTitle())
                 .description(craftCocktail.getDescription())

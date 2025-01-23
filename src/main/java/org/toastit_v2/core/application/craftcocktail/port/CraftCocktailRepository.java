@@ -1,6 +1,6 @@
-package org.toastit_v2.feature.craftcockatil.application.port;
+package org.toastit_v2.core.application.craftcocktail.port;
 
-import org.toastit_v2.feature.craftcockatil.domain.CraftCocktail;
+import org.toastit_v2.core.domain.craftcocktail.CraftCocktail;
 
 import java.util.List;
 import java.util.Optional;

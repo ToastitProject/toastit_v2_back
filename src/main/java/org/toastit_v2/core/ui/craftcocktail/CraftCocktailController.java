@@ -1,4 +1,4 @@
-package org.toastit_v2.feature.craftcockatil.web;
+package org.toastit_v2.core.ui.craftcocktail;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -6,8 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.toastit_v2.feature.craftcockatil.application.service.CraftCocktailService;
-import org.toastit_v2.feature.craftcockatil.domain.CraftCocktail;
+import org.toastit_v2.core.application.craftcocktail.service.CraftCocktailService;
+import org.toastit_v2.core.domain.craftcocktail.CraftCocktail;
 
 import java.util.List;
 

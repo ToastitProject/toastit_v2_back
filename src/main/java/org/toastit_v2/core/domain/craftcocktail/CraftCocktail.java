@@ -1,8 +1,8 @@
-package org.toastit_v2.feature.craftcockatil.domain;
+package org.toastit_v2.core.domain.craftcocktail;
 
 import lombok.Builder;
 import lombok.Getter;
-import org.toastit_v2.feature.craftcockatil.infrastructure.CraftCocktailEntity;
+import org.toastit_v2.core.infrastructure.persistence.craftcocktail.CraftCocktailEntity;
 import org.toastit_v2.feature.user.domain.User;
 import org.toastit_v2.feature.user.infrastructure.persistence.mysql.UserEntity;
 

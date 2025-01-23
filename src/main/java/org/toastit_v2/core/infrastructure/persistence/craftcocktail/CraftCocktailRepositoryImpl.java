@@ -1,11 +1,11 @@
-package org.toastit_v2.feature.craftcockatil.infrastructure;
+package org.toastit_v2.core.infrastructure.persistence.craftcocktail;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.toastit_v2.common.common.application.code.CommonExceptionCode;
 import org.toastit_v2.common.common.application.exception.RestApiException;
-import org.toastit_v2.feature.craftcockatil.application.port.CraftCocktailRepository;
-import org.toastit_v2.feature.craftcockatil.domain.CraftCocktail;
+import org.toastit_v2.core.application.craftcocktail.port.CraftCocktailRepository;
+import org.toastit_v2.core.domain.craftcocktail.CraftCocktail;
 
 import java.util.List;
 import java.util.Optional;
@@ -58,5 +58,5 @@ public class CraftCocktailRepositoryImpl implements CraftCocktailRepository {
         entity.setDeleted(true); // 실제 삭제 대신 비활성화
         jpaCraftCocktailRepository.save(entity);
     }
-    
+
 }

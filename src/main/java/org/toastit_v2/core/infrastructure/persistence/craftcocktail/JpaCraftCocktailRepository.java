@@ -1,4 +1,4 @@
-package org.toastit_v2.feature.craftcockatil.infrastructure;
+package org.toastit_v2.core.infrastructure.persistence.craftcocktail;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
