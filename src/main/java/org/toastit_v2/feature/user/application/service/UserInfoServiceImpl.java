@@ -7,7 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.toastit_v2.common.common.application.code.CommonExceptionCode;
 import org.toastit_v2.common.common.application.exception.RestApiException;
-import org.toastit_v2.common.security.domain.CustomUserDetails;
+import org.toastit_v2.feature.security.domain.CustomUserDetails;
 import org.toastit_v2.feature.user.application.port.UserRepository;
 import org.toastit_v2.feature.user.domain.User;
 import org.toastit_v2.feature.user.domain.UserStatus;

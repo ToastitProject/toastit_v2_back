@@ -13,7 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import org.toastit_v2.common.common.infrastructure.persistence.AuditingFields;
-import org.toastit_v2.common.security.domain.Authority;
+import org.toastit_v2.feature.security.domain.Authority;
 import org.toastit_v2.feature.user.domain.User;
 import org.toastit_v2.feature.user.domain.UserStatus;
 

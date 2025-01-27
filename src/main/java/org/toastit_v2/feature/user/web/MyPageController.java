@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.toastit_v2.common.annotation.swagger.ApiExceptionResponse;
 import org.toastit_v2.common.common.application.code.CommonExceptionCode;
-import org.toastit_v2.common.common.application.config.swagger.ExceptionCodeAnnotations;
-import org.toastit_v2.common.security.domain.CustomUserDetails;
+import org.toastit_v2.feature.security.domain.CustomUserDetails;
 import org.toastit_v2.feature.user.application.service.UserInfoService;
 import org.toastit_v2.feature.user.web.request.UserUpdateNicknameRequest;
 import org.toastit_v2.feature.user.web.request.UserUpdatePasswordRequest;
@@ -33,7 +33,7 @@ public class MyPageController {
             summary = "닉네임 중복 체크",
             description = "회원 정보 수정 시 중복된 닉네임인지 확인합니다."
     )
-    @ExceptionCodeAnnotations({
+    @ApiExceptionResponse({
             CommonExceptionCode.FILE_ERROR,
             CommonExceptionCode.EXIST_NICKNAME_ERROR
     })
@@ -53,7 +53,7 @@ public class MyPageController {
             summary = "닉네임 변경 기능",
             description = "회원 정보 수정 시 닉네임을 변경합니다."
     )
-    @ExceptionCodeAnnotations({
+    @ApiExceptionResponse({
             CommonExceptionCode.FILE_ERROR,
             CommonExceptionCode.EXIST_NICKNAME_ERROR,
             CommonExceptionCode.NOT_FOUND_USER
@@ -71,7 +71,7 @@ public class MyPageController {
             summary = "비밀번호 변경 기능",
             description = "회원 정보 수정 시 비밀번호를 변경합니다."
     )
-    @ExceptionCodeAnnotations({
+    @ApiExceptionResponse({
             CommonExceptionCode.FILED_ERROR,
             CommonExceptionCode.NOT_FOUND_USER
     })
@@ -88,7 +88,7 @@ public class MyPageController {
 //            summary = "프로필 이미지 변경 기능",
 //            description = "유저 정보 수정 시 프로필 이미지를 변경합니다."
 //    )
-//    @ExceptionCodeAnnotations({
+//    @ApiExceptionResponse({
 //            CommonExceptionCode.FILE_ERROR,
 //            CommonExceptionCode.NOT_FOUND_USER
 //    })
@@ -109,7 +109,7 @@ public class MyPageController {
             description = "사용자가 비활성화 상태로 변경됩니다."
     )
     @PatchMapping("/deactivate")
-    @ExceptionCodeAnnotations({
+    @ApiExceptionResponse({
             CommonExceptionCode.FILED_ERROR,
             CommonExceptionCode.NOT_FOUND_USER
     })

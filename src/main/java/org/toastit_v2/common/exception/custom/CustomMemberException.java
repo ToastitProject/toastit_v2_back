@@ -1,16 +1,16 @@
 package org.toastit_v2.common.exception.custom;
 
 import lombok.Getter;
-import org.toastit_v2.common.response.code.ErrorCode;
+import org.toastit_v2.common.response.code.ExceptionCode;
 
 @Getter
 public class CustomMemberException extends RuntimeException {
 
-    private final ErrorCode errorCode;
+    private final ExceptionCode exceptionCode;
 
-    public CustomMemberException(ErrorCode errorCode) {
-        super(errorCode.getMessage());
-        this.errorCode = errorCode;
+    public CustomMemberException(final ExceptionCode exceptionCode) {
+        super(exceptionCode.getMessage());
+        this.exceptionCode = exceptionCode;
     }
 
 }

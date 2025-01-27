@@ -13,9 +13,9 @@ import org.springframework.http.HttpStatus;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class SuccessResponse<T> {
 
-    private final HttpStatus httpStatus;
-
     private final T result;
+
+    private final HttpStatus httpStatus;
 
     private final String resultMessage;
 

@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.toastit_v2.common.common.application.code.CommonExceptionCode;
 import org.toastit_v2.common.common.application.code.CommonResponseCode;
-import org.toastit_v2.common.common.application.config.swagger.ExceptionCodeAnnotations;
-import org.toastit_v2.common.common.application.config.swagger.ResponseCodeAnnotation;
-import org.toastit_v2.common.security.domain.CustomUserDetails;
+import org.toastit_v2.common.annotation.swagger.ApiExceptionResponse;
+import org.toastit_v2.common.annotation.swagger.ApiSuccessResponse;
+import org.toastit_v2.feature.security.domain.CustomUserDetails;
 import org.toastit_v2.feature.user.application.service.UserAuthService;
 import org.toastit_v2.feature.user.application.service.UserInfoService;
 import org.toastit_v2.feature.user.web.request.UserJoinRequest;
@@ -45,7 +45,7 @@ public class UserController {
             summary = "로그인 유저 정보",
             description = "현재 로그인 되어있는 유저의 정보를 반환합니다."
     )
-    @ExceptionCodeAnnotations({CommonExceptionCode.NOT_FOUND_USER})
+    @ApiExceptionResponse({CommonExceptionCode.NOT_FOUND_USER})
     @GetMapping
     public UserResponse getCurrentUser(@AuthenticationPrincipal CustomUserDetails userDetails) {
         return UserResponse.from(infoService.getUserByDetails(userDetails));
@@ -55,8 +55,8 @@ public class UserController {
             summary = "이메일 회원가입",
             description = "회원 데이터를 추가합니다."
     )
-    @ResponseCodeAnnotation(CommonResponseCode.CREATED)
-    @ExceptionCodeAnnotations({CommonExceptionCode.FILED_ERROR})
+    @ApiSuccessResponse(CommonResponseCode.CREATED)
+    @ApiExceptionResponse({CommonExceptionCode.FILED_ERROR})
     @PostMapping("/join")
     public ResponseEntity<String> join(@RequestBody @Valid UserJoinRequest request) {
         userService.save(request);
@@ -69,7 +69,7 @@ public class UserController {
             summary = "이메일과 로그인",
             description = "이메일과 비밀번호를 입력받아 JWT 토큰을 발급합니다."
     )
-    @ExceptionCodeAnnotations({
+    @ApiExceptionResponse({
             CommonExceptionCode.FILED_ERROR,
             CommonExceptionCode.NOT_MATCH_PASSWORD
     })
@@ -83,7 +83,7 @@ public class UserController {
             description = "저장된 JWT 토큰을 제거합니다."
     )
     @DeleteMapping("/logout")
-    @ExceptionCodeAnnotations({CommonExceptionCode.NOT_FOUND_USER})
+    @ApiExceptionResponse({CommonExceptionCode.NOT_FOUND_USER})
     public String logout(@AuthenticationPrincipal CustomUserDetails userDetails) {
         authService.logout(userDetails);
         return "로그아웃 되었습니다.";

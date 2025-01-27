@@ -3,7 +3,7 @@ package org.toastit_v2.feature.user.domain;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.toastit_v2.common.security.domain.Authority;
+import org.toastit_v2.feature.security.domain.Authority;
 import org.toastit_v2.feature.user.infrastructure.util.RandomNickname;
 import org.toastit_v2.feature.user.web.request.UserJoinRequest;
 

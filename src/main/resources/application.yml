@@ -9,17 +9,8 @@ spring:
 
   jpa:
     show-sql: true
-
     hibernate:
       ddl-auto: update
-
-    properties:
-      hibernate:
-        format_sql: true
-        jdbc:
-          batch_size: 500
-        order_inserts: true
-        order_updates: true
 
   webflux:
     problemdetails:
@@ -31,18 +22,7 @@ spring:
       max-request-size: 10MB
       max-file-size: 10MB
 
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: ${GMAIL_USERNAME}
-    password: ${GMAIL_PASSWORD}
-    properties:
-      mail:
-        smtp:
-          auth: true
-          timeout: 5000
-          starttls:
-            enable: true
+
 
 springdoc:
   swagger-ui:
@@ -60,25 +40,7 @@ springdoc:
   default-consumes-media-type: application/json
   default-produces-media-type: application/json
 
-cloud:
-  aws:
-    credentials:
-      instance-profile: false
-      accessKey: ${AWS_ACCESS_KEY}
-      secretKey: ${AWS_SECRET_KEY}
 
-    s3:
-      bucket: ${AWS_BUCKET_NAME}
-
-    region:
-      auto: false
-      static: ap-northeast-2
-
-    stack:
-      auto: false
-
-    cloudfront:
-      path: ${AWS_CLOUDFRONT_PATH}
 
 server:
   servlet:
