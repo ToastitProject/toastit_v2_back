@@ -29,7 +29,7 @@ public class AuthMailServiceImpl implements AuthMailService {
     }
 
     public void validateAuthMail(final String userEmail, final String authNumber) {
-        final AuthMail authMail = authMailRepository.findByUserEmail(userEmail).orElseThrow(
+        final AuthMail authMail = authMailRepository.findById(userEmail).orElseThrow(
                 () -> new CustomAuthMailException(ExceptionCode.AUTH_EMAIL_EXPIRED_ERROR)
         );
         authMail.checkAuthNumber(authNumber);

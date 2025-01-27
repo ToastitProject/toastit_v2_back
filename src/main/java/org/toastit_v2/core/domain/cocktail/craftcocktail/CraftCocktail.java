@@ -1,3 +1,4 @@
+/*
 package org.toastit_v2.core.domain.cocktail.craftcocktail;
 
 import lombok.Builder;
@@ -47,3 +48,4 @@ public class CraftCocktail {
     }
 
 }
+*/

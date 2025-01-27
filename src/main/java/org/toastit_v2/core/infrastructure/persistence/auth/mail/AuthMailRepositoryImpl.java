@@ -11,7 +11,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AuthMailRepositoryImpl implements AuthMailRepository {
 
-    private final AuthMailRepository repository;
+    private final AuthMailCrudRepository repository;
 
     @Override
     public void save(final AuthMail authMail) {
@@ -19,8 +19,8 @@ public class AuthMailRepositoryImpl implements AuthMailRepository {
     }
 
     @Override
-    public Optional<AuthMail> findByUserEmail(final String userEmail) {
-        return repository.findByUserEmail(userEmail);
+    public Optional<AuthMail> findById(final String userEmail) {
+        return repository.findById(userEmail);
     }
 
 }

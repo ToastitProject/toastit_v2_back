@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.toastit_v2.common.response.SuccessResponse;
 import org.toastit_v2.common.response.code.SuccessCode;
-import org.toastit_v2.core.application.member.user.service.MemberService;
+import org.toastit_v2.core.application.member.service.MemberService;
 import org.toastit_v2.core.domain.member.Member;
 import org.toastit_v2.core.ui.member.payload.response.ProfileResponse;
 

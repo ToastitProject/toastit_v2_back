@@ -8,6 +8,6 @@ public interface AuthMailRepository {
 
     void save(final AuthMail authMail);
 
-    Optional<AuthMail> findByUserEmail(final String userEmail);
+    Optional<AuthMail> findById(String userEmail);
 
 }

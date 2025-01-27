@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Builder;
 import lombok.Getter;
-import org.toastit_v2.feature.basecocktail.domain.CocktailCreate;
+import org.toastit_v2.core.domain.cocktail.basecocktail.CocktailCreate;
 
 // 이전 버전에선 사용하지 않았던 기능. 추후에 추가를 고려해서 클래스만 생성
 @Getter

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.toastit_v2.common.exception.custom.CustomMemberException;
 import org.toastit_v2.common.response.code.ExceptionCode;
-import org.toastit_v2.core.application.member.user.port.MemberRepository;
+import org.toastit_v2.core.application.member.port.MemberRepository;
 import org.toastit_v2.core.domain.auth.security.CustomUserDetails;
 import org.toastit_v2.core.domain.member.Member;
 
@@ -21,7 +21,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(final String userId) throws UsernameNotFoundException {
-        final Member member = memberRepository.findByUserId(userId)
+        final Member member = memberRepository.findById(userId)
                 .orElseThrow(() -> new CustomMemberException(ExceptionCode.MEMBER_NOT_FOUND));
 
         return CustomUserDetails.from(member);

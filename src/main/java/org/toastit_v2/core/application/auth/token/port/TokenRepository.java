@@ -6,12 +6,12 @@ import java.util.Optional;
 
 public interface TokenRepository {
 
-    void save(final Token token);
+    void save(Token token);
 
-    Optional<Token> findById(final String id);
+    Optional<Token> findById(String userId);
 
-    Optional<Token> findByAccessToken(final String accessToken);
+    Optional<Token> findByAccessToken( String accessToken);
 
-    void deleteByUserId(final String userId);
+    void deleteById(String userId);
 
 }

@@ -1,3 +1,4 @@
+/*
 package org.toastit_v2.core.application.image.image.web;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -37,3 +38,4 @@ public class ImageUploadController {
         return imageService.uploadProfileImage(file,100,100);
     }
 }
+*/

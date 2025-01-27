@@ -12,7 +12,7 @@ import java.util.Map;
 public enum ExceptionCode {
 
     /**
-     *  Image Error Code
+     *  Image Exception Code
      */
     IMAGE_ERROR(HttpStatus.BAD_REQUEST, "이미지 업로드 에러", 400),
     IMAGE_NOT_FOUND(HttpStatus.BAD_REQUEST, "이미지를 찾을 수 없습니다", 400),
@@ -27,48 +27,30 @@ public enum ExceptionCode {
     SSH_PORT_FORWARDING_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "포트 포워딩 설정 실패", 500),
 
     /**
-     * Base Cocktail Error Code
+     * Base Cocktail Exception Code
      */
 
     /**
-     * Craft Cocktail Error Code
+     * Craft Cocktail Exception Code
      */
     FAIL_CREATE_CRAFT_COCKTAIL(HttpStatus.BAD_REQUEST, "커스텀 칵테일 생성 실패하였습니다.", 400),
 
     /**
-     * Member Error Code
+     * Member Exception Code
      */
     MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "사용자를 찾을 수 없습니다.", 404),
     MEMBER_ACCESS_DENIED(HttpStatus.FORBIDDEN, "사용자 접근이 거부되었습니다.", 403),
-    MEMBER_DUPLICATE(HttpStatus.CONFLICT, "이미 존재하는 사용자입니다.", 409),
-    MEMBER_INVALID_CREDENTIALS(HttpStatus.UNAUTHORIZED, "잘못된 사용자 인증 정보입니다.", 401),
-
+    MEMBER_DUPLICATE(HttpStatus.CONFLICT, "이미 존재하는 회원입니다.", 409),
     PASSWORD_MISS_MATCH_ERROR(HttpStatus.BAD_REQUEST, "패스워드 형식이 일치하지 않습니다.", 400),
-
-    // 존재하지 않는 이메일
-    NOT_EXISTS_EMAIL(HttpStatus.BAD_REQUEST, "존재하지 않는 이메일입니다.", 400),
-
     NOT_EXISTS_USERID(HttpStatus.NOT_FOUND, "존재하지 않는 사용자 ID입니다.", 404),
 
-    DUPLICATION_USERID_ERROR(HttpStatus.BAD_REQUEST, "이미 존재하는 유저입니다.", 400),
-
-    // 이메일 인증 중복
+    /**
+     * Auth - Mail Exception Code
+     */
     AUTH_EMAIL_DUPLICATION_ERROR(HttpStatus.BAD_REQUEST, "이메일이 중복되었습니다.", 400),
-
-    // 이메일 인증 코드 오류
     AUTH_EMAIL_AUTH_NUMBER_ERROR(HttpStatus.BAD_REQUEST, "이메일 인증코드를 잘못 입력하였습니다. 다시 시도해 주세요.", 400),
-
-    // 인증 시간 만료
     AUTH_EMAIL_EXPIRED_ERROR(HttpStatus.BAD_REQUEST, "이메일 인증 시간이 만료되었습니다.", 400),
-
-    // 잘못된 이메일 요청
     AUTH_EMAIL_REQUEST_ERROR(HttpStatus.BAD_REQUEST, "이메일 인증을 다시 시도해주세요.", 400),
-
-    // 사용자 잘못된 요청
-    LOGIN_REQUEST_ERROR(HttpStatus.BAD_REQUEST, "비밀번호 또는 아이디가 올바르지 않습니다.", 400),
-
-    // 중복되는 아이디 이메일
-    LOGIN_DUPLICATION_ERROR(HttpStatus.CONFLICT, "이미 존재하는 아이디 또는 이메일 입니다.", 409),
 
     /**
      * JWT Error Code
@@ -77,26 +59,6 @@ public enum ExceptionCode {
     JWT_EXPIRED_ERROR(HttpStatus.UNAUTHORIZED, "만료된 JWT 토큰입니다.", 401),
     JWT_SIGNATURE_ERROR(HttpStatus.UNAUTHORIZED, "JWT 서명이 일치하지 않습니다.", 401),
     JWT_UNKNOWN_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "알 수 없는 JWT 에러가 발생했습니다.", 500),
-
-    /**
-     * Token Error Code
-     */
-    TOKEN_INVALID_ERROR(HttpStatus.UNAUTHORIZED, "유효하지 않은 토큰입니다.", 401),
-
-    // 패스워드 형식 오류
-    PASSWORD_REQUEST_ERROR(HttpStatus.BAD_REQUEST, "패스워드 형식이 올바르지 않습니다.", 400),
-
-    // 패스워드 일치 오류
-    PASSWORD_MISS_MATCH_ERROR(HttpStatus.BAD_REQUEST, "패스워드 형식이 일치하지 않습니다.", 400),
-
-    // 포토카드 게시물 조회 오류
-    NOT_EXISTS_PRODUCT(HttpStatus.BAD_REQUEST, "포토카드가 존재하지 않습니다.", 400),
-
-    // 포토카드 사용자 불일치 오류
-    NOT_MATCHES_USER_PRODUCT(HttpStatus.BAD_REQUEST, "글을 작성한 유저가 아닙니다.", 400),
-
-    // 임시 저장 포토카드 조회 오류
-    NOT_EXISTS_TEMPORARILY_PRODUCT(HttpStatus.BAD_REQUEST, "임시 저장 포토 카드가 존재하지 않습니다.", 400),
 
     // 잘못된 서버 요청
     BAD_REQUEST_ERROR(HttpStatus.BAD_REQUEST, "Bad Request Exception", 400),
@@ -115,9 +77,6 @@ public enum ExceptionCode {
 
     // JSON 파싱 실패
     JSON_PARSE_ERROR(HttpStatus.BAD_REQUEST, "JsonParseException", 400),
-
-    // jackson.core processing error
-    JACKSON_PROCESS_ERROR(HttpStatus.BAD_REQUEST, "com.fasterxml.jackson.core Exception", 400),
 
     // 권한이 없음
     FORBIDDEN_ERROR(HttpStatus.FORBIDDEN, "Forbidden Exception", 403),

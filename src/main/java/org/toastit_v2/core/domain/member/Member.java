@@ -6,10 +6,10 @@ import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.toastit_v2.common.exception.custom.CustomMemberException;
 import org.toastit_v2.common.generator.date.DateTimeGenerator;
 import org.toastit_v2.common.generator.nickname.NicknameGenerator;
+import org.toastit_v2.common.generator.password.PasswordEncodeGenerator;
 import org.toastit_v2.common.response.code.ExceptionCode;
 import org.toastit_v2.common.type.auth.security.Authority;
 import org.toastit_v2.core.ui.member.payload.request.SignUpRequest;
@@ -81,10 +81,10 @@ public class Member {
         );
     }
 
-    public Member passwordEncode(PasswordEncoder encoder) {
+    public Member passwordEncode(PasswordEncodeGenerator encoder) {
         return new Member(
                 this.userId,
-                encoder.encode(this.password),
+                encoder.generate(this.password),
                 this.profile,
                 this.authority,
                 this.registerDate,

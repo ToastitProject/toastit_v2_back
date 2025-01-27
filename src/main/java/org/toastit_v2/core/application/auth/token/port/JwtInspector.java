@@ -7,8 +7,8 @@ import javax.crypto.SecretKey;
 
 public interface JwtInspector {
 
-    TokenStatus getTokenStatus(final String token, final SecretKey secretKey);
+    TokenStatus getTokenStatus(String token, SecretKey secretKey);
 
-    Claims parseToken(final String token, final SecretKey secretKey);
+    Claims parseToken(String token, SecretKey secretKey);
 
 }

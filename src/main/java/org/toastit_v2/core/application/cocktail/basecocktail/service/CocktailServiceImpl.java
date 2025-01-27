@@ -1,3 +1,4 @@
+/*
 package org.toastit_v2.core.application.cocktail.basecocktail.service;
 
 import lombok.RequiredArgsConstructor;
@@ -76,3 +77,4 @@ public class CocktailServiceImpl implements CocktailService {
     }
 }
 
+*/

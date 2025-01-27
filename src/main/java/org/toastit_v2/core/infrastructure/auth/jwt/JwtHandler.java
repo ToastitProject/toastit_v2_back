@@ -37,7 +37,7 @@ public class JwtHandler implements JwtInspector {
     }
 
     @Override
-    public Claims parseToken(String token, SecretKey secretKey) {
+    public Claims parseToken(final String token, final SecretKey secretKey) {
         try {
             return Jwts.parser()
                     .verifyWith(secretKey)

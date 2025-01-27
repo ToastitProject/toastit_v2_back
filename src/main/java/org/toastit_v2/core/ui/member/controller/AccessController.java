@@ -19,7 +19,7 @@ import org.toastit_v2.common.annotation.swagger.ApiSuccessResponse;
 import org.toastit_v2.common.response.SuccessResponse;
 import org.toastit_v2.common.response.code.ExceptionCode;
 import org.toastit_v2.common.response.code.SuccessCode;
-import org.toastit_v2.core.application.member.user.service.MemberService;
+import org.toastit_v2.core.application.member.service.MemberService;
 import org.toastit_v2.core.domain.auth.security.CustomUserDetails;
 import org.toastit_v2.core.ui.member.payload.request.LoginRequest;
 import org.toastit_v2.core.ui.member.payload.response.LoginResponse;
@@ -77,9 +77,7 @@ public class AccessController {
             ExceptionCode.NOT_EXISTS_USERID
     })
     @DeleteMapping("/logout")
-    public ResponseEntity<Object> logout(
-            @AuthenticationPrincipal final CustomUserDetails userDetails
-    ) {
+    public ResponseEntity<Object> logout(@AuthenticationPrincipal final CustomUserDetails userDetails) {
         memberService.logout(userDetails.getUserId());
         return ResponseEntity.ok(
                 new SuccessResponse<>(

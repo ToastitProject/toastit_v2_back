@@ -2,9 +2,11 @@ package org.toastit_v2.core.ui.cocktail.basecocktail.payload.response;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
 import lombok.Builder;
 import lombok.Getter;
-import org.toastit_v2.feature.basecocktail.domain.Cocktail;
+
+import org.toastit_v2.core.domain.cocktail.basecocktail.Cocktail;
 
 @Getter
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)

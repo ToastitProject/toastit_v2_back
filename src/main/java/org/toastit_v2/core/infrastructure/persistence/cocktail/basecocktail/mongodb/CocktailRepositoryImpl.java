@@ -1,3 +1,4 @@
+/*
 package org.toastit_v2.core.infrastructure.persistence.cocktail.basecocktail.mongodb;
 
 import lombok.RequiredArgsConstructor;
@@ -69,3 +70,4 @@ public class CocktailRepositoryImpl implements CocktailRepository {
     }
 }
 
+*/

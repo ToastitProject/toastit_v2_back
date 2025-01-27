@@ -15,7 +15,7 @@ import org.toastit_v2.common.annotation.swagger.ApiSuccessResponse;
 import org.toastit_v2.common.response.SuccessResponse;
 import org.toastit_v2.common.response.code.ExceptionCode;
 import org.toastit_v2.common.response.code.SuccessCode;
-import org.toastit_v2.core.application.member.user.service.MemberService;
+import org.toastit_v2.core.application.member.service.MemberService;
 import org.toastit_v2.core.ui.member.payload.request.SignUpRequest;
 
 import java.net.URI;
@@ -39,7 +39,6 @@ public class SignUpController {
     @ApiExceptionResponse({
             ExceptionCode.BAD_REQUEST_ERROR,
             ExceptionCode.PASSWORD_MISS_MATCH_ERROR,
-            ExceptionCode.DUPLICATION_USERID_ERROR
     })
     @PostMapping("/member")
     public ResponseEntity<SuccessResponse<Object>> signUp(

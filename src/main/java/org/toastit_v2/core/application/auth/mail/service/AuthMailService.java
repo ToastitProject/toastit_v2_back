@@ -6,6 +6,6 @@ public interface AuthMailService {
 
     void send(final AuthMailRequest request);
 
-    void validateAuthMail(final String userEmail, final String authNumber);
+    void validateAuthMail(String userEmail, String authNumber);
 
 }

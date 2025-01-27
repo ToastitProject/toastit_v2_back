@@ -1,3 +1,4 @@
+/*
 package org.toastit_v2.core.infrastructure.persistence.cocktail.basecocktail.mongodb;
 
 // mongodb에 맞도록 Entity가 아니라 Document로 생성함.
@@ -216,3 +217,4 @@ public class CocktailDocument {
     }
 }
 
+*/

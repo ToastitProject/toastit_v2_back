@@ -1,3 +1,4 @@
+/*
 package org.toastit_v2.core.ui.cocktail.craftcocktail;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -68,3 +69,4 @@ public class CraftCocktailController {
     }
 
 }
+*/

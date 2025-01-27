@@ -1,4 +1,4 @@
-package org.toastit_v2.core.application.member.user.service;
+package org.toastit_v2.core.application.member.service;
 
 import org.toastit_v2.core.domain.member.Member;
 import org.toastit_v2.core.ui.member.payload.request.LoginRequest;

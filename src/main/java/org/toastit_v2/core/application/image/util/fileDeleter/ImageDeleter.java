@@ -1,3 +1,4 @@
+/*
 package org.toastit_v2.core.application.image.util.fileDeleter;
 
 import org.springframework.stereotype.Component;
@@ -23,3 +24,4 @@ public class ImageDeleter {
         }
     }
 }
+*/

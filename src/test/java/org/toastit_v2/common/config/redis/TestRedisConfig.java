@@ -1,4 +1,4 @@
-package org.toastit_v2.common.redis;
+package org.toastit_v2.common.config.redis;
 
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.context.annotation.Bean;

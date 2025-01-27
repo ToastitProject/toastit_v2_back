@@ -1,3 +1,4 @@
+/*
 package org.toastit_v2.core.infrastructure.persistence.cocktail.craftcocktail;
 
 import lombok.RequiredArgsConstructor;
@@ -60,3 +61,4 @@ public class CraftCocktailRepositoryImpl implements CraftCocktailRepository {
     }
 
 }
+*/

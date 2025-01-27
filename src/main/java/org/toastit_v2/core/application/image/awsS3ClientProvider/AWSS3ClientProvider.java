@@ -17,8 +17,9 @@ public class AWSS3ClientProvider {
 
     public AWSS3ClientProvider(
             AmazonS3Client amazonS3Client,
-            @NotNull @Value("${AWS_BUCKET_NAME}") String bucketName) {
+            @NotNull @Value("${cloud.aws.s3.bucket}") String bucketName) {
         this.amazonS3Client = amazonS3Client;
         this.bucketName = bucketName;
     }
+
 }

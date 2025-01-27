@@ -1,3 +1,4 @@
+/*
 package org.toastit_v2.core.infrastructure.persistence.cocktail.craftcocktail;
 
 import jakarta.persistence.*;
@@ -68,3 +69,4 @@ public class CraftCocktailEntity {
     }
 
 }
+*/

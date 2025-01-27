@@ -1,3 +1,4 @@
+/*
 package org.toastit_v2.core.application.cocktail.craftcocktail.service;
 
 import org.toastit_v2.core.domain.cocktail.craftcocktail.CraftCocktail;
@@ -17,3 +18,4 @@ public interface CraftCocktailService {
     void deleteById(Long id);
 
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package org.toastit_v2.core.application.image.util.fileUploader;
 
 import com.amazonaws.services.s3.model.ObjectMetadata;
@@ -75,3 +76,4 @@ public class ImageUploader {
         return uniqueFileName;
     }
 }
+*/

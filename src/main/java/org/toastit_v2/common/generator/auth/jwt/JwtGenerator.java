@@ -12,7 +12,7 @@ import java.util.Date;
  * 지정된 회원 정보를 기반으로 JWT 토큰을 생성하는 클래스입니다.
  */
 @Component
-public class JwtTokenGenerator {
+public class JwtGenerator {
 
     /**
      * 지정된 회원 정보로 JWT 토큰을 생성합니다.

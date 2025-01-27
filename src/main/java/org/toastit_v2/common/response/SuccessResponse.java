@@ -17,8 +17,8 @@ public class SuccessResponse<T> {
 
     private final HttpStatus httpStatus;
 
-    private final String resultMessage;
+    private final String message;
 
-    private final int resultCode;
+    private final int statusCode;
 
 }

@@ -1,3 +1,4 @@
+/*
 package org.toastit_v2.core.ui.cocktail.basecocktail;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -8,12 +9,11 @@ import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
-import org.toastit_v2.core.common.application.code.CommonExceptionCode;
-import org.toastit_v2.core.common.application.config.swagger.ExceptionCodeAnnotations;
-import org.toastit_v2.feature.basecocktail.application.service.CocktailService;
-import org.toastit_v2.feature.basecocktail.domain.Cocktail;
-import org.toastit_v2.feature.basecocktail.web.request.CocktailCreateRequest;
-import org.toastit_v2.feature.basecocktail.web.response.CocktailResponse;
+import org.toastit_v2.common.annotation.swagger.ApiExceptionResponse;
+import org.toastit_v2.core.application.cocktail.basecocktail.service.CocktailService;
+import org.toastit_v2.core.domain.cocktail.basecocktail.Cocktail;
+import org.toastit_v2.core.ui.cocktail.basecocktail.payload.request.CocktailCreateRequest;
+import org.toastit_v2.core.ui.cocktail.basecocktail.payload.response.CocktailResponse;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,9 +31,9 @@ public class CocktailController {
             summary = "통합 검색",
             description = "키워드로 칵테일을 검색합니다. 칵테일 이름, 재료, 알코올 유무로 검색이 가능합니다."
     )
-    @ExceptionCodeAnnotations({
-            CommonExceptionCode.FILED_ERROR,
-            CommonExceptionCode.BAD_REQUEST
+    @ApiExceptionResponse({
+//            CommonExceptionCode.FILED_ERROR,
+//            CommonExceptionCode.BAD_REQUEST
     })
     @GetMapping("/search")
     public Page<CocktailResponse> search(
@@ -52,9 +52,9 @@ public class CocktailController {
             description = "여러 칵테일 ID를 받아서 해당하는 칵테일들을 조회합니다."
     )
     @ExceptionCodeAnnotations({
-            CommonExceptionCode.FILED_ERROR,
-            CommonExceptionCode.BAD_REQUEST,
-            CommonExceptionCode.NOT_FOUND_COCKTAIL
+//            CommonExceptionCode.FILED_ERROR,
+//            CommonExceptionCode.BAD_REQUEST,
+//            CommonExceptionCode.NOT_FOUND_COCKTAIL
     })
     @GetMapping("/by-ids")
     public List<CocktailResponse> getCocktailsByIds(
@@ -76,8 +76,8 @@ public class CocktailController {
             description = "지정된 개수만큼 랜덤으로 칵테일을 조회합니다."
     )
     @ExceptionCodeAnnotations({
-            CommonExceptionCode.FILED_ERROR,
-            CommonExceptionCode.BAD_REQUEST
+//            CommonExceptionCode.FILED_ERROR,
+//            CommonExceptionCode.BAD_REQUEST
     })
     @GetMapping("/random")
     public List<CocktailResponse> getRandom(
@@ -95,8 +95,8 @@ public class CocktailController {
             description = "모든 칵테일을 페이징하여 조회합니다."
     )
     @ExceptionCodeAnnotations({
-            CommonExceptionCode.FILED_ERROR,
-            CommonExceptionCode.BAD_REQUEST
+//            CommonExceptionCode.FILED_ERROR,
+//            CommonExceptionCode.BAD_REQUEST
     })
     @GetMapping
     public Page<CocktailResponse> getAllCocktails(
@@ -137,3 +137,4 @@ public class CocktailController {
     }
 }
 
+*/

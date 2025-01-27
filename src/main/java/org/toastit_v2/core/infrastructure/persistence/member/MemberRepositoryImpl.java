@@ -2,7 +2,7 @@ package org.toastit_v2.core.infrastructure.persistence.member;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import org.toastit_v2.core.application.member.user.port.MemberRepository;
+import org.toastit_v2.core.application.member.port.MemberRepository;
 import org.toastit_v2.core.domain.member.Member;
 
 import java.util.Optional;
@@ -14,22 +14,22 @@ public class MemberRepositoryImpl implements MemberRepository {
     private final MemberJpaRepository repository;
 
     @Override
-    public Member save(Member member) {
+    public Member save(final Member member) {
         return repository.save(member);
     }
 
     @Override
-    public Optional<Member> findByUserId(String userId) {
+    public Optional<Member> findById(final String userId) {
         return repository.findById(userId);
     }
 
     @Override
-    public Optional<Member> findByEmail(String email) {
+    public Optional<Member> findByEmail(final String email) {
         return repository.findById(email);
     }
 
     @Override
-    public void delete(Member member) {
+    public void delete(final Member member) {
         repository.delete(member);
     }
 

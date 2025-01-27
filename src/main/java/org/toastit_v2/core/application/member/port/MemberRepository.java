@@ -1,4 +1,4 @@
-package org.toastit_v2.core.application.member.user.port;
+package org.toastit_v2.core.application.member.port;
 
 import org.toastit_v2.core.domain.member.Member;
 
@@ -8,7 +8,7 @@ public interface MemberRepository {
 
     Member save(Member member);
 
-    Optional<Member> findByUserId(String userId);
+    Optional<Member> findById(String userId);
 
     Optional<Member> findByEmail(String email);
 

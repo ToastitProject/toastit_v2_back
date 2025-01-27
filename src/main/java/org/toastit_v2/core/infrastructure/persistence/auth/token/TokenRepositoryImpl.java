@@ -19,17 +19,17 @@ public class TokenRepositoryImpl implements TokenRepository {
     }
 
     @Override
-    public Optional<Token> findById(String id) {
-        return repository.findById(id);
+    public Optional<Token> findById(final String userId) {
+        return repository.findById(userId);
     }
 
     @Override
-    public Optional<Token> findByAccessToken(String accessToken) {
+    public Optional<Token> findByAccessToken(final String accessToken) {
         return repository.findByAccessToken(accessToken);
     }
 
     @Override
-    public void deleteByUserId(final String userId) {
+    public void deleteById(final String userId) {
         repository.deleteById(userId);
     }
 

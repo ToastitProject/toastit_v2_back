@@ -1,17 +1,14 @@
 package org.toastit_v2.core.ui.auth.mail.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.toastit_v2.common.annotation.swagger.ApiExceptionResponse;
 import org.toastit_v2.common.annotation.swagger.ApiRequestBody;
 import org.toastit_v2.common.annotation.swagger.ApiSuccessResponse;
@@ -49,12 +46,50 @@ public class AuthMailController {
                             schema = @Schema(implementation = AuthMailRequest.class)
                     )
             )
-            @Valid @RequestBody AuthMailRequest request
+            @Valid @RequestBody final AuthMailRequest request
     ) {
         authMailService.send(request);
 
         return ResponseEntity.ok(
-                new SuccessResponse<>(HttpStatus.OK, null, "메일 전송 성공", 200)
+                new SuccessResponse<>(
+                        null,
+                        SuccessCode.SUCCESS.getHttpStatus(),
+                        SuccessCode.SUCCESS.getMessage(),
+                        SuccessCode.SUCCESS.getStatusCode()
+                )
+        );
+    }
+
+    @Operation(
+            summary = "이메일 인증 번호 확인",
+            description = "이메일 인증 번호 확인 성공 API"
+    )
+    @ApiSuccessResponse(SuccessCode.SUCCESS)
+    @ApiExceptionResponse({
+            ExceptionCode.AUTH_EMAIL_EXPIRED_ERROR
+    })
+    @GetMapping("/email/{auth_number}")
+    public ResponseEntity<SuccessResponse<Object>> checkAuthMail(
+            @Parameter(
+                    description = "회원 이메일",
+                    example = "test@naver.com"
+            )
+            @RequestParam("user_email") final String userEmail,
+            @Parameter(
+                    description = "인증 번호",
+                    example = "asdf15130"
+            )
+            @PathVariable("auth_number") final String authNumber
+    ) {
+        authMailService.validateAuthMail(userEmail, authNumber);
+
+        return ResponseEntity.ok(
+                new SuccessResponse<>(
+                        null,
+                        SuccessCode.SUCCESS.getHttpStatus(),
+                        SuccessCode.SUCCESS.getMessage(),
+                        SuccessCode.SUCCESS.getStatusCode()
+                )
         );
     }
 

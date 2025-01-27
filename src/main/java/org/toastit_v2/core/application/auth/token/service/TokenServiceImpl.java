@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
-import org.toastit_v2.common.generator.auth.jwt.JwtTokenGenerator;
+import org.toastit_v2.common.generator.auth.jwt.JwtGenerator;
 import org.toastit_v2.common.type.auth.jwt.TokenStatus;
 import org.toastit_v2.core.application.auth.security.service.UserDetailsServiceImpl;
 import org.toastit_v2.core.application.auth.token.port.TokenRepository;
@@ -33,7 +33,7 @@ public class TokenServiceImpl implements TokenService {
     private final SecretKey accessKey;
     private final long accessKeyExpire;
 
-    private final JwtTokenGenerator jwtTokenGenerator;
+    private final JwtGenerator jwtGenerator;
     private final JwtInspector jwtInspector;
     private final UserDetailsService userDetailsService;
     private final TokenRepository tokenRepository;
@@ -41,14 +41,14 @@ public class TokenServiceImpl implements TokenService {
     public TokenServiceImpl(
             @NotNull @Value("${jwt.access.secret}") final String accessSecretKey,
             @NotNull @Value("${jwt.access.expire}") final long accessExpire,
-            JwtTokenGenerator jwtTokenGenerator,
+            JwtGenerator jwtGenerator,
             JwtInspector jwtInspector,
             UserDetailsServiceImpl userDetailsService,
             TokenRepository tokenRepository
     ) {
         this.accessKey = Keys.hmacShaKeyFor(accessSecretKey.getBytes());
         this.accessKeyExpire = accessExpire;
-        this.jwtTokenGenerator = jwtTokenGenerator;
+        this.jwtGenerator = jwtGenerator;
         this.jwtInspector = jwtInspector;
         this.userDetailsService = userDetailsService;
         this.tokenRepository = tokenRepository;
@@ -57,7 +57,7 @@ public class TokenServiceImpl implements TokenService {
     @Override
     @Transactional
     public String createAccessToken(final Member member) {
-        final String accessToken = jwtTokenGenerator.generate(accessKey, accessKeyExpire, member);
+        final String accessToken = jwtGenerator.generate(accessKey, accessKeyExpire, member);
         tokenRepository.save(Token.create(member.getUserId(), accessToken));
         return accessToken;
     }
@@ -98,7 +98,7 @@ public class TokenServiceImpl implements TokenService {
     @Override
     @Transactional
     public void logout(final Member member) {
-        tokenRepository.deleteByUserId(member.getUserId());
+        tokenRepository.deleteById(member.getUserId());
     }
 
 }

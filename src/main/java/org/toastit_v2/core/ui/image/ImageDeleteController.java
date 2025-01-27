@@ -1,3 +1,4 @@
+/*
 package org.toastit_v2.core.application.image.image.web;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,3 +20,4 @@ public class ImageDeleteController {
         imageService.deleteImageFile(fileName);
     }
 }
+*/

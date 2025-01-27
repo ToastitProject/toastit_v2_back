@@ -1,3 +1,4 @@
+/*
 package org.toastit_v2.core.infrastructure.persistence.cocktail.basecocktail.mongodb.custom;
 
 import org.springframework.data.domain.Page;
@@ -18,3 +19,4 @@ public interface CustomCocktailRepository {
     List<CocktailDocument> findAllNames();
 }
 
+*/

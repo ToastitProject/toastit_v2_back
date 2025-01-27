@@ -155,8 +155,8 @@ public class SwaggerConfig {
             Schema<?> fieldSchema = switch (fieldName) {
                 case "result" -> originalSchema;
                 case "httpStatus" -> new Schema<>().example(successCode.getHttpStatus().toString());
-                case "resultMessage" -> new Schema<>().example(successCode.getMessage());
-                case "resultCode" -> new Schema<>().example(successCode.getResultCode());
+                case "message" -> new Schema<>().example(successCode.getMessage());
+                case "statusCode" -> new Schema<>().example(successCode.getStatusCode());
                 default -> new Schema<>();
             };
 

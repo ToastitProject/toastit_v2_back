@@ -9,6 +9,6 @@ import java.util.Optional;
 @ExcludeJpaRepository
 public interface TokenCrudRepository extends CrudRepository<Token, String> {
 
-    Optional<Token> findByAccessToken(final String accessToken);
+    Optional<Token> findByAccessToken(String accessToken);
 
 }

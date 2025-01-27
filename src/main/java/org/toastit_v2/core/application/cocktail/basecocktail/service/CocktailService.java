@@ -1,3 +1,4 @@
+/*
 package org.toastit_v2.core.application.cocktail.basecocktail.service;
 
 import org.springframework.data.domain.Page;
@@ -32,3 +33,4 @@ public interface CocktailService {
     Cocktail createCocktail(CocktailCreate cocktailCreate);
 }
 
+*/

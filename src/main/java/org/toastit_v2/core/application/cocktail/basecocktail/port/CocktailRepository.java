@@ -1,3 +1,4 @@
+/*
 package org.toastit_v2.core.application.cocktail.basecocktail.port;
 
 import org.bson.types.ObjectId;
@@ -30,3 +31,4 @@ public interface CocktailRepository {
     Cocktail save(Cocktail cocktail);
 }
 
+*/

@@ -44,7 +44,7 @@ public class CommonExceptionHandler {
     @ExceptionHandler(MissingRequestHeaderException.class)
     protected ResponseEntity<ExceptionResponse> handleMissingRequestHeaderException(MissingRequestHeaderException ex) {
         log.error("Missing Request Header Exception", ex);
-        final ExceptionResponse response = ExceptionResponse.create(ExceptionCode.REQUEST_BODY_MISSING_ERROR, ex.getMessage());
+        final ExceptionResponse response = ExceptionResponse.create(ExceptionCode.NOT_VALID_HEADER_ERROR, ex.getMessage());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

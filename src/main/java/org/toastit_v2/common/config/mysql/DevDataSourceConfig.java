@@ -15,13 +15,13 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 @Configuration
 @Profile("dev")
-public class DataSourceConfig {
+public class DevDataSourceConfig {
 
     private final String databaseUrl;
     private final Integer databasePort;
     private final SshBridgeConfig initializer;
 
-    public DataSourceConfig(
+    public DevDataSourceConfig(
             @NotNull @Value("${cloud.aws.rds.database.url}") String databaseUrl,
             @NotNull @Value("${cloud.aws.rds.database.port}") Integer databasePort,
             SshBridgeConfig initializer
