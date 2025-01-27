@@ -44,7 +44,7 @@ public class SmtpAuthMailHandler implements AuthMailSender {
     @Override
     public void send(final String authNumber, final String userEmail) {
         javaMailSender.send(
-                createMessage(authNumber, userEmail)
+                this.createMessage(authNumber, userEmail)
         );
     }
 
@@ -70,7 +70,7 @@ public class SmtpAuthMailHandler implements AuthMailSender {
                 throw new CustomAuthMailException(ExceptionCode.NOT_FOUND_ERROR);
             }
             String content = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
-            content = content.replace("{authNumber}", authNumber);
+            content = content.replace("{authcode}", authNumber);
             return content;
         } catch (IOException e) {
             log.error("입출력 예외 발생 :: {}", e.getMessage());

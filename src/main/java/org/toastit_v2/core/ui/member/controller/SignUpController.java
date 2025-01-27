@@ -21,12 +21,12 @@ import org.toastit_v2.core.ui.member.payload.request.SignUpRequest;
 import java.net.URI;
 
 @Tag(
-        name = "SignUp",
-        description = "회원가입"
+        name = "Member SignUp",
+        description = "회원가입 API"
 )
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v2")
+@RequestMapping("/v2/member")
 public class SignUpController {
 
     private final MemberService memberService;
@@ -40,7 +40,7 @@ public class SignUpController {
             ExceptionCode.BAD_REQUEST_ERROR,
             ExceptionCode.PASSWORD_MISS_MATCH_ERROR,
     })
-    @PostMapping("/member")
+    @PostMapping("/sign-up")
     public ResponseEntity<SuccessResponse<Object>> signUp(
             @ApiRequestBody(
                     description = "회원가입 요청 정보",
@@ -70,7 +70,7 @@ public class SignUpController {
             description = "회원 아이디 중복 체크 요청 API"
     )
     @ApiSuccessResponse(SuccessCode.SUCCESS)
-    @GetMapping("/users/duplicate-check/{user_id}")
+    @GetMapping("/duplicate-check/{user_id}")
     public ResponseEntity<SuccessResponse<Object>> checkUserIdDuplicate(
             @Parameter(
                     description = "회원 아이디",

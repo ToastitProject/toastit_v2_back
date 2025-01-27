@@ -1,6 +1,7 @@
 package org.toastit_v2.core.ui.member.controller;
 
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,10 @@ import org.toastit_v2.core.application.member.service.MemberService;
 import org.toastit_v2.core.domain.member.Member;
 import org.toastit_v2.core.ui.member.payload.response.ProfileResponse;
 
+@Tag(
+        name = "Member Profile",
+        description = "회원 프로필 조회 API"
+)
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/v2/member")

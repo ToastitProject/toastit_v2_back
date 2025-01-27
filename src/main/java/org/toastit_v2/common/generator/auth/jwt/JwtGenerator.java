@@ -23,12 +23,12 @@ public class JwtGenerator {
      * @return 서명된 JWT 토큰 문자열
      */
     public String generate(final SecretKey secretKey, final long expiration, final Member member) {
-        final Claims claims = create(member);
+        final Claims claims = this.create(member);
 
         return Jwts.builder()
                 .subject(member.getUserId())
                 .issuedAt(new Date())
-                .expiration(new Date(expiration))
+                .expiration(new Date(System.currentTimeMillis() + expiration))
                 .claims(claims)
                 .signWith(secretKey)
                 .compact();

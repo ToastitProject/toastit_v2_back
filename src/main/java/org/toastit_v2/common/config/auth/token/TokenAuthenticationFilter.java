@@ -23,7 +23,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String accessToken = tokenService.resolveAccessToken(request);
         if (tokenService.validateAccessToken(accessToken)) {
-            setAuthenticationToContext(accessToken);
+            this.setAuthenticationToContext(accessToken);
             filterChain.doFilter(request, response);
             return;
         }

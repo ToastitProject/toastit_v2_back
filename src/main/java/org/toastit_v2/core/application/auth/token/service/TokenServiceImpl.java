@@ -80,7 +80,6 @@ public class TokenServiceImpl implements TokenService {
     public boolean validateAccessToken(final String accessToken) {
         TokenStatus tokenStatus = jwtInspector.getTokenStatus(accessToken, accessKey);
         log.debug(tokenStatus.toString());
-
         return tokenStatus == TokenStatus.AUTHENTICATED && tokenRepository.findById(getUserIdFromToken(accessToken, accessKey)).isPresent();
     }
 

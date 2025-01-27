@@ -3,16 +3,12 @@ package org.toastit_v2.core.ui.member.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.toastit_v2.common.annotation.swagger.ApiExceptionResponse;
 import org.toastit_v2.common.annotation.swagger.ApiRequestBody;
 import org.toastit_v2.common.annotation.swagger.ApiSuccessResponse;
@@ -25,11 +21,11 @@ import org.toastit_v2.core.ui.member.payload.request.LoginRequest;
 import org.toastit_v2.core.ui.member.payload.response.LoginResponse;
 
 @Tag(
-        name = "Login & Out",
-        description = "로그인, 로그아웃"
+        name = "Member Login & Out",
+        description = "로그인 및 로그아웃 API"
 )
 @RestController
-@RequestMapping("/v2")
+@RequestMapping("/v2/member")
 @RequiredArgsConstructor
 public class AccessController {
 
