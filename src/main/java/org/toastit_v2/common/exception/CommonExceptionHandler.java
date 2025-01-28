@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.bson.json.JsonParseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -20,6 +21,16 @@ import org.toastit_v2.common.response.code.ExceptionCode;
 @Slf4j
 @RestControllerAdvice
 public class CommonExceptionHandler {
+
+    /**
+     * HTTP 요청 본문이 잘못되었거나, @RequestBody가 누락된 경우를 나타냅니다.
+     */
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ExceptionResponse> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+        log.error("Http Message Not Readable Exception", ex);
+        final ExceptionResponse response = ExceptionResponse.create(ExceptionCode.REQUEST_BODY_MISSING_ERROR, ex.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 
     /**
      * API 호출 시, 객체 또는 파라미터 값이 유효하지 않은 경우를 나타냅니다.
@@ -54,7 +65,7 @@ public class CommonExceptionHandler {
     @ExceptionHandler(MissingServletRequestParameterException.class)
     protected ResponseEntity<ExceptionResponse> handleMissingServletRequestParameterException(MissingServletRequestParameterException ex) {
         log.error("Missing Servlet Request Parameter", ex);
-        final ExceptionResponse response = ExceptionResponse.create(ExceptionCode.REQUEST_BODY_MISSING_ERROR, ex.getMessage());
+        final ExceptionResponse response = ExceptionResponse.create(ExceptionCode.MISSING_REQUEST_PARAMETER_ERROR, ex.getMessage());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

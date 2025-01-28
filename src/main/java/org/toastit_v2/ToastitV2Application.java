@@ -13,4 +13,5 @@ public class ToastitV2Application {
     public static void main(String[] args) {
         SpringApplication.run(ToastitV2Application.class, args);
     }
+
 }

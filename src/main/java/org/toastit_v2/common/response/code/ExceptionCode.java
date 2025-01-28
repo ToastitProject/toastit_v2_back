@@ -70,7 +70,7 @@ public enum ExceptionCode {
     INVALID_TYPE_VALUE(HttpStatus.BAD_REQUEST, "Invalid Type Value", 400),
 
     // Request Parameter 로 데이터가 전달되지 않을 경우
-    MISSING_REQUEST_PARAMETER_ERROR(HttpStatus.BAD_REQUEST, "Missing Servlet RequestParameter Exception", 400),
+    MISSING_REQUEST_PARAMETER_ERROR(HttpStatus.BAD_REQUEST, "Missing Servlet Request Parameter Exception", 400),
 
     // 입력/출력 값이 유효하지 않음
     IO_ERROR(HttpStatus.BAD_REQUEST, "I/O Exception", 400),
@@ -78,8 +78,6 @@ public enum ExceptionCode {
     // JSON 파싱 실패
     JSON_PARSE_ERROR(HttpStatus.BAD_REQUEST, "JsonParseException", 400),
 
-    // 권한이 없음
-    FORBIDDEN_ERROR(HttpStatus.FORBIDDEN, "Forbidden Exception", 403),
 
     // 서버로 요청한 리소스가 존재하지 않음
     NOT_FOUND_ERROR(HttpStatus.FORBIDDEN, "Not Found Exception", 403),
