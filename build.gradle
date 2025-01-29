@@ -104,8 +104,8 @@ tasks.named('test') {
 // SonarQube 설정
 sonar {
     properties {
-        property "sonar.projectKey", "capo-project_capo-backend_9c8ca8d4-60b4-4f51-b018-261f74c69a56"
-        property "sonar.projectName", "capo-backend"
+        property "sonar.projectKey", "ToastitProject_toastit_v2_back_c5f6de26-551c-417e-b1c5-8ea29ffe96db"
+        property "sonar.projectName", "toastit_v2_back"
         property "sonar.language", "java"
         property "sonar.sourceEncoding", "UTF-8"
         property "sonar.sources", "src/main"
