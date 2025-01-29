@@ -140,15 +140,8 @@ jacocoTestReport {
     afterEvaluate {
         classDirectories.setFrom(files(classDirectories.files.collect {
             fileTree(dir: it, exclude: [
-                    '**/dto/**',
-                    '**/event/**',
-                    '**/*InitData*',
-                    '**/*Application*',
-                    '**/exception/**',
-                    '**/service/alarm/**',
-                    '**/aop/**',
-                    '**/config/**',
-                    '**/MemberRole*'
+                    '**/common/**',
+                    '**/*Application*'
             ] + QDomainList)
         }))
     }
@@ -182,15 +175,8 @@ jacocoTestCoverageVerification {
             }
 
             excludes = [
-                    '**.dto.**',
-                    '**.event.**',
-                    '**.*InitData*',
-                    '**.*Application*',
-                    '**.exception.**',
-                    '**.service.alarm.**',
-                    '**.aop.**',
-                    '**.config.**',
-                    '**.MemberRole*'
+                    '**/common/**',
+                    '**/*Application*'
             ] + QDomainList
         }
     }
