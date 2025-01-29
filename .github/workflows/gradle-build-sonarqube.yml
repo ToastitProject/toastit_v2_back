@@ -1,4 +1,4 @@
-name: Capo-SonarQube
+name: Java CI with Gradle Build & SonarQube
 
 on:
   pull_request:
