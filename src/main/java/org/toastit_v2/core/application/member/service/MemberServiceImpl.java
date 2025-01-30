@@ -29,7 +29,6 @@ public class MemberServiceImpl implements MemberService {
         if (repository.findById((request.userId())).isPresent()) {
             throw new CustomMemberException((ExceptionCode.MEMBER_DUPLICATE));
         }
-
         final Member member = Member.create(request, new DateTimeGeneratorImpl(), new NicknameGeneratorImpl());
         return repository.save(member.passwordEncode(new PasswordEncodeGeneratorImpl(passwordEncoder)));
     }

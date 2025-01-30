@@ -8,9 +8,9 @@ public class CustomAuthMailException extends RuntimeException {
 
     private final ExceptionCode code;
 
-    public CustomAuthMailException(final ExceptionCode exceptionCode) {
-        super(exceptionCode.getMessage());
-        this.code = exceptionCode;
+    public CustomAuthMailException(final ExceptionCode code) {
+        super(code.getMessage());
+        this.code = code;
     }
 
 }
