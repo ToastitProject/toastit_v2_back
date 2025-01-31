@@ -11,7 +11,7 @@ import org.toastit_v2.common.generator.date.DateTimeGenerator;
 import org.toastit_v2.common.generator.nickname.NicknameGenerator;
 import org.toastit_v2.common.generator.password.PasswordEncodeGenerator;
 import org.toastit_v2.common.response.code.ExceptionCode;
-import org.toastit_v2.common.type.auth.security.Authority;
+import org.toastit_v2.core.domain.auth.security.Authority;
 import org.toastit_v2.core.ui.member.payload.request.SignUpRequest;
 
 import java.time.LocalDateTime;

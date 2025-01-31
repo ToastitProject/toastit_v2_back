@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.toastit_v2.common.exception.custom.CustomJwtException;
 import org.toastit_v2.common.response.code.ExceptionCode;
-import org.toastit_v2.common.type.auth.jwt.TokenStatus;
+import org.toastit_v2.core.domain.auth.token.TokenStatus;
 import org.toastit_v2.core.application.auth.token.port.JwtInspector;
 
 import javax.crypto.SecretKey;
