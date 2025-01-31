@@ -1,11 +1,9 @@
-/*
 package org.toastit_v2.core.application.cocktail.basecocktail.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.toastit_v2.feature.basecocktail.domain.Cocktail;
-import org.toastit_v2.feature.basecocktail.domain.CocktailCreate;
-import org.toastit_v2.feature.basecocktail.domain.CocktailSearch;
+import org.toastit_v2.core.domain.cocktail.basecocktail.Cocktail;
+import org.toastit_v2.core.domain.cocktail.basecocktail.CocktailCreate;
 import org.bson.types.ObjectId;
 
 import java.util.List;
@@ -33,4 +31,3 @@ public interface CocktailService {
     Cocktail createCocktail(CocktailCreate cocktailCreate);
 }
 
-*/

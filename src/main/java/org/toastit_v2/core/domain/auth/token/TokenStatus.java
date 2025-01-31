@@ -1,4 +1,4 @@
-package org.toastit_v2.common.type.auth.jwt;
+package org.toastit_v2.core.domain.auth.token;
 
 import lombok.Getter;
 

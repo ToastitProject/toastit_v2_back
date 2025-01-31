@@ -244,6 +244,24 @@ public class CommonExceptionHandler {
         return buildErrorResponse(ex);
     }
 
+    /**
+     * 트랜드 칵테일 관련 작업 중 발생하는 에러를 나타냅니다.
+     */
+    @ExceptionHandler(CustomTrendCocktailException.class)
+    protected ResponseEntity<ExceptionResponse> handleCustomTrendCocktailException(CustomTrendCocktailException ex){
+        log.error("Trend Exception", ex);
+        return buildErrorResponse(ex);
+    }
+
+    /**
+     * AWS 관련 작업 중 발생하는 에러를 나타냅니다.
+     */
+    @ExceptionHandler(CustomAwsException.class)
+    protected ResponseEntity<ExceptionResponse> handleCustomAwsException(CustomAwsException ex) {
+        log.error("AWS Exception", ex);
+        return buildErrorResponse(ex);
+    }
+
     private static <T extends RuntimeException> ResponseEntity<ExceptionResponse> buildErrorResponse(final T ex) {
         ExceptionCode exceptionCode = ExceptionCode.getErrorResponseCode(ex.getMessage());
         ExceptionResponse exceptionResponse = ExceptionResponse.create(exceptionCode, ex.getMessage() == null ? "empty" : ex.getMessage());

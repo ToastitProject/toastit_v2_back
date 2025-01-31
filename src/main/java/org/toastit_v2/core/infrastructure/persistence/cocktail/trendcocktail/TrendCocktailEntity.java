@@ -11,6 +11,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class TrendCocktailEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;

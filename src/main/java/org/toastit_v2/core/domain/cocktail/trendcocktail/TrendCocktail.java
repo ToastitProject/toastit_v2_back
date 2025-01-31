@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 @Builder
 @Getter
 public class TrendCocktail {
+
     private String startDate;
     private String endDate;
     private String timeUnit;
@@ -79,4 +80,5 @@ public class TrendCocktail {
                 })
                 .collect(Collectors.toList());
     }
+
 }

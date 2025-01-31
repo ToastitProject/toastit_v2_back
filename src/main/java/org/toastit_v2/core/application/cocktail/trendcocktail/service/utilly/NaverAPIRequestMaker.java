@@ -1,6 +1,5 @@
 package org.toastit_v2.core.application.cocktail.trendcocktail.service.utilly;
 
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -74,4 +73,5 @@ public class NaverAPIRequestMaker {
         }
         return finalResponse.toString();
     }
+
 }

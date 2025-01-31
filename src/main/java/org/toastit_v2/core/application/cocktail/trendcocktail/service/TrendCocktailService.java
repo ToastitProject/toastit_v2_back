@@ -5,6 +5,7 @@ import org.toastit_v2.core.application.cocktail.trendcocktail.port.TrendCocktail
 import org.toastit_v2.core.application.cocktail.trendcocktail.service.utilly.GoogleAPIRequestMaker;
 import org.toastit_v2.core.application.cocktail.trendcocktail.service.utilly.NaverAPIRequestMaker;
 import org.toastit_v2.core.infrastructure.persistence.cocktail.trendcocktail.TrendCocktailJpaRepository;
+
 import java.util.List;
 import java.util.Map;
 
@@ -50,4 +51,5 @@ public class TrendCocktailService implements TrendCocktailRepository {
     public Map<String,Object> googleTrendAPIRequest(String keywords) {
        return googleAPIRequestMaker.createGoogleTrendAPIRequest(keywords);
     }
+
 }
