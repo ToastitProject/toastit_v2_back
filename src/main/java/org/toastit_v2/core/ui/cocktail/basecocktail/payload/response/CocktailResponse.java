@@ -102,5 +102,5 @@ public class CocktailResponse {
                 .measure6(cocktail.getStrMeasure6())
                 .build();
     }
-}
 
+}

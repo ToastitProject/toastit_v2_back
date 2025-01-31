@@ -79,7 +79,7 @@ public class Cocktail {
         this.strMeasure10 = strMeasure10;
         this.strMeasure11 = strMeasure11;
     }
-
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

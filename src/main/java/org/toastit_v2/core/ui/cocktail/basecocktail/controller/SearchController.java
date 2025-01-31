@@ -1,11 +1,8 @@
-package org.toastit_v2.core.ui.cocktail.basecocktail;
+package org.toastit_v2.core.ui.cocktail.basecocktail.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
@@ -13,27 +10,24 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.toastit_v2.common.annotation.swagger.ApiExceptionResponse;
-import org.toastit_v2.common.annotation.swagger.ApiRequestBody;
 import org.toastit_v2.common.annotation.swagger.ApiSuccessResponse;
 import org.toastit_v2.common.response.SuccessResponse;
 import org.toastit_v2.common.response.code.ExceptionCode;
 import org.toastit_v2.common.response.code.SuccessCode;
 import org.toastit_v2.core.application.cocktail.basecocktail.service.CocktailService;
 import org.toastit_v2.core.domain.cocktail.basecocktail.Cocktail;
-import org.toastit_v2.core.ui.cocktail.basecocktail.payload.request.CocktailCreateRequest;
 import org.toastit_v2.core.ui.cocktail.basecocktail.payload.response.CocktailResponse;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Tag(
-        name = "Cocktail",
-        description = "칵테일 기본 레시피 API"
+        name = "Cocktail Search",
+        description = "칵테일 검색 및 조회 API"
 )
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/v2/cocktails")
-public class CocktailController {
+public class SearchController {
 
     private final CocktailService cocktailService;
 
@@ -47,20 +41,11 @@ public class CocktailController {
     })
     @GetMapping("/search")
     public ResponseEntity<SuccessResponse<Page<CocktailResponse>>> search(
-            @Parameter(
-                    description = "검색 키워드",
-                    example = "알코올, 레몬"
-            )
+            @Parameter(description = "검색 키워드", example = "알코올, 레몬")
             @RequestParam final String keyword,
-            @Parameter(
-                    description = "페이지 번호",
-                    example = "0"
-            )
+            @Parameter(description = "페이지 번호", example = "0")
             @RequestParam(name = "page", defaultValue = "0") final int page,
-            @Parameter(
-                    description = "페이지 크기",
-                    example = "20"
-            )
+            @Parameter(description = "페이지 크기", example = "20")
             @RequestParam(name = "size", defaultValue = "20") final int size
     ) {
         Page<CocktailResponse> responses = cocktailService.search(keyword, PageRequest.of(page, size))
@@ -86,10 +71,8 @@ public class CocktailController {
     })
     @GetMapping("/by-ids")
     public ResponseEntity<SuccessResponse<List<CocktailResponse>>> getCocktailsByIds(
-            @Parameter(
-                    description = "조회할 칵테일 ID 목록",
-                    example = "507f1f77bcf86cd799439011,507f1f77bcf86cd799439012"
-            )
+            @Parameter(description = "조회할 칵테일 ID 목록",
+                    example = "507f1f77bcf86cd799439011,507f1f77bcf86cd799439012")
             @RequestParam final List<String> ids
     ) {
         List<CocktailResponse> responses = cocktailService.getCocktailsByIds(
@@ -97,36 +80,6 @@ public class CocktailController {
                                 .map(ObjectId::new)
                                 .collect(Collectors.toList())
                 ).stream()
-                .map(CocktailResponse::from)
-                .collect(Collectors.toList());
-
-        return ResponseEntity.ok(
-                new SuccessResponse<>(
-                        responses,
-                        SuccessCode.SUCCESS.getHttpStatus(),
-                        SuccessCode.SUCCESS.getMessage(),
-                        SuccessCode.SUCCESS.getStatusCode()
-                )
-        );
-    }
-
-    @Operation(
-            summary = "랜덤 칵테일 조회",
-            description = "지정된 개수만큼 랜덤으로 칵테일을 조회합니다."
-    )
-    @ApiSuccessResponse(SuccessCode.SUCCESS)
-    @ApiExceptionResponse({
-            ExceptionCode.INVALID_COCKTAIL_COUNT
-    })
-    @GetMapping("/random")
-    public ResponseEntity<SuccessResponse<List<CocktailResponse>>> getRandom(
-            @Parameter(
-                    description = "조회할 개수",
-                    example = "5"
-            )
-            @RequestParam(defaultValue = "5") final int count
-    ) {
-        List<CocktailResponse> responses = cocktailService.getRandomCocktails(count).stream()
                 .map(CocktailResponse::from)
                 .collect(Collectors.toList());
 
@@ -150,15 +103,9 @@ public class CocktailController {
     })
     @GetMapping
     public ResponseEntity<SuccessResponse<Page<CocktailResponse>>> getAllCocktails(
-            @Parameter(
-                    description = "페이지 번호",
-                    example = "0"
-            )
+            @Parameter(description = "페이지 번호", example = "0")
             @RequestParam(name = "page", defaultValue = "0") final int page,
-            @Parameter(
-                    description = "페이지 크기",
-                    example = "20"
-            )
+            @Parameter(description = "페이지 크기", example = "20")
             @RequestParam(name = "size", defaultValue = "20") final int size
     ) {
         Page<CocktailResponse> responses = cocktailService.getAllCocktails(PageRequest.of(page, size))
@@ -196,37 +143,30 @@ public class CocktailController {
     }
 
     @Operation(
-            summary = "칵테일 생성",
-            description = "새로운 칵테일을 생성합니다."
+            summary = "랜덤 칵테일 조회",
+            description = "지정된 개수만큼 랜덤으로 칵테일을 조회합니다."
     )
     @ApiSuccessResponse(SuccessCode.SUCCESS)
     @ApiExceptionResponse({
-            ExceptionCode.INVALID_COCKTAIL_NAME,
-            ExceptionCode.INVALID_COCKTAIL_ALCOHOLIC,
-            ExceptionCode.INVALID_COCKTAIL_INGREDIENT,
-            ExceptionCode.INVALID_COCKTAIL_INSTRUCTION
+            ExceptionCode.INVALID_COCKTAIL_COUNT
     })
-    @PostMapping
-    public ResponseEntity<SuccessResponse<CocktailResponse>> createCocktail(
-            @ApiRequestBody(
-                    description = "칵테일 생성 요청 정보",
-                    content = @Content(
-                            schema = @Schema(implementation = CocktailCreateRequest.class)
-                    )
-            )
-            @Valid @RequestBody final CocktailCreateRequest request
+    @GetMapping("/random")
+    public ResponseEntity<SuccessResponse<List<CocktailResponse>>> getRandom(
+            @Parameter(description = "조회할 개수", example = "5")
+            @RequestParam(defaultValue = "5") final int count
     ) {
-        CocktailResponse response = CocktailResponse.from(
-                cocktailService.createCocktail(request.toDomain())
-        );
+        List<CocktailResponse> responses = cocktailService.getRandomCocktails(count).stream()
+                .map(CocktailResponse::from)
+                .collect(Collectors.toList());
 
         return ResponseEntity.ok(
                 new SuccessResponse<>(
-                        response,
+                        responses,
                         SuccessCode.SUCCESS.getHttpStatus(),
                         SuccessCode.SUCCESS.getMessage(),
                         SuccessCode.SUCCESS.getStatusCode()
                 )
         );
     }
+
 }

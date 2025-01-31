@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import org.toastit_v2.core.application.cocktail.basecocktail.port.CocktailRepository;
 import org.toastit_v2.core.domain.cocktail.basecocktail.Cocktail;
 import org.toastit_v2.core.domain.cocktail.basecocktail.CocktailSearch;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -65,5 +64,5 @@ public class CocktailRepositoryImpl implements CocktailRepository {
         CocktailDocument document = CocktailDocument.fromDomain(cocktail);
         return mongoRepository.save(document).toDomain();
     }
-}
 
+}

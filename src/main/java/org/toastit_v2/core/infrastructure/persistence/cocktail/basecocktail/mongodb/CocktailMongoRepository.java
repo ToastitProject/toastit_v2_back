@@ -8,4 +8,3 @@ import org.toastit_v2.core.infrastructure.persistence.cocktail.basecocktail.mong
 @ExcludeJpaRepository
 public interface CocktailMongoRepository extends MongoRepository<CocktailDocument, ObjectId>, CustomCocktailRepository {
 }
-

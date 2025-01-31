@@ -7,10 +7,11 @@ import org.toastit_v2.core.domain.cocktail.basecocktail.CocktailSearch;
 import java.util.List;
 
 public interface CustomCocktailRepository {
+
     Page<CocktailDocument> search(CocktailSearch searchCondition, Pageable pageable);
 
     List<CocktailDocument> findRandom(int count);
 
     List<CocktailDocument> findAllNames();
-}
 
+}

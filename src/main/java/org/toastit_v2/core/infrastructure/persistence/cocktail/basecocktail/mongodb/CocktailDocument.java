@@ -175,6 +175,7 @@ public class CocktailDocument {
 
 
     public static CocktailDocument fromDomain(Cocktail cocktail) {
+
         return CocktailDocument.builder()
                 .id(cocktail.getId())
                 .strDrink(cocktail.getStrDrink())
@@ -206,5 +207,5 @@ public class CocktailDocument {
                 .strMeasure11(cocktail.getStrMeasure11())
                 .build();
     }
-}
 
+}

@@ -48,6 +48,7 @@ public class CocktailCreateRequest {
                                  String strMeasure4, String strMeasure5, String strMeasure6,
                                  String strMeasure7, String strMeasure8, String strMeasure9,
                                  String strMeasure10, String strMeasure11) {
+
         this.strDrink = strDrink;
         this.strAlcoholic = strAlcoholic;
         this.strCategory = strCategory;
@@ -77,7 +78,8 @@ public class CocktailCreateRequest {
         this.strMeasure11 = strMeasure11;
     }
 
-    public CocktailCreate toDomain(){
+    public CocktailCreate toDomain() {
+
         return CocktailCreate.builder()
                 .strDrink(this.strDrink)
                 .strAlcoholic(this.strAlcoholic)
@@ -108,5 +110,5 @@ public class CocktailCreateRequest {
                 .strMeasure11(this.strMeasure11)
                 .build();
     }
-}
 
+}
