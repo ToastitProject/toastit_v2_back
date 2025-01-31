@@ -187,8 +187,8 @@ public class SwaggerConfig {
     private Schema<?> createExceptionSchema(ExceptionCode exceptionCode) {
         Schema<?> exceptionSchema = new Schema<>();
         exceptionSchema.addProperty("http_status", new Schema().example(exceptionCode.getHttpStatus().toString()));
-        exceptionSchema.addProperty("result_message", new Schema<>().example(exceptionCode.getMessage()));
-        exceptionSchema.addProperty("result_code", new Schema<>().example(exceptionCode.getResultCode()));
+        exceptionSchema.addProperty("message", new Schema<>().example(exceptionCode.getMessage()));
+        exceptionSchema.addProperty("status_code", new Schema<>().example(exceptionCode.getStatusCode()));
         return exceptionSchema;
     }
 

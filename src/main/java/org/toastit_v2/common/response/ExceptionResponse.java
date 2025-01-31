@@ -9,23 +9,22 @@ import org.springframework.validation.BindingResult;
 import org.toastit_v2.common.response.code.ExceptionCode;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @RequiredArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class ExceptionResponse {
 
-    private HttpStatus status;
-    private int resultCode;
-    private String resultMessage;
-    private List<FieldError> errors;
     private Object result;
+    private HttpStatus status;
+    private String message;
+    private int statusCode;
+    private List<FieldError> errors;
 
     public ExceptionResponse(final ExceptionCode code, final List<FieldError> errors, final Object result) {
         this.status = code.getHttpStatus();
-        this.resultCode = code.getResultCode();
-        this.resultMessage = code.getMessage();
+        this.statusCode = code.getStatusCode();
+        this.message = code.getMessage();
         this.errors = errors;
         this.result = result;
     }
@@ -42,27 +41,16 @@ public class ExceptionResponse {
         return new ExceptionResponse(ExceptionResponse.FieldError.from(bindingResult), code);
     }
 
-    @Getter
-    public static class FieldError {
+    public record FieldError(String field, String value, String reason) {
 
-        private final String field;
-        private final String value;
-        private final String reason;
-
-        public FieldError(final String field, final String value, final String reason) {
-            this.field = field;
-            this.value = value;
-            this.reason = reason;
-        }
-
-        private static List<ExceptionResponse.FieldError> from(final BindingResult bindingResult) {
+        private static List<FieldError> from(final BindingResult bindingResult) {
             final List<org.springframework.validation.FieldError> fieldErrors = bindingResult.getFieldErrors();
 
             return fieldErrors.stream().map(error -> new ExceptionResponse.FieldError(
                             error.getField(),
                             error.getRejectedValue() == null ? "" : error.getRejectedValue().toString(),
                             error.getDefaultMessage()))
-                    .collect(Collectors.toList());
+                    .toList();
         }
 
     }

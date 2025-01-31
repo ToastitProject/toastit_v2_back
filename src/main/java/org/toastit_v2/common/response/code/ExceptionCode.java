@@ -113,7 +113,7 @@ public enum ExceptionCode {
 
     private final HttpStatus httpStatus;
     private final String message;
-    private final int resultCode;
+    private final int statusCode;
     private static final Map<String, ExceptionCode> exceptionMap = new HashMap<>();
 
     static {
