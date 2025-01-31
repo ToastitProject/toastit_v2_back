@@ -9,6 +9,7 @@ import org.toastit_v2.core.domain.cocktail.basecocktail.Cocktail;
 @Getter
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class CocktailResponse {
+
     private final String id;
     private final String name;
     private final String alcoholic;

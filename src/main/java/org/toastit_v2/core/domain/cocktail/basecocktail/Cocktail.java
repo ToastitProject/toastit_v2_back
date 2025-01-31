@@ -8,6 +8,7 @@ import java.util.Objects;
 
 @Getter
 public class Cocktail {
+
     private final ObjectId id;
     private final String strDrink;
     private final String strAlcoholic;
@@ -92,5 +93,6 @@ public class Cocktail {
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }
 

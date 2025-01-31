@@ -5,6 +5,7 @@ import org.toastit_v2.common.exception.custom.CustomBaseCocktailException;
 import org.toastit_v2.common.response.code.ExceptionCode;
 
 public class CocktailCreate {
+
     private final String strDrink;
     private final String strAlcoholic;
     private final String strCategory;
