@@ -36,7 +36,8 @@ public class ImageController {
             @Parameter(description = "업로드할 파일")
             @RequestParam("file") MultipartFile file,
             @Parameter(description = "업로드할 폴더 이름")
-            @RequestParam("folderName") String folderName){
+            @RequestParam("folderName") String folderName
+    ) {
         String fileUrl = imageService.uploadFile(file, folderName);
         return ResponseEntity.ok(new SuccessResponse<>(fileUrl, SuccessCode.SUCCESS.getHttpStatus(), SuccessCode.SUCCESS.getMessage(), SuccessCode.SUCCESS.getStatusCode()));
     }
@@ -50,7 +51,8 @@ public class ImageController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SuccessResponse<String>> temporary(
             @Parameter(description = "임시로 업로드할 파일")
-            @RequestParam("file") MultipartFile file) {
+            @RequestParam("file") MultipartFile file
+    ) {
         String fileUrl = imageService.uploadFileToTemp(file);
         return ResponseEntity.ok(new SuccessResponse<>(fileUrl, SuccessCode.SUCCESS.getHttpStatus(), SuccessCode.SUCCESS.getMessage(), SuccessCode.SUCCESS.getStatusCode()));
     }
@@ -61,10 +63,17 @@ public class ImageController {
     )
     @PostMapping("/uploads/profileImage")
     public ResponseEntity<SuccessResponse<String>> uploadProfileImage(
-            @Parameter(description = "업로드할 프로필 이미지 파일")
-            @RequestParam("file") MultipartFile file) {
+            @Parameter(description = "업로드할 프로필 이미지 파일") @RequestParam("file") MultipartFile file
+    ) {
         String fileUrl = imageService.uploadProfileImage(file, 100, 100);
-        return ResponseEntity.ok(new SuccessResponse<>(fileUrl, SuccessCode.SUCCESS.getHttpStatus(), SuccessCode.SUCCESS.getMessage(), SuccessCode.SUCCESS.getStatusCode()));
+        return ResponseEntity.ok(
+                new SuccessResponse<>(
+                        fileUrl,
+                        SuccessCode.SUCCESS.getHttpStatus(),
+                        SuccessCode.SUCCESS.getMessage(),
+                        SuccessCode.SUCCESS.getStatusCode()
+                )
+        );
     }
 
     @Operation(
@@ -73,12 +82,18 @@ public class ImageController {
     )
     @PostMapping("/move")
     public ResponseEntity<SuccessResponse<Object>> move(
-            @Parameter(description = "이동할 파일 이름")
-            @RequestParam("fileName") String fileName,
-            @Parameter(description = "목표 폴더 이름")
-            @RequestParam("folderName") String folderName) {
+            @Parameter(description = "이동할 파일 이름") @RequestParam("fileName") String fileName,
+            @Parameter(description = "목표 폴더 이름") @RequestParam("folderName") String folderName
+    ) {
         imageService.moveTempToFinal(fileName, folderName);
-        return ResponseEntity.ok(new SuccessResponse<>(null, SuccessCode.SUCCESS.getHttpStatus(), SuccessCode.SUCCESS.getMessage(), SuccessCode.SUCCESS.getStatusCode()));
+        return ResponseEntity.ok(
+                new SuccessResponse<>(
+                        null,
+                        SuccessCode.SUCCESS.getHttpStatus(),
+                        SuccessCode.SUCCESS.getMessage(),
+                        SuccessCode.SUCCESS.getStatusCode()
+                )
+        );
     }
 
     @Operation(
@@ -87,8 +102,8 @@ public class ImageController {
     )
     @DeleteMapping("/deleteImage")
     public ResponseEntity<SuccessResponse<Object>> deleteImage(
-            @Parameter(description = "삭제할 이미지 파일 이름")
-            @RequestParam("fileName") String fileName) {
+            @Parameter(description = "삭제할 이미지 파일 이름") @RequestParam("fileName") String fileName
+    ) {
         imageService.deleteImageFile(fileName);
         return ResponseEntity.ok(new SuccessResponse<>(null, SuccessCode.SUCCESS.getHttpStatus(), SuccessCode.SUCCESS.getMessage(), SuccessCode.SUCCESS.getStatusCode()));
     }

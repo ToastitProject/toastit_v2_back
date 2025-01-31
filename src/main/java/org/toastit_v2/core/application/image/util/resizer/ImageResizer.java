@@ -21,4 +21,5 @@ public class ImageResizer {
         g2d.dispose();
         return resizedImage;
     }
+
 }

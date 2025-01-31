@@ -2,11 +2,9 @@ package org.toastit_v2.core.application.cocktail.trendcocktail.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.toastit_v2.core.domain.cocktail.trendcocktail.TrendCocktail;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +14,7 @@ import java.util.stream.Collectors;
 @Getter
 @NoArgsConstructor
 public class NaverTrendCocktailDTO {
+
     @JsonProperty("startDate")
     private String startDate;
 
@@ -29,10 +28,12 @@ public class NaverTrendCocktailDTO {
     private List<Result> results;
 
     @JsonCreator
-    public NaverTrendCocktailDTO(@JsonProperty("startDate") String startDate,
-                                 @JsonProperty("endDate") String endDate,
-                                 @JsonProperty("timeUnit") String timeUnit,
-                                 @JsonProperty("results") List<Result> results) {
+    public NaverTrendCocktailDTO(
+            @JsonProperty("startDate") String startDate,
+            @JsonProperty("endDate") String endDate,
+            @JsonProperty("timeUnit") String timeUnit,
+            @JsonProperty("results") List<Result> results
+    ) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.timeUnit = timeUnit;
@@ -52,9 +53,20 @@ public class NaverTrendCocktailDTO {
                 .build();
     }
 
+    public Map<String, List<Result>> getResultsByKeyword() {
+        Map<String, List<Result>> keywordMap = new HashMap<>();
+        for (Result result : results) {
+            for (String keyword : result.getKeywords()) {
+                keywordMap.computeIfAbsent(keyword, k -> new ArrayList<>()).add(result);
+            }
+        }
+        return keywordMap;
+    }
+
     @Getter
     @NoArgsConstructor
     public static class Result {
+
         @JsonProperty("title")
         private String title;
 
@@ -65,9 +77,11 @@ public class NaverTrendCocktailDTO {
         private List<Data> data;
 
         @JsonCreator
-        public Result(@JsonProperty("title") String title,
-                      @JsonProperty("keywords") List<String> keywords,
-                      @JsonProperty("data") List<Data> data) {
+        public Result(
+                @JsonProperty("title") String title,
+                @JsonProperty("keywords") List<String> keywords,
+                @JsonProperty("data") List<Data> data
+        ) {
             this.title = title;
             this.keywords = keywords;
             this.data = data;
@@ -84,11 +98,13 @@ public class NaverTrendCocktailDTO {
                     .data(domainData)
                     .build();
         }
+
     }
 
     @Getter
     @NoArgsConstructor
     public static class Data {
+
         @JsonProperty("period")
         private String period;
 
@@ -96,8 +112,10 @@ public class NaverTrendCocktailDTO {
         private double ratio;
 
         @JsonCreator
-        public Data(@JsonProperty("period") String period,
-                    @JsonProperty("ratio") double ratio) {
+        public Data(
+                @JsonProperty("period") String period,
+                @JsonProperty("ratio") double ratio
+        ) {
             this.period = period;
             this.ratio = ratio;
         }
@@ -108,15 +126,7 @@ public class NaverTrendCocktailDTO {
                     .ratio(ratio)
                     .build();
         }
+
     }
 
-    public Map<String, List<Result>> getResultsByKeyword() {
-        Map<String, List<Result>> keywordMap = new HashMap<>();
-        for (Result result : results) {
-            for (String keyword : result.getKeywords()) {
-                keywordMap.computeIfAbsent(keyword, k -> new ArrayList<>()).add(result);
-            }
-        }
-        return keywordMap;
-    }
 }

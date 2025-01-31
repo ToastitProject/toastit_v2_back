@@ -37,7 +37,8 @@ public class TrendCocktailController {
                     description = "검색 키워드",
                     example = "칵테일"
             )
-            @RequestParam String keyword) {
+            @RequestParam String keyword
+    ) {
         Map<String, Object> trendData = trendCocktailService.googleTrendAPIRequest(keyword);
 
         return ResponseEntity.ok(
@@ -69,4 +70,5 @@ public class TrendCocktailController {
                 )
         );
     }
+
 }

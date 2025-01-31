@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
-import org.toastit_v2.common.exception.custom.CustomAWSException;
+import org.toastit_v2.common.exception.custom.CustomAwsException;
 import org.toastit_v2.common.response.code.ExceptionCode;
 import org.toastit_v2.core.application.image.util.FileUtil;
 import org.toastit_v2.core.application.image.util.resizer.ImageResizer;
@@ -22,8 +22,8 @@ import java.io.IOException;
 
 import static org.toastit_v2.core.application.image.util.FileUtil.makeFileName;
 
-@Validated
 @Service
+@Validated
 @Qualifier("prod")
 public class ImageServiceImpl implements ImageService {
 
@@ -56,7 +56,7 @@ public class ImageServiceImpl implements ImageService {
         try {
             amazonS3Client.putObject(bucketName, uniqueFileName, file.getInputStream(), metadata);
         } catch (IOException exceptionMessage) {
-            throw new CustomAWSException(ExceptionCode.IMAGE_FORMAT_ERROR);
+            throw new CustomAwsException(ExceptionCode.IMAGE_FORMAT_ERROR);
         }
         return uniqueFileName;
     }
@@ -75,7 +75,7 @@ public class ImageServiceImpl implements ImageService {
         try {
             amazonS3Client.putObject(bucketName, uniqueFileName, file.getInputStream(), metadata);
         } catch (IOException exceptionMessage) {
-            throw new CustomAWSException(ExceptionCode.IMAGE_ERROR);
+            throw new CustomAwsException(ExceptionCode.IMAGE_ERROR);
         }
         return originFileNane;
     }
@@ -95,7 +95,7 @@ public class ImageServiceImpl implements ImageService {
             amazonS3Client.copyObject(bucketName, sourceKey, bucketName, destinationKey);
             amazonS3Client.deleteObject(bucketName, sourceKey);
         } else {
-            throw new CustomAWSException(ExceptionCode.IMAGE_NOT_TEMP);
+            throw new CustomAwsException(ExceptionCode.IMAGE_NOT_TEMP);
         }
     }
 
@@ -110,7 +110,7 @@ public class ImageServiceImpl implements ImageService {
         if (amazonS3Client.doesObjectExist(bucketName, FileName)) {
             amazonS3Client.deleteObject(bucketName, FileName);
         } else {
-            throw new CustomAWSException(ExceptionCode.IMAGE_NOT_FOUND);
+            throw new CustomAwsException(ExceptionCode.IMAGE_NOT_FOUND);
         }
     }
 
@@ -139,7 +139,7 @@ public class ImageServiceImpl implements ImageService {
                     metadata
             );
         } catch (IOException exceptionMessage) {
-            throw new CustomAWSException(ExceptionCode.IMAGE_FORMAT_ERROR);
+            throw new CustomAwsException(ExceptionCode.IMAGE_FORMAT_ERROR);
         }
         return uniqueFileName;
     }

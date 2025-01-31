@@ -186,12 +186,11 @@ public class CommonExceptionHandler {
     /**
      * AWS 관련 작업 중 발생하는 에러를 나타냅니다.
      */
-    @ExceptionHandler(CustomAWSException.class)
-    protected ResponseEntity<ExceptionResponse> handleCustomAWSException(CustomAWSException ex) {
+    @ExceptionHandler(CustomAwsException.class)
+    protected ResponseEntity<ExceptionResponse> handleCustomAwsException(CustomAwsException ex) {
         log.error("AWS Exception", ex);
         return buildErrorResponse(ex);
     }
-
 
     private static <T extends RuntimeException> ResponseEntity<ExceptionResponse> buildErrorResponse(final T ex) {
         ExceptionCode exceptionCode = ExceptionCode.getErrorResponseCode(ex.getMessage());
