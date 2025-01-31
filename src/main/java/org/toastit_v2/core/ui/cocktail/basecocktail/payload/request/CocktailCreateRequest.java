@@ -6,10 +6,10 @@ import lombok.Builder;
 import lombok.Getter;
 import org.toastit_v2.core.domain.cocktail.basecocktail.CocktailCreate;
 
-// 이전 버전에선 사용하지 않았던 기능. 추후에 추가를 고려해서 클래스만 생성
 @Getter
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class CocktailCreateRequest {
+
     private final String strDrink;
     private final String strAlcoholic;
     private final String strCategory;
@@ -49,6 +49,7 @@ public class CocktailCreateRequest {
                                  String strMeasure4, String strMeasure5, String strMeasure6,
                                  String strMeasure7, String strMeasure8, String strMeasure9,
                                  String strMeasure10, String strMeasure11) {
+
         this.strDrink = strDrink;
         this.strAlcoholic = strAlcoholic;
         this.strCategory = strCategory;
@@ -78,7 +79,8 @@ public class CocktailCreateRequest {
         this.strMeasure11 = strMeasure11;
     }
 
-    public CocktailCreate toDomain(){
+    public CocktailCreate toDomain() {
+
         return CocktailCreate.builder()
                 .strDrink(this.strDrink)
                 .strAlcoholic(this.strAlcoholic)
@@ -109,5 +111,5 @@ public class CocktailCreateRequest {
                 .strMeasure11(this.strMeasure11)
                 .build();
     }
-}
 
+}

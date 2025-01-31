@@ -29,6 +29,13 @@ public enum ExceptionCode {
     /**
      * Base Cocktail Exception Code
      */
+    NOT_FOUND_COCKTAIL(HttpStatus.NOT_FOUND, "칵테일을 찾을 수 없습니다.", 404),
+    INVALID_COCKTAIL_SEARCH(HttpStatus.BAD_REQUEST, "검색 조건이 올바르지 않습니다.", 400),
+    INVALID_COCKTAIL_COUNT(HttpStatus.BAD_REQUEST, "유효하지 않은 칵테일 개수입니다.", 400),
+    INVALID_COCKTAIL_NAME(HttpStatus.BAD_REQUEST, "칵테일 이름은 필수입니다",400),
+    INVALID_COCKTAIL_ALCOHOLIC(HttpStatus.BAD_REQUEST, "알코올 유무는 필수입니다",400),
+    INVALID_COCKTAIL_INGREDIENT(HttpStatus.BAD_REQUEST, "최소 1개의 재료는 필수입니다",400),
+    INVALID_COCKTAIL_INSTRUCTION(HttpStatus.BAD_REQUEST, "레시피 설명은 필수입니다",400),
 
     /**
      * Craft Cocktail Exception Code
@@ -106,7 +113,7 @@ public enum ExceptionCode {
 
     private final HttpStatus httpStatus;
     private final String message;
-    private final int resultCode;
+    private final int statusCode;
     private static final Map<String, ExceptionCode> exceptionMap = new HashMap<>();
 
     static {

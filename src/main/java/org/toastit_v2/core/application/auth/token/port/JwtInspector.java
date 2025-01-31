@@ -1,7 +1,7 @@
 package org.toastit_v2.core.application.auth.token.port;
 
 import io.jsonwebtoken.Claims;
-import org.toastit_v2.common.type.auth.jwt.TokenStatus;
+import org.toastit_v2.core.domain.auth.token.TokenStatus;
 
 import javax.crypto.SecretKey;
 

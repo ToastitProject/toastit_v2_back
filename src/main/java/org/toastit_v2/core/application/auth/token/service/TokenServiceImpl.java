@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.toastit_v2.common.generator.auth.jwt.JwtGenerator;
-import org.toastit_v2.common.type.auth.jwt.TokenStatus;
+import org.toastit_v2.core.domain.auth.token.TokenStatus;
 import org.toastit_v2.core.application.auth.security.service.UserDetailsServiceImpl;
 import org.toastit_v2.core.application.auth.token.port.TokenRepository;
 import org.toastit_v2.core.application.auth.token.port.JwtInspector;
