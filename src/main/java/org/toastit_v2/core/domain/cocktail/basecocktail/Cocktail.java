@@ -36,9 +36,7 @@ public class Cocktail {
     private final String strMeasure9;
     private final String strMeasure10;
     private final String strMeasure11;
-    //     private final int likeCount;
 
-    //        likeCount를 쓴다면 Integer likeCount를 추가
     @Builder
     public Cocktail(ObjectId id, String strDrink, String strAlcoholic, String strCategory, String strGlass,
                     String strIngredient1, String strIngredient2, String strIngredient3,
@@ -80,11 +78,8 @@ public class Cocktail {
         this.strMeasure9 = strMeasure9;
         this.strMeasure10 = strMeasure10;
         this.strMeasure11 = strMeasure11;
-//        this.likeCount = likeCount != null ? likeCount : 0;
     }
 
-
-    // equals랑 hashCode는 영속성 프레임워크에서 구현한다고 해서 구현함.
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

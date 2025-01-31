@@ -5,14 +5,13 @@ import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.toastit_v2.core.common.application.code.CommonExceptionCode;
-import org.toastit_v2.core.common.application.exception.RestApiException;
-import org.toastit_v2.core.application.cocktail.basecocktail.service.CocktailService;
+import org.springframework.transaction.annotation.Transactional;
+import org.toastit_v2.common.exception.custom.CustomBaseCocktailException;
+import org.toastit_v2.common.response.code.ExceptionCode;
 import org.toastit_v2.core.application.cocktail.basecocktail.port.CocktailRepository;
 import org.toastit_v2.core.domain.cocktail.basecocktail.Cocktail;
 import org.toastit_v2.core.domain.cocktail.basecocktail.CocktailSearch;
 import org.toastit_v2.core.domain.cocktail.basecocktail.CocktailCreate;
-import org.toastit_v2.core.ui.cocktail.basecocktail.payload.response.CocktailResponse;
 import java.util.List;
 
 @Service
@@ -22,55 +21,61 @@ public class CocktailServiceImpl implements CocktailService {
     private final CocktailRepository cocktailRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public Page<Cocktail> search(String keyword, Pageable pageable) {
-        try {
-            CocktailSearch searchCondition = CocktailSearch.from(keyword);
-            return cocktailRepository.search(searchCondition, pageable);
-        } catch (Exception e) {
-            throw new RestApiException(CommonExceptionCode.INVALID_COCKTAIL_SEARCH);
+        final Page<Cocktail> searchResults = cocktailRepository.search(CocktailSearch.from(keyword), pageable);
+        if(searchResults.isEmpty()) {
+            throw new CustomBaseCocktailException((ExceptionCode.NOT_FOUND_COCKTAIL));
         }
-    }
-    @Override
-    public Cocktail getCocktailById(ObjectId id) {
-        return cocktailRepository.findById(id)
-                .orElseThrow(() -> new RestApiException(CommonExceptionCode.NOT_FOUND_COCKTAIL));
+        return searchResults;
     }
 
     @Override
-    public List<Cocktail> getCocktailsByIds(List<ObjectId> ids) {
-        List<Cocktail> cocktails = cocktailRepository.findByIdIn(ids);
+    @Transactional(readOnly = true)
+    public Cocktail getCocktailById(final ObjectId id) {
+        return cocktailRepository.findById(id)
+                .orElseThrow(() -> new CustomBaseCocktailException(ExceptionCode.NOT_FOUND_COCKTAIL));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Cocktail> getCocktailsByIds(final List<ObjectId> ids) {
+        final List<Cocktail> cocktails = cocktailRepository.findByIdIn(ids);
         if (cocktails.isEmpty()) {
-            throw new RestApiException(CommonExceptionCode.NOT_FOUND_COCKTAIL);
+            throw new CustomBaseCocktailException(ExceptionCode.NOT_FOUND_COCKTAIL);
         }
         return cocktails;
     }
 
     @Override
-    public List<Cocktail> getRandomCocktails(int count) {
+    @Transactional(readOnly = true)
+    public List<Cocktail> getRandomCocktails(final int count) {
         if (count <= 0) {
-            throw new RestApiException(CommonExceptionCode.INVALID_COCKTAIL_COUNT);
+            throw new CustomBaseCocktailException(ExceptionCode.INVALID_COCKTAIL_COUNT);
         }
         return cocktailRepository.findRandom(count);
     }
 
     @Override
-    public Page<Cocktail> getAllCocktails(Pageable pageable) {
-        Page<Cocktail> cocktails = cocktailRepository.findAll(pageable);
-        // 만약 페이징 처리후에 없으면
+    @Transactional(readOnly = true)
+    public Page<Cocktail> getAllCocktails(final Pageable pageable) {
+        final Page<Cocktail> cocktails = cocktailRepository.findAll(pageable);
         if (cocktails.isEmpty()) {
-            throw new RestApiException(CommonExceptionCode.NOT_FOUND_COCKTAIL);
+            throw new CustomBaseCocktailException(ExceptionCode.NOT_FOUND_COCKTAIL);
         }
         return cocktails;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Cocktail> getCocktailNames() {
         return cocktailRepository.findAllNames();
     }
 
     @Override
-    public Cocktail createCocktail(CocktailCreate cocktailCreate) {
-        Cocktail cocktail = cocktailCreate.toDomain();
+    @Transactional
+    public Cocktail createCocktail(final CocktailCreate cocktailCreate) {
+        final Cocktail cocktail = cocktailCreate.toDomain();
         return cocktailRepository.save(cocktail);
     }
 }

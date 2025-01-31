@@ -1,7 +1,6 @@
 package org.toastit_v2.core.domain.cocktail.basecocktail;
 
 import lombok.Builder;
-import org.toastit_v2.common.response.code.ExceptionCode;
 
 public class CocktailCreate {
     private final String strDrink;

@@ -8,9 +8,6 @@ import org.springframework.stereotype.Repository;
 import org.toastit_v2.core.application.cocktail.basecocktail.port.CocktailRepository;
 import org.toastit_v2.core.domain.cocktail.basecocktail.Cocktail;
 import org.toastit_v2.core.domain.cocktail.basecocktail.CocktailSearch;
-import org.toastit_v2.core.infrastructure.persistence.cocktail.basecocktail.mongodb.CocktailDocument;
-import org.toastit_v2.core.infrastructure.persistence.cocktail.basecocktail.mongodb.CocktailMongoRepository;
-
 
 import java.util.List;
 import java.util.Optional;
