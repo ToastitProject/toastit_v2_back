@@ -1,11 +1,7 @@
-/*
 package org.toastit_v2.core.domain.cocktail.basecocktail;
 
 import lombok.Builder;
 import lombok.Getter;
-import org.toastit_v2.feature.basecocktail.domain.AlcoholType;
-import org.toastit_v2.feature.basecocktail.domain.SearchType;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,10 +10,10 @@ public class CocktailSearch {
     private final SearchType searchType;    // 검색 종류
     private final String keyword;           // 원본 검색 키워드
     private final List<String> ingredients; // 쉼표로 구분된 재료들
-    private final org.toastit_v2.feature.basecocktail.domain.AlcoholType alcoholType;  // 알코올 유무
+    private final AlcoholType alcoholType;  // 알코올 유무
 
     @Builder
-    private CocktailSearch(SearchType searchType, String keyword, List<String> ingredients, org.toastit_v2.feature.basecocktail.domain.AlcoholType alcoholType) {
+    private CocktailSearch(SearchType searchType, String keyword, List<String> ingredients, AlcoholType alcoholType) {
         this.searchType = searchType;
         this.keyword = keyword;
         this.ingredients = ingredients;
@@ -33,11 +29,11 @@ public class CocktailSearch {
         }
 
         // 알코올 타입 체크
-        org.toastit_v2.feature.basecocktail.domain.AlcoholType alcoholType = null;
+        AlcoholType alcoholType = null;
 
         // 무알콜/논알콜 체크
         if (containsAny(keyword, "무알콜", "무알코올", "논알콜", "논알코올")) {
-            alcoholType = org.toastit_v2.feature.basecocktail.domain.AlcoholType.NON_ALCOHOLIC;
+            alcoholType = AlcoholType.NON_ALCOHOLIC;
             keyword = removeWords(keyword, "무알콜", "무알코올", "논알콜", "논알코올");
         }
         // 알코올 체크
@@ -85,4 +81,3 @@ public class CocktailSearch {
     }
 }
 
-*/

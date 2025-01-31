@@ -1,4 +1,3 @@
-/*
 package org.toastit_v2.core.infrastructure.persistence.cocktail.basecocktail.mongodb.custom;
 
 import lombok.RequiredArgsConstructor;
@@ -10,11 +9,12 @@ import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.toastit_v2.feature.basecocktail.domain.CocktailSearch;
-import org.toastit_v2.feature.basecocktail.domain.SearchType; // SearchType import 추가
-import org.toastit_v2.feature.basecocktail.domain.AlcoholType; // AlcoholType import 추가
-import org.toastit_v2.feature.basecocktail.infrastructure.persistence.mongodb.CocktailDocument;
-import org.toastit_v2.feature.basecocktail.infrastructure.persistence.mongodb.custom.CustomCocktailRepository;
+import org.toastit_v2.core.domain.cocktail.basecocktail.CocktailSearch;
+import org.toastit_v2.core.domain.cocktail.basecocktail.SearchType;
+import org.toastit_v2.core.domain.cocktail.basecocktail.AlcoholType;
+import org.toastit_v2.core.infrastructure.persistence.cocktail.basecocktail.mongodb.CocktailDocument;
+import org.toastit_v2.core.infrastructure.persistence.cocktail.basecocktail.mongodb.custom.CustomCocktailRepository;
+
 
 import java.util.List;
 
@@ -137,4 +137,3 @@ public class CustomCocktailRepositoryImpl implements CustomCocktailRepository {
     }
 }
 
-*/

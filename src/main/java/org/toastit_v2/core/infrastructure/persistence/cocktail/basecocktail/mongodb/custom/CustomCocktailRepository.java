@@ -1,11 +1,9 @@
-/*
 package org.toastit_v2.core.infrastructure.persistence.cocktail.basecocktail.mongodb.custom;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.toastit_v2.feature.basecocktail.infrastructure.persistence.mongodb.CocktailDocument;
-import org.toastit_v2.feature.basecocktail.domain.CocktailSearch;
-
+import org.toastit_v2.core.infrastructure.persistence.cocktail.basecocktail.mongodb.CocktailDocument;
+import org.toastit_v2.core.domain.cocktail.basecocktail.CocktailSearch;
 import java.util.List;
 
 public interface CustomCocktailRepository {
@@ -19,4 +17,3 @@ public interface CustomCocktailRepository {
     List<CocktailDocument> findAllNames();
 }
 
-*/

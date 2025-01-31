@@ -1,4 +1,3 @@
-/*
 package org.toastit_v2.core.application.cocktail.basecocktail.service;
 
 import lombok.RequiredArgsConstructor;
@@ -8,13 +7,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.toastit_v2.core.common.application.code.CommonExceptionCode;
 import org.toastit_v2.core.common.application.exception.RestApiException;
-import org.toastit_v2.feature.basecocktail.application.port.CocktailRepository;
-import org.toastit_v2.feature.basecocktail.application.service.CocktailService;
-import org.toastit_v2.feature.basecocktail.domain.Cocktail;
-import org.toastit_v2.feature.basecocktail.domain.CocktailCreate;
-import org.toastit_v2.feature.basecocktail.domain.CocktailSearch;
-import org.toastit_v2.feature.basecocktail.web.response.CocktailResponse;
-
+import org.toastit_v2.core.application.cocktail.basecocktail.service.CocktailService;
+import org.toastit_v2.core.application.cocktail.basecocktail.port.CocktailRepository;
+import org.toastit_v2.core.domain.cocktail.basecocktail.Cocktail;
+import org.toastit_v2.core.domain.cocktail.basecocktail.CocktailSearch;
+import org.toastit_v2.core.domain.cocktail.basecocktail.CocktailCreate;
+import org.toastit_v2.core.ui.cocktail.basecocktail.payload.response.CocktailResponse;
 import java.util.List;
 
 @Service
@@ -77,4 +75,3 @@ public class CocktailServiceImpl implements CocktailService {
     }
 }
 
-*/

@@ -1,12 +1,10 @@
-/*
 package org.toastit_v2.core.application.cocktail.basecocktail.port;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.toastit_v2.feature.basecocktail.domain.Cocktail;
-import org.toastit_v2.feature.basecocktail.domain.CocktailSearch;
-
+import org.toastit_v2.core.domain.cocktail.basecocktail.Cocktail;
+import org.toastit_v2.core.domain.cocktail.basecocktail.CocktailSearch;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,4 +29,3 @@ public interface CocktailRepository {
     Cocktail save(Cocktail cocktail);
 }
 
-*/

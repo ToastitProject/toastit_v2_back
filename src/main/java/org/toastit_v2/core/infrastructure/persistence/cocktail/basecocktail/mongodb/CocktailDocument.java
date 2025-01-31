@@ -1,4 +1,3 @@
-/*
 package org.toastit_v2.core.infrastructure.persistence.cocktail.basecocktail.mongodb;
 
 // mongodb에 맞도록 Entity가 아니라 Document로 생성함.
@@ -8,7 +7,7 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-import org.toastit_v2.feature.basecocktail.domain.Cocktail;
+import org.toastit_v2.core.domain.cocktail.basecocktail.Cocktail;
 
 @Getter
 @Document(collection = "test")
@@ -217,4 +216,3 @@ public class CocktailDocument {
     }
 }
 
-*/
