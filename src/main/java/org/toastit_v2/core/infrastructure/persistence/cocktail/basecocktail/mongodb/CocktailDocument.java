@@ -1,14 +1,12 @@
-/*
 package org.toastit_v2.core.infrastructure.persistence.cocktail.basecocktail.mongodb;
 
-// mongodb에 맞도록 Entity가 아니라 Document로 생성함.
 import lombok.Builder;
 import lombok.Getter;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-import org.toastit_v2.feature.basecocktail.domain.Cocktail;
+import org.toastit_v2.core.domain.cocktail.basecocktail.Cocktail;
 
 @Getter
 @Document(collection = "test")
@@ -98,9 +96,6 @@ public class CocktailDocument {
     @Field("strMeasure11")
     private String strMeasure11;
 
-//    @Field("likeCount")
-//    private int likeCount;
-
     @Builder
     public CocktailDocument(ObjectId id, String strDrink, String strAlcoholic,
                             String strCategory, String strGlass,
@@ -143,7 +138,6 @@ public class CocktailDocument {
         this.strMeasure9 = strMeasure9;
         this.strMeasure10 = strMeasure10;
         this.strMeasure11 = strMeasure11;
-//        this.likeCount = likeCount;
     }
 
     public Cocktail toDomain() {
@@ -176,13 +170,12 @@ public class CocktailDocument {
                 .strMeasure9(this.strMeasure9)
                 .strMeasure10(this.strMeasure10)
                 .strMeasure11(this.strMeasure11)
-//                .likeCount(this.likeCount)
                 .build();
     }
 
 
-    // 실제로 쓰일지는 모르겠는데 일단 추가해둠.
     public static CocktailDocument fromDomain(Cocktail cocktail) {
+
         return CocktailDocument.builder()
                 .id(cocktail.getId())
                 .strDrink(cocktail.getStrDrink())
@@ -212,9 +205,7 @@ public class CocktailDocument {
                 .strMeasure9(cocktail.getStrMeasure9())
                 .strMeasure10(cocktail.getStrMeasure10())
                 .strMeasure11(cocktail.getStrMeasure11())
-//                .likeCount(cocktail.getLikeCount())
                 .build();
     }
-}
 
-*/
+}

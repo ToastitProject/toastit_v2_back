@@ -1,9 +1,11 @@
 package org.toastit_v2.core.domain.cocktail.basecocktail;
 
 import lombok.Builder;
+import org.toastit_v2.common.exception.custom.CustomBaseCocktailException;
 import org.toastit_v2.common.response.code.ExceptionCode;
 
 public class CocktailCreate {
+
     private final String strDrink;
     private final String strAlcoholic;
     private final String strCategory;
@@ -108,27 +110,25 @@ public class CocktailCreate {
                 .build();
     }
 
-    // 검증 로직
+
     private void vaildate(){
-        // 이름이 반드시 포함되어야 함
+
         if(strDrink == null || strDrink.trim().isEmpty()) {
-//            throw new RestApiException(ExceptionCode.INVALID_COCKTAIL_NAME);
+            throw new CustomBaseCocktailException(ExceptionCode.INVALID_COCKTAIL_NAME);
         }
 
-        // 알코올 타입이 반드시 입력되어야 함
         if (strAlcoholic == null || strAlcoholic.trim().isEmpty()) {
-//            throw new RestApiException(CommonExceptionCode.INVALID_COCKTAIL_ALCOHOLIC);
+            throw new CustomBaseCocktailException(ExceptionCode.INVALID_COCKTAIL_ALCOHOLIC);
         }
 
-        // 재료가 반드시 포함되어야 함
-        // 1개 이상이어야 하기때문에 strIngredient1만 고려
         if (strIngredient1 == null || strIngredient1.trim().isEmpty()) {
-//            throw new RestApiException(CommonExceptionCode.INVALID_COCKTAIL_INGREDIENT);
+            throw new CustomBaseCocktailException(ExceptionCode.INVALID_COCKTAIL_INGREDIENT);
         }
 
-        // 설명이 반드시 포함되어야 함
         if (strInstructions == null || strInstructions.trim().isEmpty()) {
-//            throw new RestApiException(CommonExceptionCode.INVALID_COCKTAIL_INSTRUCTION);
+            throw new CustomBaseCocktailException(ExceptionCode.INVALID_COCKTAIL_INSTRUCTION);
         }
+
     }
+
 }

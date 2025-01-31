@@ -2,15 +2,14 @@ package org.toastit_v2.core.ui.cocktail.basecocktail.payload.response;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-
 import lombok.Builder;
 import lombok.Getter;
-
 import org.toastit_v2.core.domain.cocktail.basecocktail.Cocktail;
 
 @Getter
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class CocktailResponse {
+
     private final String id;
     private final String name;
     private final String alcoholic;
@@ -39,8 +38,6 @@ public class CocktailResponse {
     private final String measure9;
     private final String measure10;
     private final String measure11;
-//    private final String imagePath;
-//    private final int likeCount;
 
     @Builder
     private CocktailResponse(String id, String name, String alcoholic,
@@ -82,8 +79,6 @@ public class CocktailResponse {
         this.measure9 = measure9;
         this.measure10 = measure10;
         this.measure11 = measure11;
-//        this.imagePath = imagePath;
-//        this.likeCount = likeCount;
     }
 
     public static CocktailResponse from(Cocktail cocktail) {
@@ -106,9 +101,7 @@ public class CocktailResponse {
                 .measure4(cocktail.getStrMeasure4())
                 .measure5(cocktail.getStrMeasure5())
                 .measure6(cocktail.getStrMeasure6())
-//                .imagePath(cocktail.getImagePath())
-//                .likeCount(cocktail.getLikeCount())
                 .build();
     }
-}
 
+}
