@@ -34,6 +34,13 @@ public enum ExceptionCode {
      * Craft Cocktail Exception Code
      */
     FAIL_CREATE_CRAFT_COCKTAIL(HttpStatus.BAD_REQUEST, "커스텀 칵테일 생성 실패하였습니다.", 400),
+    EMPTY_RECIPE_TITLE(HttpStatus.BAD_REQUEST, "레시피 제목이 비어있습니다.", 400),
+    EMPTY_RECIPE_DESCRIPTION(HttpStatus.BAD_REQUEST, "레시피 설명이 비어있습니다.", 400),
+    EMPTY_RECIPE(HttpStatus.BAD_REQUEST, "레시피 내용이 비어있습니다.", 400),
+    EMPTY_INGREDIENTS(HttpStatus.BAD_REQUEST, "재료 목록이 비어있습니다.", 400),
+    USER_NOT_FOUND(HttpStatus.NOT_FOUND, "작성자를 찾을 수 없습니다.", 404),
+    RECIPE_SAVE_FAILURE(HttpStatus.INTERNAL_SERVER_ERROR, "레시피 저장 중 오류가 발생하였습니다.", 500),
+    UNAUTHORIZED_ACCESS(HttpStatus.UNAUTHORIZED, "권한이 없는 사용자입니다.", 401),
 
     /**
      * Member Exception Code

@@ -139,6 +139,76 @@ public class CommonExceptionHandler {
     }
 
     /**
+     * 사용자 정의 칵테일 작성 중 발생하는 경우를 나타냅니다.
+     */
+    @ExceptionHandler(CustomCraftCocktailException.class)
+    protected ResponseEntity<ExceptionResponse> handleCustomCraftCocktailEmptyRecipeTitleException(CustomCraftCocktailException ex) {
+        log.error("Craft Cocktail Recipe Tile Empty Exception", ex);
+        final ExceptionResponse response = ExceptionResponse.create(ExceptionCode.EMPTY_RECIPE_TITLE, ex.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    /**
+     * 사용자 정의 칵테일 작성 중 발생하는 경우를 나타냅니다.
+     */
+    @ExceptionHandler(CustomCraftCocktailException.class)
+    protected ResponseEntity<ExceptionResponse> handleCustomCraftCocktailEmptyRecipeDescriptionException(CustomCraftCocktailException ex) {
+        log.error("Craft Cocktail Recipe Description Empty Exception", ex);
+        final ExceptionResponse response = ExceptionResponse.create(ExceptionCode.EMPTY_RECIPE_DESCRIPTION, ex.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    /**
+     * 사용자 정의 칵테일 작성 중 발생하는 경우를 나타냅니다.
+     */
+    @ExceptionHandler(CustomCraftCocktailException.class)
+    protected ResponseEntity<ExceptionResponse> handleCustomCraftCocktailEmptyRecipeException(CustomCraftCocktailException ex) {
+        log.error("Craft Cocktail Recipe Empty Exception", ex);
+        final ExceptionResponse response = ExceptionResponse.create(ExceptionCode.EMPTY_RECIPE, ex.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    /**
+     * 사용자 정의 칵테일 작성 중 발생하는 경우를 나타냅니다.
+     */
+    @ExceptionHandler(CustomCraftCocktailException.class)
+    protected ResponseEntity<ExceptionResponse> handleCustomCraftCocktailEmptyIngredientException(CustomCraftCocktailException ex) {
+        log.error("Craft Cocktail Recipe Empty Exception", ex);
+        final ExceptionResponse response = ExceptionResponse.create(ExceptionCode.EMPTY_INGREDIENTS, ex.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    /**
+     * 사용자 정의 칵테일 작성 중 발생하는 경우를 나타냅니다.
+     */
+    @ExceptionHandler(CustomCraftCocktailException.class)
+    protected ResponseEntity<ExceptionResponse> handleCustomCraftCocktailUserNotFoundException(CustomCraftCocktailException ex) {
+        log.error("Craft Cocktail User Not Found Exception", ex);
+        final ExceptionResponse response = ExceptionResponse.create(ExceptionCode.USER_NOT_FOUND, ex.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    /**
+     * 사용자 정의 칵테일 작성 중 발생하는 경우를 나타냅니다.
+     */
+    @ExceptionHandler(CustomCraftCocktailException.class)
+    protected ResponseEntity<ExceptionResponse> handleCustomCraftRecipeSaveFailureException(CustomCraftCocktailException ex) {
+        log.error("Craft Cocktail Recipe Save Fail Exception", ex);
+        final ExceptionResponse response = ExceptionResponse.create(ExceptionCode.RECIPE_SAVE_FAILURE, ex.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    /**
+     * 사용자 정의 칵테일 작성 중 발생하는 경우를 나타냅니다.
+     */
+    @ExceptionHandler(CustomCraftCocktailException.class)
+    protected ResponseEntity<ExceptionResponse> handleCustomCraftUnnAuthorizedAccessException(CustomCraftCocktailException ex) {
+        log.error("Craft Cocktail Unauthorized Access Exception", ex);
+        final ExceptionResponse response = ExceptionResponse.create(ExceptionCode.UNAUTHORIZED_ACCESS, ex.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    /**
      * JWT(Json Web Token) 처리 과정에서 발생하는 경우를 나타냅니다.
      */
     @ExceptionHandler(CustomJwtException.class)

@@ -1,4 +1,3 @@
-/*
 package org.toastit_v2.core.infrastructure.persistence.cocktail.craftcocktail;
 
 import jakarta.persistence.*;
@@ -6,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import org.toastit_v2.core.domain.cocktail.craftcocktail.CraftCocktail;
-import org.toastit_v2.feature.user.infrastructure.persistence.mysql.UserEntity;
+import org.toastit_v2.core.domain.member.Member;
 
 @Entity
 @Builder
@@ -33,7 +32,7 @@ public class CraftCocktailEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private UserEntity user;
+    private Member user;
 
     private boolean isDeleted = false;
 
@@ -45,8 +44,8 @@ public class CraftCocktailEntity {
         isDeleted = deleted;
     }
 
-    public static org.toastit_v2.feature.craftcockatil.infrastructure.CraftCocktailEntity model(CraftCocktail craftCocktail) {
-        return org.toastit_v2.feature.craftcockatil.infrastructure.CraftCocktailEntity.builder()
+    public static CraftCocktailEntity model(CraftCocktail craftCocktail) {
+        return CraftCocktailEntity.builder()
                 .id(craftCocktail.getId())
                 .title(craftCocktail.getTitle())
                 .description(craftCocktail.getDescription())
@@ -69,4 +68,3 @@ public class CraftCocktailEntity {
     }
 
 }
-*/

@@ -1,11 +1,8 @@
-/*
 package org.toastit_v2.core.application.cocktail.craftcocktail.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.toastit_v2.common.common.application.code.CommonExceptionCode;
-import org.toastit_v2.common.common.application.exception.RestApiException;
 import org.toastit_v2.common.exception.custom.CustomCraftCocktailException;
 import org.toastit_v2.common.response.code.ExceptionCode;
 import org.toastit_v2.core.application.cocktail.craftcocktail.port.CraftCocktailRepository;
@@ -35,17 +32,16 @@ public class CraftCocktailServiceImpl implements CraftCocktailService {
 
     public CraftCocktail update(CraftCocktail craftCocktail) {
         craftCocktailRepository.findById(craftCocktail.getId())
-                .orElseThrow(() -> new RestApiException(CommonExceptionCode.NOT_FOUND_USER));
+                .orElseThrow(() -> new CustomCraftCocktailException(ExceptionCode.USER_NOT_FOUND));
 
         return craftCocktailRepository.update(craftCocktail);
     }
 
     public void deleteById(Long id) {
         craftCocktailRepository.findById(id)
-                .orElseThrow(() -> new RestApiException(CommonExceptionCode.NOT_FOUND_USER));
+                .orElseThrow(() -> new CustomCraftCocktailException(ExceptionCode.USER_NOT_FOUND));
 
         craftCocktailRepository.deleteById(id);
     }
 
 }
-*/

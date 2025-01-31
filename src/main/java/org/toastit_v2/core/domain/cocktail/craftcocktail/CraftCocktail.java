@@ -1,11 +1,9 @@
-/*
 package org.toastit_v2.core.domain.cocktail.craftcocktail;
 
 import lombok.Builder;
 import lombok.Getter;
+import org.toastit_v2.core.domain.member.Member;
 import org.toastit_v2.core.infrastructure.persistence.cocktail.craftcocktail.CraftCocktailEntity;
-import org.toastit_v2.feature.user.domain.User;
-import org.toastit_v2.feature.user.infrastructure.persistence.mysql.UserEntity;
 
 @Getter
 public class CraftCocktail {
@@ -20,12 +18,12 @@ public class CraftCocktail {
 
     private final String ingredients;
 
-    private final User user;
+    private final Member user;
 
     private final boolean isDeleted;
 
     @Builder
-    public CraftCocktail(Long id, String title, String description, String recipe, String ingredients, User user, boolean isDeleted) {
+    public CraftCocktail(Long id, String title, String description, String recipe, String ingredients, Member user, boolean isDeleted) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -48,4 +46,3 @@ public class CraftCocktail {
     }
 
 }
-*/
