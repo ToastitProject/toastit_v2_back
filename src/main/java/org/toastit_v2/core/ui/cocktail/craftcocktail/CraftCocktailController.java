@@ -23,7 +23,10 @@ public class CraftCocktailController {
 
     private final CraftCocktailService craftCocktailService;
 
-    @Operation(summary = "Find Craft Cocktail by ID", description = "특정 ID로 칵테일 레시피를 조회합니다.")
+    @Operation(
+            summary = "Find Craft Cocktail by ID",
+            description = "특정 ID로 칵테일 레시피를 조회합니다."
+    )
     @GetMapping("/{id}")
     public ResponseEntity<CraftCocktail> getById(@PathVariable Long id) {
         CraftCocktail craftCocktail = craftCocktailService.findById(id);

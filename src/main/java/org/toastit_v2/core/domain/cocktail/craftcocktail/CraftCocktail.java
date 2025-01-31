@@ -1,48 +1,46 @@
 package org.toastit_v2.core.domain.cocktail.craftcocktail;
 
-import lombok.Builder;
-import lombok.Getter;
+import jakarta.persistence.*;
+import lombok.*;
 import org.toastit_v2.core.domain.member.Member;
-import org.toastit_v2.core.infrastructure.persistence.cocktail.craftcocktail.CraftCocktailEntity;
 
+@Entity
+@Table(name = "craft_cocktails")
 @Getter
+@Builder
+@EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CraftCocktail {
 
-    private final Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private final String title;
+    @Column(nullable = false)
+    private String title;
 
-    private final String description;
+    @Column(nullable = false)
+    private String description;
 
-    private final String recipe;
+    @Column(nullable = false)
+    private String recipe;
 
-    private final String ingredients;
+    @Column(nullable = false)
+    private String ingredients;
 
-    private final Member user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private Member user;
 
-    private final boolean isDeleted;
+    private boolean isDeleted = false;
 
-    @Builder
-    public CraftCocktail(Long id, String title, String description, String recipe, String ingredients, Member user, boolean isDeleted) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.recipe = recipe;
-        this.ingredients = ingredients;
-        this.user = user;
-        this.isDeleted = isDeleted;
+    public boolean isDeleted() {
+        return isDeleted;
     }
 
-    public CraftCocktailEntity toEntity() {
-        return CraftCocktailEntity.builder()
-                .id(this.id)
-                .title(this.title)
-                .description(this.description)
-                .recipe(this.recipe)
-                .ingredients(this.ingredients)
-                .user(UserEntity.from(this.user))
-                .isDeleted(this.isDeleted)
-                .build();
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 
 }
