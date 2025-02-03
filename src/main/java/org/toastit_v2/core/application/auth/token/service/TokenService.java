@@ -12,7 +12,7 @@ public interface TokenService {
 
     boolean validateAccessToken(final String accessToken);
 
-    Authentication getAuthenticationFromAccessToken(final String accessToken);
+    Authentication getAuthenticationFrom(final String accessToken);
 
     void logout(final Member member);
 
