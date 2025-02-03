@@ -3,7 +3,7 @@ package org.toastit_v2.core.application.auth.mail.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.toastit_v2.common.exception.custom.CustomAuthMailException;
-import org.toastit_v2.common.generator.auth.mail.MailKeyGeneratorImpl;
+import org.toastit_v2.common.generator.auth.mail.MailAuthCodeGeneratorImpl;
 import org.toastit_v2.common.generator.date.DateTimeGeneratorImpl;
 import org.toastit_v2.common.response.code.ExceptionCode;
 import org.toastit_v2.core.application.auth.mail.port.AuthMailRepository;
@@ -18,16 +18,18 @@ public class AuthMailServiceImpl implements AuthMailService {
     private final AuthMailRepository authMailRepository;
     private final AuthMailSender authMailSender;
 
+    @Override
     public void send(final AuthMailRequest request) {
         final AuthMail authMail = AuthMail.create(
                 request.userEmail(),
-                new MailKeyGeneratorImpl(),
+                new MailAuthCodeGeneratorImpl(),
                 new DateTimeGeneratorImpl()
         );
-        authMailSender.send(authMail.getAuthNumber(), authMail.getUserEmail());
+        authMailSender.send(authMail.getAuthCode(), authMail.getUserEmail());
         authMailRepository.save(authMail);
     }
 
+    @Override
     public void validateAuthMail(final String userEmail, final String authNumber) {
         final AuthMail authMail = authMailRepository.findById(userEmail).orElseThrow(
                 () -> new CustomAuthMailException(ExceptionCode.AUTH_EMAIL_EXPIRED_ERROR)
