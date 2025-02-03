@@ -17,7 +17,7 @@ java {
 
 configurations {
     compileOnly {
-        extendsFrom annotationProcessor // annotationProcessor 확장을 포함
+        extendsFrom annotationProcessor
     }
 }
 
@@ -132,21 +132,44 @@ jacocoTestReport {
         html.required = true
     }
 
-    def QDomainList = []
-    for (qPattern in '**/QA'..'**/QZ') { // QClass 대응
-        QDomainList.add(qPattern + '*')
-    }
+    def QDomainList = [
+            'org/toastit_v2/domain/**/QA*',
+            'org/toastit_v2/domain/**/QB*',
+            'org/toastit_v2/domain/**/QC*',
+            'org/toastit_v2/domain/**/QD*',
+            'org/toastit_v2/domain/**/QE*',
+            'org/toastit_v2/domain/**/QF*',
+            'org/toastit_v2/domain/**/QG*',
+            'org/toastit_v2/domain/**/QH*',
+            'org/toastit_v2/domain/**/QI*',
+            'org/toastit_v2/domain/**/QJ*',
+            'org/toastit_v2/domain/**/QK*',
+            'org/toastit_v2/domain/**/QL*',
+            'org/toastit_v2/domain/**/QM*',
+            'org/toastit_v2/domain/**/QN*',
+            'org/toastit_v2/domain/**/QO*',
+            'org/toastit_v2/domain/**/QP*',
+            'org/toastit_v2/domain/**/QQ*',
+            'org/toastit_v2/domain/**/QR*',
+            'org/toastit_v2/domain/**/QS*',
+            'org/toastit_v2/domain/**/QT*',
+            'org/toastit_v2/domain/**/QU*',
+            'org/toastit_v2/domain/**/QV*',
+            'org/toastit_v2/domain/**/QW*',
+            'org/toastit_v2/domain/**/QX*',
+            'org/toastit_v2/domain/**/QY*',
+            'org/toastit_v2/domain/**/QZ*'
+    ]
 
     afterEvaluate {
         classDirectories.setFrom(files(classDirectories.files.collect {
             fileTree(dir: it, exclude: [
-                    '**/common/**',
-                    '**/*Application*'
+                    'org/toastit_v2/common/**',
             ] + QDomainList)
         }))
     }
 
-//    finalizedBy 'jacocoTestCoverageVerification' // jacocoTestReport 태스크가 끝난 후 실행
+    // finalizedBy 'jacocoTestCoverageVerification' // jacocoTestReport 태스크가 끝난 후 실행
 }
 
 // jacoco Test 유효성 확인
