@@ -10,8 +10,6 @@ public interface TokenRepository {
 
     Optional<Token> findById(String userId);
 
-    Optional<Token> findByAccessToken( String accessToken);
-
     void deleteById(String userId);
 
 }
