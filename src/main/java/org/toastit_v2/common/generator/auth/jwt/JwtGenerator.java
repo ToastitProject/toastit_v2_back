@@ -17,12 +17,12 @@ public class JwtGenerator {
     /**
      * 지정된 회원 정보로 JWT 토큰을 생성합니다.
      * 
-     * @param secretKey 토큰 서명에 사용할 SecretKey
+     * @param key 토큰 서명에 사용할 SecretKey
      * @param expiration 토큰 만료 시간(밀리초)
      * @param member 토큰을 생성할 회원 정보
      * @return 서명된 JWT 토큰 문자열
      */
-    public String generate(final SecretKey secretKey, final long expiration, final Member member) {
+    public String generate(final SecretKey key, final long expiration, final Member member) {
         final Claims claims = this.create(member);
 
         return Jwts.builder()
@@ -30,7 +30,7 @@ public class JwtGenerator {
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + expiration))
                 .claims(claims)
-                .signWith(secretKey)
+                .signWith(key)
                 .compact();
     }
     
