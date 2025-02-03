@@ -6,7 +6,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.toastit_v2.core.domain.member.Member;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 @Getter
@@ -26,7 +25,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.unmodifiableList(roles);
+        return roles;
     }
 
     @Override

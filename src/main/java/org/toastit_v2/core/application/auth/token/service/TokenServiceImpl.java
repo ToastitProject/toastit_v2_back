@@ -80,17 +80,17 @@ public class TokenServiceImpl implements TokenService {
     public boolean validateAccessToken(final String accessToken) {
         TokenStatus tokenStatus = jwtInspector.getTokenStatus(accessToken, accessKey);
         log.debug(tokenStatus.toString());
-        return tokenStatus == TokenStatus.AUTHENTICATED && tokenRepository.findById(getUserIdFromToken(accessToken, accessKey)).isPresent();
+        return tokenStatus == TokenStatus.AUTHENTICATED && tokenRepository.findById(getUserIdFrom(accessToken, accessKey)).isPresent();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Authentication getAuthenticationFromAccessToken(final String accessToken) {
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(getUserIdFromToken(accessToken, accessKey));
+    public Authentication getAuthenticationFrom(final String accessToken) {
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(getUserIdFrom(accessToken, accessKey));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
-    private String getUserIdFromToken(final String token, final SecretKey secretKey) {
+    private String getUserIdFrom(final String token, final SecretKey secretKey) {
         return jwtInspector.parseToken(token, secretKey).getSubject();
     }
 

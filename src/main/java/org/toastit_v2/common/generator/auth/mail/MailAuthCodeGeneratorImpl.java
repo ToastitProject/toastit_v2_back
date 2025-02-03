@@ -2,7 +2,7 @@ package org.toastit_v2.common.generator.auth.mail;
 
 import java.util.Random;
 
-public class MailKeyGeneratorImpl implements MailKeyGenerator {
+public class MailAuthCodeGeneratorImpl implements MailAuthCodeGenerator {
 
     private static final Random RANDOM = new Random();
 

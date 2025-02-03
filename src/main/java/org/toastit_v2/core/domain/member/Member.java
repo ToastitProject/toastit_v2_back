@@ -2,10 +2,7 @@ package org.toastit_v2.core.domain.member;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.toastit_v2.common.exception.custom.CustomMemberException;
 import org.toastit_v2.common.generator.date.DateTimeGenerator;
 import org.toastit_v2.common.generator.nickname.NicknameGenerator;
@@ -40,6 +37,7 @@ public class Member {
     private MemberProfile profile;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     private Authority authority;
 
     @NotNull
@@ -50,6 +48,7 @@ public class Member {
     @Column(name = "modify_date")
     private LocalDateTime modifyDate;
 
+    @Builder
     private Member(final String userId, final String password, final MemberProfile profile, final Authority authority, final LocalDateTime registerDate, final LocalDateTime modifyDate) {
         this.userId = userId;
         this.password = password;
