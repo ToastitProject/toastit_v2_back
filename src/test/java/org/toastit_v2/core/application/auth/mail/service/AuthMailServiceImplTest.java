@@ -13,15 +13,15 @@ import org.toastit_v2.core.domain.auth.mail.AuthMail;
 import org.toastit_v2.core.infrastructure.persistence.auth.mail.AuthMailCrudRepository;
 import org.toastit_v2.core.ui.auth.mail.payload.request.AuthMailRequest;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
+import static org.toastit_v2.common.fixture.AuthMailFixture.*;
 
+@SpringBootTest
 @ActiveProfiles("test")
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class AuthMailServiceImplTest {
 
     @Autowired
@@ -41,40 +41,34 @@ class AuthMailServiceImplTest {
     @Test
     void 인증_메일을_전송하고_저장한다() {
         // given
-        final AuthMailRequest request = new AuthMailRequest("dev.hyoseung@gmail.com");
-
         // when
-        authMailService.send(request);
+        authMailService.send(new AuthMailRequest(DEFAULT_EMAIL));
 
         // then
-        final Optional<AuthMail> excepted = authMailRepository.findById("dev.hyoseung@gmail.com");
+        final Optional<AuthMail> excepted = authMailRepository.findById(DEFAULT_EMAIL);
         assertThat(excepted).isPresent();
-        assertThat(excepted.get().getUserEmail()).isEqualTo("dev.hyoseung@gmail.com");
+        assertThat(excepted.get().getUserEmail()).isEqualTo(DEFAULT_EMAIL);
         assertThat(excepted.get().getAuthCode()).isNotNull();
     }
 
     @Test
     void 인증_번호를_검증하면_예외가_발생하지_않고_검증에_성공한다() {
         // given
-        final String userEmail = "test@example.com";
-        final String authNumber = "123456";
-        final AuthMail authMail = AuthMail.create(userEmail, () -> authNumber, () -> LocalDateTime.now());
+        final AuthMail authMail = AuthMail.create(DEFAULT_EMAIL, () -> DEFAULT_AUTH_CODE, () -> DEFAULT_CREATED_AT);
         authMailRepository.save(authMail);
 
         // when & then
-        authMailService.validateAuthMail(userEmail, authNumber);
+        authMailService.validateAuthMail(DEFAULT_EMAIL, DEFAULT_AUTH_CODE);
     }
 
     @Test
     void 잘못된_인증번호로_검증하면_예외가_발생한다() {
         // given
-        final String userEmail = "test@example.com";
-        final String authNumber = "123456";
-        final AuthMail authMail = AuthMail.create(userEmail, () -> authNumber, () -> LocalDateTime.now());
+        final AuthMail authMail = AuthMail.create(DEFAULT_EMAIL, () -> DEFAULT_AUTH_CODE, () -> DEFAULT_CREATED_AT);
         authMailRepository.save(authMail);
 
         // when & then
-        assertThatThrownBy(() -> authMailService.validateAuthMail(userEmail, "654321"))
+        assertThatThrownBy(() -> authMailService.validateAuthMail(DEFAULT_EMAIL, "654321"))
                 .isInstanceOf(CustomAuthMailException.class)
                 .hasMessageContaining(ExceptionCode.AUTH_EMAIL_AUTH_NUMBER_ERROR.getMessage());
     }
@@ -90,15 +84,14 @@ class AuthMailServiceImplTest {
     @Test
     void 인증_메일_전송_시_발송_기능을_호출한다() {
         // given
-        final AuthMailRequest request = new AuthMailRequest("test@example.com");
         final AuthMailSender mockSender = mock(AuthMailSender.class);
         final AuthMailService serviceWithMockSender = new AuthMailServiceImpl(authMailRepository, mockSender);
 
         // when
-        serviceWithMockSender.send(request);
+        serviceWithMockSender.send(new AuthMailRequest(DEFAULT_EMAIL));
 
         // then
-        verify(mockSender, times(1)).send(anyString(), eq("test@example.com"));
+        verify(mockSender, times(1)).send(anyString(), eq(DEFAULT_EMAIL));
     }
 
 }
