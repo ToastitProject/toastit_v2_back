@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.3.5'
     id 'io.spring.dependency-management' version '1.1.6'
-    id "org.sonarqube" version "3.5.0.2730"
+    id "org.sonarqube" version "6.0.1.5171"
     id "jacoco"
 }
 
@@ -99,18 +99,16 @@ clean {
 // JUnit 5(Test Platform) 사용 설정
 tasks.named('test') {
     useJUnitPlatform() // JUnit Platform 기반 테스트 사용
+    finalizedBy jacocoTestReport
 }
 
 // SonarQube 설정
 sonar {
     properties {
-        property "sonar.projectKey", "ToastitProject_toastit_v2_back_c5f6de26-551c-417e-b1c5-8ea29ffe96db"
+        property "sonar.projectKey", "ToastitProject_toastit_v2_back_1c6330fb-8ecb-4041-ac1d-b7bc9d51fdab"
         property "sonar.projectName", "toastit_v2_back"
-        property "sonar.sourceEncoding", "UTF-8"
-        property "sonar.sources", "src/main"
-        property "sonar.tests", "src/test"
-        property "sonar.java.binaries", "build/classes/java/main"
         property "sonar.test.inclusions", "**/*Test.java"
+        property "sonar.java.binaries", "build/classes/java/main"
         property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml"
     }
 }
@@ -126,8 +124,8 @@ jacocoTestReport {
 
     reports {
         xml.required = true
+        html.required = true
         csv.required = false
-        html.required = false
     }
 
     def QDomainList = [
