@@ -18,7 +18,7 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
-      - name: make application-test.yml
+      - name: make application-prod.yml
         run: |
           cd ./src/test/resources
           touch ./application-test.yml
