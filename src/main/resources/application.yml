@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: toastit_v2
+
+  profiles:
+    active: prod
+    group:
+      dev:
+
+  webflux:
+    problemdetails:
+      enabled: true
+
+  servlet:
+    multipart:
+      enabled: true
+      max-request-size: 10MB
+      max-file-size: 10MB
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    groups-order: desc
+    tags-sorter: alpha
+    operations-sorter: method
+    display-request-duration: true
+    disable-swagger-default-url: true
+
+  api-docs:
+    path: /v2/toastit/docs
+
+  show-actuator: true
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+
+server:
+  servlet:
+    context-path: /api
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus, health, info
+
+  metrics:
+    tags:
+      application: ${spring.application.name}
