@@ -45,17 +45,17 @@ class AuthMailServiceImplTest {
         authMailService.send(new AuthMailRequest(DEFAULT_EMAIL));
 
         // then
-        final Optional<AuthMail> excepted = authMailRepository.findById(DEFAULT_EMAIL);
-        assertThat(excepted).isPresent();
-        assertThat(excepted.get().getUserEmail()).isEqualTo(DEFAULT_EMAIL);
-        assertThat(excepted.get().getAuthCode()).isNotNull();
+        final Optional<AuthMail> response = authMailRepository.findById(DEFAULT_EMAIL);
+        assertThat(response).isPresent();
+        assertThat(response.get().getUserEmail()).isEqualTo(DEFAULT_EMAIL);
+        assertThat(response.get().getAuthCode()).isNotNull();
     }
 
     @Test
     void 인증_번호를_검증하면_예외가_발생하지_않고_검증에_성공한다() {
         // given
-        final AuthMail authMail = AuthMail.create(DEFAULT_EMAIL, () -> DEFAULT_AUTH_CODE, () -> DEFAULT_CREATED_AT);
-        authMailRepository.save(authMail);
+        final AuthMail request = AuthMail.create(DEFAULT_EMAIL, () -> DEFAULT_AUTH_CODE, () -> DEFAULT_CREATED_AT);
+        authMailRepository.save(request);
 
         // when & then
         authMailService.validateAuthMail(DEFAULT_EMAIL, DEFAULT_AUTH_CODE);
@@ -64,8 +64,8 @@ class AuthMailServiceImplTest {
     @Test
     void 잘못된_인증번호로_검증하면_예외가_발생한다() {
         // given
-        final AuthMail authMail = AuthMail.create(DEFAULT_EMAIL, () -> DEFAULT_AUTH_CODE, () -> DEFAULT_CREATED_AT);
-        authMailRepository.save(authMail);
+        final AuthMail request = AuthMail.create(DEFAULT_EMAIL, () -> DEFAULT_AUTH_CODE, () -> DEFAULT_CREATED_AT);
+        authMailRepository.save(request);
 
         // when & then
         assertThatThrownBy(() -> authMailService.validateAuthMail(DEFAULT_EMAIL, "654321"))
