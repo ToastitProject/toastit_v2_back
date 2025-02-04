@@ -2,6 +2,8 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.3.5'
     id 'io.spring.dependency-management' version '1.1.6'
+    id "org.sonarqube" version "6.0.1.5171"
+    id "jacoco"
 }
 
 group = 'org.toastit-v2'
@@ -9,7 +11,7 @@ version = '2.0.0-SNAPSHOT'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(21) // Java 21 버전 사용
     }
 }
 
@@ -24,102 +26,179 @@ repositories {
 }
 
 dependencies {
-    // Lombok
+    // === Lombok ===
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
-    // Spring Dev Tools
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    // === Spring Boot Core ===
+    implementation 'org.springframework.boot:spring-boot-starter-web'           // Spring MVC
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'       // Spring WebFlux
+    implementation 'org.springframework.boot:spring-boot-starter-security'      // Spring Security
+    implementation 'org.springframework.boot:spring-boot-starter-validation'    // Input/Output Validation
+    implementation 'org.springframework.boot:spring-boot-starter-mail'          // Java Mail Sender
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'      // Spring Actuator
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'             // DevTools for Hot Reload
 
-    // Spring Web
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    // === Testing ===
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'      // Spring Boot Test
+    testImplementation 'org.springframework.security:spring-security-test'      // Security Test
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'                // JUnit Platform Launcher
+    testImplementation 'org.mockito:mockito-core:4.0.0'                         // Mockito Core
+    testImplementation 'org.mockito:mockito-junit-jupiter:4.0.0'                // Mockito JUnit Integration
+    testImplementation "org.testcontainers:localstack:1.16.3"                   // AWS LocalStack for Testing
 
-    // Spring WebFlux
-    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    // === Data Persistence ===
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'      // Spring Data JPA
+    runtimeOnly 'com.h2database:h2'                                             // H2 Database (In-Memory)
+    implementation 'mysql:mysql-connector-java:8.0.33'                          // MySQL Connector
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'    // Spring Data Redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'  // Spring Data MongoDB
 
-    // Spring Security
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    testImplementation 'org.springframework.security:spring-security-test'
+    // === QueryDSL ===
+    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'                    // QueryDSL JPA
+    annotationProcessor 'com.querydsl:querydsl-apt:5.0.0:jakarta'               // QueryDSL Annotation Processor
+    annotationProcessor 'jakarta.annotation:jakarta.annotation-api'             // Jakarta Annotation API
+    annotationProcessor 'jakarta.persistence:jakarta.persistence-api'           // Jakarta Persistence API
 
-    // OAuth2 Client
-    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+    // === JWT ===
+    implementation 'io.jsonwebtoken:jjwt-api:0.12.6'                            // JJWT API
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.6'                              // JJWT Implementation
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.6'                           // JJWT with Jackson
 
-    // I/O Validation
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    // === Swagger / API Documentation ===
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'    // SpringDoc OpenAPI UI
 
-    // Java Mail Sender
-    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    // === AWS Integration ===
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE' // Spring Cloud AWS (for S3)
 
-    // Java SSH2
-    implementation 'com.github.mwiede:jsch:0.2.20'
+    // === Prometheus Monitoring ===
+    implementation 'io.micrometer:micrometer-registry-prometheus'               // Prometheus Metrics
 
-    // JWT
-    implementation 'io.jsonwebtoken:jjwt-api:0.12.6'
-    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.6'
-    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.6'
+    // === Utility Libraries ===
+    implementation 'com.fasterxml.jackson.core:jackson-databind'                // Jackson Databind (JSON Serialization)
+    implementation 'com.github.mwiede:jsch:0.2.20'                              // Java SSH2 Library
 
-    // QueryDSL
-    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
-    annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
-    annotationProcessor "jakarta.annotation:jakarta.annotation-api"
-    annotationProcessor "jakarta.persistence:jakarta.persistence-api"
-
-    // Spring Data JPA
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-
-    // H2
-    runtimeOnly 'com.h2database:h2'
-
-    // MySQL
-    implementation 'mysql:mysql-connector-java:8.0.33'
-
-    // Spring Data Redis
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-
-    // Spring Data MongoDB
-    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
-
-    // Spring Cloud for AWS S3
-    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
-
-    // Spring Hateoas
-    implementation 'org.springframework.boot:spring-boot-starter-hateoas'
-
-    // Spring Actuator
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
-
-    // Spring Docs for Swagger-UI
-    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
-
-    // JUnit
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-
-    // Mockito
-    testImplementation 'org.mockito:mockito-core:4.0.0'
-    testImplementation 'org.mockito:mockito-junit-jupiter:4.0.0'
-
-    // Logback
-    // implementation 'net.logstash.logback:logstash-logback-encoder:7.4'
-
-    // Prometheus
-    implementation 'io.micrometer:micrometer-registry-prometheus'
-
-    //localStack for Aws Test
-    testImplementation "org.testcontainers:localstack:1.16.3"
+    // === HATEOAS ===
+    implementation 'org.springframework.boot:spring-boot-starter-hateoas'       // Spring HATEOAS
 }
 
-// QueryDsl Test Code 실행 시, QClass 생성
+// QueryDSL QClass 생성 경로 설정
 sourceSets {
-    main.java.srcDirs += 'build/generated/source/apt/main'
+    main {
+        java {
+            srcDirs += 'build/generated/source/apt/main' // QClass 생성 경로 추가
+        }
+    }
 }
 
-// Gradle Clean 실행 시, QClass 디렉토리 삭제
+// Gradle 'clean' 실행 시, QClass 디렉토리 삭제
 clean {
-    delete file('src/main/generated')
+    delete file('build/generated/source/apt/main') // 정확한 경로 삭제
 }
 
+// JUnit 5(Test Platform) 사용 설정
 tasks.named('test') {
-    useJUnitPlatform()
+    useJUnitPlatform() // JUnit Platform 기반 테스트 사용
+    finalizedBy jacocoTestReport
+}
+
+// SonarQube 설정
+sonar {
+    properties {
+        property "sonar.projectKey", "ToastitProject_toastit_v2_back_1c6330fb-8ecb-4041-ac1d-b7bc9d51fdab"
+        property "sonar.projectName", "toastit_v2_back"
+        property "sonar.java.binaries", "build/classes/java/main"
+        property "sonar.test.inclusions", "**/*Test.java"
+        property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml"
+    }
+}
+
+// jacoco 정보
+jacoco {
+    toolVersion = '0.8.11'
+}
+
+// jacoco Report 생성
+jacocoTestReport {
+    dependsOn test // test 종속성 추가
+
+    reports {
+        xml.required = true
+        html.required = true
+        csv.required = false
+    }
+
+    def QDomainList = [
+            'org/toastit_v2/domain/**/QA*',
+            'org/toastit_v2/domain/**/QB*',
+            'org/toastit_v2/domain/**/QC*',
+            'org/toastit_v2/domain/**/QD*',
+            'org/toastit_v2/domain/**/QE*',
+            'org/toastit_v2/domain/**/QF*',
+            'org/toastit_v2/domain/**/QG*',
+            'org/toastit_v2/domain/**/QH*',
+            'org/toastit_v2/domain/**/QI*',
+            'org/toastit_v2/domain/**/QJ*',
+            'org/toastit_v2/domain/**/QK*',
+            'org/toastit_v2/domain/**/QL*',
+            'org/toastit_v2/domain/**/QM*',
+            'org/toastit_v2/domain/**/QN*',
+            'org/toastit_v2/domain/**/QO*',
+            'org/toastit_v2/domain/**/QP*',
+            'org/toastit_v2/domain/**/QQ*',
+            'org/toastit_v2/domain/**/QR*',
+            'org/toastit_v2/domain/**/QS*',
+            'org/toastit_v2/domain/**/QT*',
+            'org/toastit_v2/domain/**/QU*',
+            'org/toastit_v2/domain/**/QV*',
+            'org/toastit_v2/domain/**/QW*',
+            'org/toastit_v2/domain/**/QX*',
+            'org/toastit_v2/domain/**/QY*',
+            'org/toastit_v2/domain/**/QZ*'
+    ]
+
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    'org/toastit_v2/common/**',
+                    'org/toastit_v2/*Application*'
+            ] + QDomainList)
+        }))
+    }
+
+    // finalizedBy 'jacocoTestCoverageVerification' // jacocoTestReport 태스크가 끝난 후 실행
+}
+
+// jacoco Test 유효성 확인
+jacocoTestCoverageVerification {
+    def QDomainList = []
+    for (qPattern in '*.QA'..'*.QZ') { // QClass 대응
+        QDomainList.add(qPattern + '*')
+    }
+
+    violationRules {
+        rule {
+            enabled = true // 규칙 활성화 여부
+            element = 'CLASS' // 커버리지를 체크할 단위 설정
+
+            // 코드 커버리지를 측정할 때 사용되는 지표
+            limit {
+                counter = 'LINE'
+                value = 'COVEREDRATIO'
+                minimum = 0.30
+            }
+
+            limit {
+                counter = 'BRANCH'
+                value = 'COVEREDRATIO'
+                minimum = 0.30
+            }
+
+            excludes = [
+                    '**/common/**',
+                    '**/*Application*'
+            ] + QDomainList
+        }
+    }
+
 }
