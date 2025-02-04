@@ -117,7 +117,7 @@ sonar {
 
 // jacoco 정보
 jacoco {
-    toolVersion = '0.8.8'
+    toolVersion = '0.8.11'
 }
 
 // jacoco Report 생성
