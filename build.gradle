@@ -161,6 +161,7 @@ jacocoTestReport {
         classDirectories.setFrom(files(classDirectories.files.collect {
             fileTree(dir: it, exclude: [
                     'org/toastit_v2/common/**',
+                    'org/toastit_v2/*Application*'
             ] + QDomainList)
         }))
     }
