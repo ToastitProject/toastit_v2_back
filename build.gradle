@@ -107,8 +107,8 @@ sonar {
     properties {
         property "sonar.projectKey", "ToastitProject_toastit_v2_back_1c6330fb-8ecb-4041-ac1d-b7bc9d51fdab"
         property "sonar.projectName", "toastit_v2_back"
-        property "sonar.test.inclusions", "**/*Test.java"
         property "sonar.java.binaries", "build/classes/java/main"
+        property "sonar.test.inclusions", "**/*Test.java"
         property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml"
     }
 }
