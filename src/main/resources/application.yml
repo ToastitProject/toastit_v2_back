@@ -27,7 +27,7 @@ springdoc:
     disable-swagger-default-url: true
 
   api-docs:
-    path: /v2/toastit/docs
+    path: /v2/api-docs/
 
   show-actuator: true
   default-consumes-media-type: application/json
