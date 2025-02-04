@@ -11,7 +11,7 @@ import org.toastit_v2.core.domain.auth.mail.AuthMail;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.toastit_v2.common.fixture.AuthMailFixture.*;
+import static org.toastit_v2.common.fixture.auth.AuthMailFixture.*;
 
 @SpringBootTest
 @ActiveProfiles("test")

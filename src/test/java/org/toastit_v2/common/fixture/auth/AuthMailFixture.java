@@ -1,4 +1,4 @@
-package org.toastit_v2.common.fixture;
+package org.toastit_v2.common.fixture.auth;
 
 import org.toastit_v2.core.domain.auth.mail.AuthMail;
 

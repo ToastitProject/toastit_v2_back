@@ -6,7 +6,7 @@ import org.toastit_v2.common.response.code.ExceptionCode;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.toastit_v2.common.fixture.AuthMailFixture.*;
+import static org.toastit_v2.common.fixture.auth.AuthMailFixture.*;
 
 class AuthMailTest {
 
