@@ -10,6 +10,9 @@ public class AuthMailFixture {
     public static final String DEFAULT_AUTH_CODE = "123456";
     public static final LocalDateTime DEFAULT_CREATED_AT = LocalDateTime.of(2025, 1, 2, 12, 8, 0);
 
+    private AuthMailFixture() {
+    }
+
     private static AuthMail authmail(final String email, final String code, final LocalDateTime createdAt) {
         return AuthMail.builder()
                 .userEmail(email)
