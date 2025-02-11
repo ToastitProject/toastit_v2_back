@@ -2,9 +2,9 @@ package org.toastit_v2.core.application.auth.mail.service;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestConstructor;
 import org.toastit_v2.common.exception.custom.CustomAuthMailException;
 import org.toastit_v2.common.response.code.ExceptionCode;
 import org.toastit_v2.core.application.auth.mail.port.AuthMailRepository;
@@ -20,18 +20,24 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 import static org.toastit_v2.common.fixture.auth.AuthMailFixture.*;
 
-@SpringBootTest
 @ActiveProfiles("test")
+@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class AuthMailServiceImplTest {
 
-    @Autowired
-    private AuthMailService authMailService;
+    private final AuthMailService authMailService;
+    private final AuthMailRepository authMailRepository;
+    private final AuthMailCrudRepository authMailCrudRepository;
 
-    @Autowired
-    private AuthMailRepository authMailRepository;
-
-    @Autowired
-    private AuthMailCrudRepository authMailCrudRepository;
+    AuthMailServiceImplTest(
+            AuthMailService authMailService,
+            AuthMailRepository authMailRepository,
+            AuthMailCrudRepository authMailCrudRepository
+    ) {
+        this.authMailService = authMailService;
+        this.authMailRepository = authMailRepository;
+        this.authMailCrudRepository = authMailCrudRepository;
+    }
 
     @AfterEach
     void tearDown() {
