@@ -68,12 +68,17 @@ public enum ExceptionCode {
     AUTH_MAIL_PROCESSING_ERROR(HttpStatus.BAD_REQUEST, "이메일 처리 중 문제가 발생했습니다. 입력하신 이메일 주소가 올바른 형식인지 확인해 주시고, 다시 시도해 주세요.", 400),
 
     /**
-     * JWT Error Code
+     * JSON Web Token Error Code
      */
     JWT_INVALID_ERROR(HttpStatus.UNAUTHORIZED, "유효하지 않은 JWT 토큰입니다.", 401),
     JWT_EXPIRED_ERROR(HttpStatus.UNAUTHORIZED, "만료된 JWT 토큰입니다.", 401),
     JWT_SIGNATURE_ERROR(HttpStatus.UNAUTHORIZED, "JWT 서명이 일치하지 않습니다.", 401),
     JWT_UNKNOWN_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "알 수 없는 JWT 에러가 발생했습니다.", 500),
+
+    /**
+     * Token Error Code
+     */
+    TOKEN_PROCESSING_ERROR(HttpStatus.BAD_REQUEST, "토큰 처리 중 문제가 발생했습니다. 입력하신 토큰이 올바른 형식인지 확인해 주시고, 다시 시도해 주세요.", 400),
 
     // 잘못된 서버 요청
     BAD_REQUEST_ERROR(HttpStatus.BAD_REQUEST, "Bad Request Exception", 400),
