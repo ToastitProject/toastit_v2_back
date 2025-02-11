@@ -74,7 +74,7 @@ public class SmtpAuthMailHandler implements AuthMailSender {
             return content;
         } catch (IOException e) {
             log.error("입출력 예외 발생 :: {}", e.getMessage());
-            throw new CustomAuthMailException(ExceptionCode.INTERVAL_SERVER_ERROR);
+            throw new CustomAuthMailException(ExceptionCode.AUTH_MAIL_PROCESSING_ERROR;
         }
     }
 
