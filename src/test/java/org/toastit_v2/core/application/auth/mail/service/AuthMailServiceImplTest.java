@@ -17,6 +17,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.Mockito.*;
 import static org.toastit_v2.common.fixture.auth.AuthMailFixture.*;
 
@@ -30,9 +31,9 @@ class AuthMailServiceImplTest {
     private final AuthMailCrudRepository authMailCrudRepository;
 
     AuthMailServiceImplTest(
-            AuthMailService authMailService,
-            AuthMailRepository authMailRepository,
-            AuthMailCrudRepository authMailCrudRepository
+            final AuthMailService authMailService,
+            final AuthMailRepository authMailRepository,
+            final AuthMailCrudRepository authMailCrudRepository
     ) {
         this.authMailService = authMailService;
         this.authMailRepository = authMailRepository;
@@ -47,14 +48,17 @@ class AuthMailServiceImplTest {
     @Test
     void 인증_메일을_전송하고_저장한다() {
         // given
+        AuthMailRequest request = new AuthMailRequest(DEFAULT_EMAIL);
+
         // when
-        authMailService.send(new AuthMailRequest(DEFAULT_EMAIL));
+        authMailService.send(request);
 
         // then
         final Optional<AuthMail> response = authMailRepository.findById(DEFAULT_EMAIL);
-        assertThat(response).isPresent();
-        assertThat(response.get().getUserEmail()).isEqualTo(DEFAULT_EMAIL);
-        assertThat(response.get().getAuthCode()).isNotNull();
+        assertAll(
+                () -> assertThat(response.get().getUserEmail()).isEqualTo(DEFAULT_EMAIL),
+                () -> assertThat(response.get().getAuthCode()).isNotNull()
+        );
     }
 
     @Test
