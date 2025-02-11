@@ -61,10 +61,11 @@ public enum ExceptionCode {
     /**
      * Auth - Mail Exception Code
      */
-    AUTH_EMAIL_DUPLICATION_ERROR(HttpStatus.BAD_REQUEST, "이메일이 중복되었습니다.", 400),
-    AUTH_EMAIL_AUTH_NUMBER_ERROR(HttpStatus.BAD_REQUEST, "이메일 인증코드를 잘못 입력하였습니다. 다시 시도해 주세요.", 400),
-    AUTH_EMAIL_EXPIRED_ERROR(HttpStatus.BAD_REQUEST, "이메일 인증 시간이 만료되었습니다.", 400),
-    AUTH_EMAIL_REQUEST_ERROR(HttpStatus.BAD_REQUEST, "이메일 인증을 다시 시도해주세요.", 400),
+    AUTH_MAIL_DUPLICATION_ERROR(HttpStatus.BAD_REQUEST, "이메일이 중복되었습니다.", 400),
+    AUTH_MAIL_AUTH_NUMBER_ERROR(HttpStatus.BAD_REQUEST, "이메일 인증코드를 잘못 입력하였습니다. 다시 시도해 주세요.", 400),
+    AUTH_MAIL_EXPIRED_ERROR(HttpStatus.BAD_REQUEST, "이메일 인증 시간이 만료되었습니다.", 400),
+    AUTH_MAIL_REQUEST_ERROR(HttpStatus.BAD_REQUEST, "이메일 인증을 다시 시도해주세요.", 400),
+    AUTH_MAIL_PROCESSING_ERROR(HttpStatus.BAD_REQUEST, "이메일 처리 중 문제가 발생했습니다. 입력하신 이메일 주소가 올바른 형식인지 확인해 주시고, 다시 시도해 주세요.", 400),
 
     /**
      * JWT Error Code
