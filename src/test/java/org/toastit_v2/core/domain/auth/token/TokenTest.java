@@ -1,8 +1,11 @@
 package org.toastit_v2.core.domain.auth.token;
 
 import org.junit.jupiter.api.Test;
+import org.toastit_v2.common.exception.custom.CustomTokenException;
+import org.toastit_v2.common.response.code.ExceptionCode;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.toastit_v2.common.fixture.auth.TokenFixture.*;
 
 class TokenTest {
@@ -37,6 +40,22 @@ class TokenTest {
 
         // when & then
         assertThat(token1).isNotEqualTo(token2);
+    }
+
+    @Test
+    void 사용자_ID_가_NULL이면_예외가_발생한다() {
+        // when & then
+        assertThatThrownBy(() -> Token.create(null, DEFAULT_TOKEN))
+                .isInstanceOf(CustomTokenException.class)
+                .hasMessageContaining(ExceptionCode.TOKEN_PROCESSING_ERROR.getMessage());
+    }
+
+    @Test
+    void 토큰이_NULL이면_예외가_발생한다() {
+        // when & then
+        assertThatThrownBy(() -> Token.create(DEFAULT_USER_ID, null))
+                .isInstanceOf(CustomTokenException.class)
+                .hasMessageContaining(ExceptionCode.TOKEN_PROCESSING_ERROR.getMessage());
     }
 
 }
