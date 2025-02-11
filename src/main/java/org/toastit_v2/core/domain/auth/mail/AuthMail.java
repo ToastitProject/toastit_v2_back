@@ -9,6 +9,7 @@ import org.toastit_v2.common.generator.date.DateTimeGenerator;
 import org.toastit_v2.common.response.code.ExceptionCode;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @RedisHash(
         value = "authMail",
@@ -28,12 +29,19 @@ public class AuthMail {
 
     @Builder
     private AuthMail(final String userEmail, final String authCode, final LocalDateTime registerDate) {
+        notNullParameters(userEmail, authCode, registerDate);
         this.userEmail = userEmail;
         this.authCode = authCode;
         this.registerDate = registerDate;
     }
 
-    public static AuthMail create(final String userEmail, MailAuthCodeGenerator mailAuthCodeGenerator, DateTimeGenerator dateTimeGenerator) {
+    private void notNullParameters(final String userEmail, final String authCode, final LocalDateTime registerDate) {
+        if (Objects.isNull(userEmail) || Objects.isNull(authCode) || Objects.isNull(registerDate)) {
+            throw new CustomAuthMailException(ExceptionCode.AUTH_EMAIL_PROCESSING_ERROR);
+        }
+    }
+
+    public static AuthMail create(final String userEmail, final MailAuthCodeGenerator mailAuthCodeGenerator, final DateTimeGenerator dateTimeGenerator) {
         return new AuthMail(
                 userEmail,
                 mailAuthCodeGenerator.generate(),
