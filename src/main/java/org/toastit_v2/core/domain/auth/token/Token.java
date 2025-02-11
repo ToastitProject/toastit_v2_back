@@ -4,6 +4,10 @@ import jakarta.persistence.Column;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
+import org.toastit_v2.common.exception.custom.CustomTokenException;
+import org.toastit_v2.common.response.code.ExceptionCode;
+
+import java.util.Objects;
 
 @RedisHash(
         value = "token",
@@ -22,8 +26,15 @@ public class Token {
 
     @Builder
     private Token(final String userId, final String accessToken) {
+        notNullParameters(userId, accessToken);
         this.userId = userId;
         this.accessToken = accessToken;
+    }
+
+    private void notNullParameters(final String userId, final String accessToken) {
+        if (Objects.isNull(userId) || Objects.isNull(accessToken)) {
+            throw new CustomTokenException(ExceptionCode.TOKEN_PROCESSING_ERROR);
+        }
     }
 
     public static Token create(final String userId, final String accessToken) {
