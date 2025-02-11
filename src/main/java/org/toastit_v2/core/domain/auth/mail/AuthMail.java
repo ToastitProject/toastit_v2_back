@@ -37,7 +37,7 @@ public class AuthMail {
 
     private void notNullParameters(final String userEmail, final String authCode, final LocalDateTime registerDate) {
         if (Objects.isNull(userEmail) || Objects.isNull(authCode) || Objects.isNull(registerDate)) {
-            throw new CustomAuthMailException(ExceptionCode.AUTH_EMAIL_PROCESSING_ERROR);
+            throw new CustomAuthMailException(ExceptionCode.AUTH_MAIL_PROCESSING_ERROR);
         }
     }
 
@@ -51,7 +51,7 @@ public class AuthMail {
 
     public void checkAuthNumber(final String authNumber) {
         if (!authNumber.equals(this.authCode)) {
-            throw new CustomAuthMailException(ExceptionCode.AUTH_EMAIL_AUTH_NUMBER_ERROR);
+            throw new CustomAuthMailException(ExceptionCode.AUTH_MAIL_AUTH_NUMBER_ERROR);
         }
     }
 

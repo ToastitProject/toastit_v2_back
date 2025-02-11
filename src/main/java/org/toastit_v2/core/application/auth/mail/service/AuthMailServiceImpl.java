@@ -32,7 +32,7 @@ public class AuthMailServiceImpl implements AuthMailService {
     @Override
     public void validateAuthMail(final String userEmail, final String authNumber) {
         final AuthMail authMail = authMailRepository.findById(userEmail).orElseThrow(
-                () -> new CustomAuthMailException(ExceptionCode.AUTH_EMAIL_EXPIRED_ERROR)
+                () -> new CustomAuthMailException(ExceptionCode.AUTH_MAIL_EXPIRED_ERROR)
         );
         authMail.checkAuthNumber(authNumber);
     }

@@ -76,7 +76,7 @@ class AuthMailServiceImplTest {
         // when & then
         assertThatThrownBy(() -> authMailService.validateAuthMail(DEFAULT_EMAIL, "654321"))
                 .isInstanceOf(CustomAuthMailException.class)
-                .hasMessageContaining(ExceptionCode.AUTH_EMAIL_AUTH_NUMBER_ERROR.getMessage());
+                .hasMessageContaining(ExceptionCode.AUTH_MAIL_AUTH_NUMBER_ERROR.getMessage());
     }
 
     @Test
@@ -84,7 +84,7 @@ class AuthMailServiceImplTest {
         // when & then
         assertThatThrownBy(() -> authMailService.validateAuthMail("nonexistent@example.com", "123456"))
                 .isInstanceOf(CustomAuthMailException.class)
-                .hasMessageContaining(ExceptionCode.AUTH_EMAIL_EXPIRED_ERROR.getMessage());
+                .hasMessageContaining(ExceptionCode.AUTH_MAIL_EXPIRED_ERROR.getMessage());
     }
 
     @Test

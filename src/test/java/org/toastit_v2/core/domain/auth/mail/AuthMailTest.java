@@ -46,7 +46,7 @@ class AuthMailTest {
         // when & then
         assertThatThrownBy(() -> response.checkAuthNumber("654321"))
                 .isInstanceOf(CustomAuthMailException.class)
-                .hasMessageContaining(ExceptionCode.AUTH_EMAIL_AUTH_NUMBER_ERROR.getMessage());
+                .hasMessageContaining(ExceptionCode.AUTH_MAIL_AUTH_NUMBER_ERROR.getMessage());
     }
 
     @Test
@@ -54,7 +54,7 @@ class AuthMailTest {
         // when & then
         assertThatThrownBy(() -> AuthMail.create(null, () -> DEFAULT_AUTH_CODE, () -> DEFAULT_CREATED_AT))
                 .isInstanceOf(CustomAuthMailException.class)
-                .hasMessageContaining(ExceptionCode.AUTH_EMAIL_PROCESSING_ERROR.getMessage());
+                .hasMessageContaining(ExceptionCode.AUTH_MAIL_PROCESSING_ERROR.getMessage());
     }
 
     @Test
@@ -62,7 +62,7 @@ class AuthMailTest {
         // when & then
         assertThatThrownBy(() -> AuthMail.create(DEFAULT_EMAIL, () -> null, () -> DEFAULT_CREATED_AT))
                 .isInstanceOf(CustomAuthMailException.class)
-                .hasMessageContaining(ExceptionCode.AUTH_EMAIL_PROCESSING_ERROR.getMessage());
+                .hasMessageContaining(ExceptionCode.AUTH_MAIL_PROCESSING_ERROR.getMessage());
     }
 
     @Test
@@ -70,7 +70,7 @@ class AuthMailTest {
         // when & then
         assertThatThrownBy(() -> AuthMail.create(DEFAULT_EMAIL, () -> DEFAULT_AUTH_CODE, () -> null))
                 .isInstanceOf(CustomAuthMailException.class)
-                .hasMessageContaining(ExceptionCode.AUTH_EMAIL_PROCESSING_ERROR.getMessage());
+                .hasMessageContaining(ExceptionCode.AUTH_MAIL_PROCESSING_ERROR.getMessage());
     }
 
 }

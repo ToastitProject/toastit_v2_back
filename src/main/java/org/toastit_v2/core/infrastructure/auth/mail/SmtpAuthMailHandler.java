@@ -56,8 +56,8 @@ public class SmtpAuthMailHandler implements AuthMailSender {
             mimeMessage.setText(createText(authNumber), "utf-8", "html");
             mimeMessage.setFrom(new InternetAddress(from, "Mixie"));
         } catch (MessagingException | UnsupportedEncodingException e) {
-            log.error("이메일 전송 실패 :: {}", e.getMessage());
-            throw new CustomAuthMailException(ExceptionCode.AUTH_EMAIL_REQUEST_ERROR);
+            log.error("메일 전송 실패 :: {}", e.getMessage());
+            throw new CustomAuthMailException(ExceptionCode.AUTH_MAIL_REQUEST_ERROR);
         }
 
         return mimeMessage;
