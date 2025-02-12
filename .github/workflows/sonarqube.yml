@@ -1,4 +1,4 @@
-name: Java CI with Gradle Build & SonarQube
+name: Java CI with Gradle Build SonarQube
 
 on:
   pull_request:
@@ -6,38 +6,7 @@ on:
       - '*'
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Set up JDK 21
-        uses: actions/setup-java@v3
-        with:
-          java-version: '21'
-          distribution: 'temurin'
-
-      - name: make application-test.yml
-        run: |
-          cd ./src/test/resources
-          touch ./application-test.yml
-          echo "${{ secrets.APPLICATION_TEST }}" > ./application-test.yml
-
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-
-      - name: Build with Gradle
-        run: ./gradlew build
-
   sonarqube:
-    needs: build
-    permissions:
-      issues: write
-      pull-requests: write
     runs-on: ubuntu-latest
 
     steps:

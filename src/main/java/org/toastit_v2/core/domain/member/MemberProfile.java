@@ -3,10 +3,7 @@ package org.toastit_v2.core.domain.member;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotNull;
-import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
 @Embeddable
@@ -26,6 +23,7 @@ public class MemberProfile {
 
     private String thumbnail;
 
+    @Builder
     private MemberProfile(final String userEmail, final String nickname, final String content, final String thumbnail) {
         this.userEmail = userEmail;
         this.nickname = nickname;

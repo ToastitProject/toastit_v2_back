@@ -17,7 +17,7 @@ java {
 
 configurations {
     compileOnly {
-        extendsFrom annotationProcessor // annotationProcessor 확장을 포함
+        extendsFrom annotationProcessor
     }
 }
 
@@ -99,27 +99,23 @@ clean {
 // JUnit 5(Test Platform) 사용 설정
 tasks.named('test') {
     useJUnitPlatform() // JUnit Platform 기반 테스트 사용
+    finalizedBy jacocoTestReport
 }
 
 // SonarQube 설정
 sonar {
     properties {
-        property "sonar.projectKey", "ToastitProject_toastit_v2_back_c5f6de26-551c-417e-b1c5-8ea29ffe96db"
+        property "sonar.projectKey", "ToastitProject_toastit_v2_back_1c6330fb-8ecb-4041-ac1d-b7bc9d51fdab"
         property "sonar.projectName", "toastit_v2_back"
-        property "sonar.language", "java"
-        property "sonar.sourceEncoding", "UTF-8"
-        property "sonar.sources", "src/main"
-        property "sonar.tests", "src/test"
-        property "sonar.java.binaries", "${buildDir}/classes"
+        property "sonar.java.binaries", "build/classes/java/main"
         property "sonar.test.inclusions", "**/*Test.java"
-        property 'sonar.coverage.jacoco.xmlReportPaths', "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
+        property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml"
     }
 }
 
 // jacoco 정보
 jacoco {
-    toolVersion = "0.8.11"
-    layout.buildDirectory.dir("reports/jacoco")
+    toolVersion = '0.8.11'
 }
 
 // jacoco Report 생성
@@ -128,25 +124,49 @@ jacocoTestReport {
 
     reports {
         xml.required = true
-        csv.required = false
         html.required = true
+        csv.required = false
     }
 
-    def QDomainList = []
-    for (qPattern in '**/QA'..'**/QZ') { // QClass 대응
-        QDomainList.add(qPattern + '*')
-    }
+    def QDomainList = [
+            'org/toastit_v2/domain/**/QA*',
+            'org/toastit_v2/domain/**/QB*',
+            'org/toastit_v2/domain/**/QC*',
+            'org/toastit_v2/domain/**/QD*',
+            'org/toastit_v2/domain/**/QE*',
+            'org/toastit_v2/domain/**/QF*',
+            'org/toastit_v2/domain/**/QG*',
+            'org/toastit_v2/domain/**/QH*',
+            'org/toastit_v2/domain/**/QI*',
+            'org/toastit_v2/domain/**/QJ*',
+            'org/toastit_v2/domain/**/QK*',
+            'org/toastit_v2/domain/**/QL*',
+            'org/toastit_v2/domain/**/QM*',
+            'org/toastit_v2/domain/**/QN*',
+            'org/toastit_v2/domain/**/QO*',
+            'org/toastit_v2/domain/**/QP*',
+            'org/toastit_v2/domain/**/QQ*',
+            'org/toastit_v2/domain/**/QR*',
+            'org/toastit_v2/domain/**/QS*',
+            'org/toastit_v2/domain/**/QT*',
+            'org/toastit_v2/domain/**/QU*',
+            'org/toastit_v2/domain/**/QV*',
+            'org/toastit_v2/domain/**/QW*',
+            'org/toastit_v2/domain/**/QX*',
+            'org/toastit_v2/domain/**/QY*',
+            'org/toastit_v2/domain/**/QZ*'
+    ]
 
     afterEvaluate {
         classDirectories.setFrom(files(classDirectories.files.collect {
             fileTree(dir: it, exclude: [
-                    '**/common/**',
-                    '**/*Application*'
+                    'org/toastit_v2/common/**',
+                    'org/toastit_v2/*Application*'
             ] + QDomainList)
         }))
     }
 
-//    finalizedBy 'jacocoTestCoverageVerification' // jacocoTestReport 태스크가 끝난 후 실행
+    // finalizedBy 'jacocoTestCoverageVerification' // jacocoTestReport 태스크가 끝난 후 실행
 }
 
 // jacoco Test 유효성 확인

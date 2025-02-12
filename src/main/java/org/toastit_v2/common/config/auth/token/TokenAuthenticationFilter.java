@@ -33,7 +33,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     }
 
     private void setAuthenticationToContext(String accessToken) {
-        Authentication authentication = tokenService.getAuthenticationFromAccessToken(accessToken);
+        Authentication authentication = tokenService.getAuthenticationFrom(accessToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 

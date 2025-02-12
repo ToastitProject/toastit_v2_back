@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.validation.annotation.Validated;
 
 @Validated
@@ -19,8 +20,8 @@ public class AwsConfig {
     private final String region;
 
     public AwsConfig(
-            @NotNull @Value("${cloud.aws.credentials.accessKey}") String accessKey,
-            @NotNull @Value("${cloud.aws.credentials.secretKey}") String secretKey,
+            @NotNull @Value("${cloud.aws.credentials.access-key}") String accessKey,
+            @NotNull @Value("${cloud.aws.credentials.secret-key}") String secretKey,
             @NotNull @Value("${cloud.aws.region.static}") String regin
     ) {
         this.accessKey = accessKey;
