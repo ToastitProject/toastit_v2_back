@@ -35,8 +35,10 @@ public class AuthMailController {
     )
     @ApiSuccessResponse(SuccessCode.SUCCESS)
     @ApiExceptionResponse({
-            ExceptionCode.AUTH_EMAIL_REQUEST_ERROR,
-            ExceptionCode.AUTH_EMAIL_DUPLICATION_ERROR
+            ExceptionCode.AUTH_MAIL_PROCESSING_ERROR,
+            ExceptionCode.AUTH_MAIL_REQUEST_ERROR,
+            ExceptionCode.AUTH_MAIL_DUPLICATION_ERROR,
+            ExceptionCode.NOT_FOUND_ERROR
     })
     @PostMapping("/mail")
     public ResponseEntity<SuccessResponse<Object>> sendAuthMail(
@@ -66,7 +68,8 @@ public class AuthMailController {
     )
     @ApiSuccessResponse(SuccessCode.SUCCESS)
     @ApiExceptionResponse({
-            ExceptionCode.AUTH_EMAIL_EXPIRED_ERROR
+            ExceptionCode.AUTH_MAIL_EXPIRED_ERROR,
+            ExceptionCode.AUTH_MAIL_AUTH_NUMBER_ERROR
     })
     @GetMapping("/email/{auth_number}")
     public ResponseEntity<SuccessResponse<Object>> checkAuthMail(

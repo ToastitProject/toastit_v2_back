@@ -2,9 +2,9 @@ package org.toastit_v2.core.infrastructure.persistence.auth.mail;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestConstructor;
 import org.toastit_v2.core.application.auth.mail.port.AuthMailRepository;
 import org.toastit_v2.core.domain.auth.mail.AuthMail;
 
@@ -13,15 +13,18 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.toastit_v2.common.fixture.auth.AuthMailFixture.*;
 
-@SpringBootTest
 @ActiveProfiles("test")
+@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class AuthMailRepositoryImplTest {
 
-    @Autowired
-    private AuthMailRepository authMailRepository;
+    private final AuthMailRepository authMailRepository;
+    private final AuthMailCrudRepository authMailCrudRepository;
 
-    @Autowired
-    private AuthMailCrudRepository authMailCrudRepository;
+    AuthMailRepositoryImplTest(final AuthMailRepository authMailRepository, final AuthMailCrudRepository authMailCrudRepository) {
+        this.authMailRepository = authMailRepository;
+        this.authMailCrudRepository = authMailCrudRepository;
+    }
 
     @AfterEach
     void tearDown() {

@@ -6,6 +6,7 @@ import org.toastit_v2.common.response.code.ExceptionCode;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.toastit_v2.common.fixture.auth.AuthMailFixture.*;
 
 class AuthMailTest {
@@ -21,9 +22,11 @@ class AuthMailTest {
         );
 
         // then
-        assertThat(response.getUserEmail()).isEqualTo(DEFAULT_EMAIL);
-        assertThat(response.getAuthCode()).isEqualTo(DEFAULT_AUTH_CODE);
-        assertThat(response.getRegisterDate()).isEqualTo(DEFAULT_CREATED_AT);
+        assertAll(
+                () -> assertThat(response.getUserEmail()).isEqualTo(DEFAULT_EMAIL),
+                () -> assertThat(response.getAuthCode()).isEqualTo(DEFAULT_AUTH_CODE),
+                () -> assertThat(response.getRegisterDate()).isEqualTo(DEFAULT_CREATED_AT)
+        );
     }
 
     @Test
@@ -43,7 +46,31 @@ class AuthMailTest {
         // when & then
         assertThatThrownBy(() -> response.checkAuthNumber("654321"))
                 .isInstanceOf(CustomAuthMailException.class)
-                .hasMessageContaining(ExceptionCode.AUTH_EMAIL_AUTH_NUMBER_ERROR.getMessage());
+                .hasMessageContaining(ExceptionCode.AUTH_MAIL_AUTH_NUMBER_ERROR.getMessage());
+    }
+
+    @Test
+    void 사용자_이메일이_NULL이면_예외가_발생한다() {
+        // when & then
+        assertThatThrownBy(() -> AuthMail.create(null, () -> DEFAULT_AUTH_CODE, () -> DEFAULT_CREATED_AT))
+                .isInstanceOf(CustomAuthMailException.class)
+                .hasMessageContaining(ExceptionCode.AUTH_MAIL_PROCESSING_ERROR.getMessage());
+    }
+
+    @Test
+    void 인증_코드가_NULL이면_예외가_발생한다() {
+        // when & then
+        assertThatThrownBy(() -> AuthMail.create(DEFAULT_EMAIL, () -> null, () -> DEFAULT_CREATED_AT))
+                .isInstanceOf(CustomAuthMailException.class)
+                .hasMessageContaining(ExceptionCode.AUTH_MAIL_PROCESSING_ERROR.getMessage());
+    }
+
+    @Test
+    void 등록_날짜가_NULL이면_예외가_발생한다() {
+        // when & then
+        assertThatThrownBy(() -> AuthMail.create(DEFAULT_EMAIL, () -> DEFAULT_AUTH_CODE, () -> null))
+                .isInstanceOf(CustomAuthMailException.class)
+                .hasMessageContaining(ExceptionCode.AUTH_MAIL_PROCESSING_ERROR.getMessage());
     }
 
 }

@@ -15,6 +15,7 @@ import javax.crypto.SecretKey;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.toastit_v2.common.fixture.auth.TokenFixture.*;
 
 class JwtHandlerTest {
 
@@ -27,42 +28,39 @@ class JwtHandlerTest {
     void setUp() {
         jwtHandler = new JwtHandler();
         jwtGenerator = new JwtGenerator();
-        key = Keys.hmacShaKeyFor("AYIDpalAMvEvQddKQXKoxO9OUc67N71r".getBytes());
+        key = Keys.hmacShaKeyFor(DEFAULT_TOKEN.getBytes());
         member = Mockito.mock(Member.class);
-        Mockito.when(member.getUserId()).thenReturn("rowing0328");
+        Mockito.when(member.getUserId()).thenReturn(DEFAULT_USER_ID);
     }
 
     @Test
     void 유효한_토큰_상태를_확인하면_AUTHENTICATED_상태가_반환된다() {
         // given
-        final String token = jwtGenerator.generate(key, 60000, member);
+        final String request = jwtGenerator.generate(key, 60000, member);
 
         // when
-        final TokenStatus excepted = jwtHandler.getTokenStatus(token, key);
+        final TokenStatus response = jwtHandler.getTokenStatus(request, key);
 
         // then
-        assertThat(excepted).isEqualTo(TokenStatus.AUTHENTICATED);
+        assertThat(response).isEqualTo(TokenStatus.AUTHENTICATED);
     }
 
     @Test
     void 만료된_토큰_상태를_확인하면_EXPIRED_상태가_반환된다() {
         // given
-        final String token = jwtGenerator.generate(key, 0, member);
+        final String request = jwtGenerator.generate(key, 0, member);
 
         // when
-        final TokenStatus excepted = jwtHandler.getTokenStatus(token, key);
+        final TokenStatus response = jwtHandler.getTokenStatus(request, key);
 
         // then
-        assertThat(excepted).isEqualTo(TokenStatus.EXPIRED);
+        assertThat(response).isEqualTo(TokenStatus.EXPIRED);
     }
 
     @Test
     void 유효하지_않은_토큰을_검증하면_예외가_발생한다() {
-        // given
-        final String invalidToken = "invalid.token.format";
-
         // when & then
-        assertThatThrownBy(() -> jwtHandler.getTokenStatus(invalidToken, key))
+        assertThatThrownBy(() -> jwtHandler.getTokenStatus(INVALID_TOKEN, key))
                 .isInstanceOf(CustomJwtException.class)
                 .hasMessageContaining(ExceptionCode.JWT_UNKNOWN_ERROR.getMessage());
     }
@@ -70,22 +68,19 @@ class JwtHandlerTest {
     @Test
     void 유효한_토큰을_파싱한다() {
         // given
-        final String token = jwtGenerator.generate(key, 60000, member);
+        final String request = jwtGenerator.generate(key, 60000, member);
 
         // when
-        final Claims excepted = jwtHandler.parseToken(token, key);
+        final Claims response = jwtHandler.parseToken(request, key);
 
         // then
-        assertThat(excepted.getSubject()).isEqualTo("rowing0328");
+        assertThat(response.getSubject()).isEqualTo(DEFAULT_USER_ID);
     }
 
     @Test
     void 유효하지_않은_토큰을_파싱하면_예외가_발생한다() {
-        // given
-        final String token = "유효하지 않은 토큰";
-
         // when & then
-        assertThatThrownBy(() -> jwtHandler.parseToken(token, key))
+        assertThatThrownBy(() -> jwtHandler.parseToken(INVALID_TOKEN, key))
                 .isInstanceOf(CustomJwtException.class)
                 .hasMessageContaining(ExceptionCode.JWT_INVALID_ERROR.getMessage());
     }

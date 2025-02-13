@@ -3,12 +3,12 @@ package org.toastit_v2.core.application.auth.token.service;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestConstructor;
 import org.toastit_v2.common.exception.custom.CustomJwtException;
 import org.toastit_v2.common.response.code.ExceptionCode;
 import org.toastit_v2.core.application.auth.token.port.TokenRepository;
@@ -22,22 +22,30 @@ import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.toastit_v2.common.fixture.auth.TokenFixture.*;
 
 @ActiveProfiles("test")
+@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class TokenServiceImplTest {
 
-    @Autowired
-    private TokenService tokenService;
+    private final TokenService tokenService;
+    private final TokenRepository tokenRepository;
+    private final TokenCrudRepository tokenCrudRepository;
+    private final MemberRepository memberRepository;
 
-    @Autowired
-    private TokenRepository tokenRepository;
-
-    @Autowired
-    private TokenCrudRepository tokenCrudRepository;
-
-    @Autowired
-    private MemberRepository memberRepository;
+    TokenServiceImplTest(
+            final TokenService tokenService,
+            final TokenRepository tokenRepository,
+            final TokenCrudRepository tokenCrudRepository,
+            final MemberRepository memberRepository
+    ) {
+        this.tokenService = tokenService;
+        this.tokenRepository = tokenRepository;
+        this.tokenCrudRepository = tokenCrudRepository;
+        this.memberRepository = memberRepository;
+    }
 
     private Member member;
 
@@ -68,44 +76,41 @@ class TokenServiceImplTest {
     @Test
     void 회원_정보로_액세스_토큰을_생성한다() {
         // when
-        final String excepted = tokenService.createAccessToken(member);
+        tokenService.createAccessToken(member);
 
         // then
-        assertThat(excepted).isNotNull();
         assertThat(tokenRepository.findById(member.getUserId())).isPresent();
     }
 
     @Test
     void 요청에서_액세스_토큰을_추출한다() {
         // given
-        final String accessToken = "testAccessToken";
-        final String bearerToken = "Bearer " + accessToken;
         final MockHttpServletRequest request = new MockHttpServletRequest();
-        request.addHeader("Authorization", bearerToken);
+        request.addHeader("Authorization", BEARER_TOKEN);
 
         // when
-        final String excepted = tokenService.resolveAccessToken(request);
+        final String response = tokenService.resolveAccessToken(request);
 
         // then
-        assertThat(excepted).isEqualTo(accessToken);
+        assertThat(response).isEqualTo(DEFAULT_TOKEN);
     }
 
     @Test
     void 유효한_액세스_토큰을_검증한다() {
         // given
-        final String accessToken = tokenService.createAccessToken(member);
+        final String request = tokenService.createAccessToken(member);
 
         // when
-        boolean isValid = tokenService.validateAccessToken(accessToken);
+        boolean response = tokenService.validateAccessToken(request);
 
         // then
-        assertThat(isValid).isTrue();
+        assertThat(response).isTrue();
     }
 
     @Test
     void 잘못된_액세스_토큰을_검증하면_예외가_발생한다() {
         // when & then
-        assertThatThrownBy(() -> tokenService.validateAccessToken("invalidToken"))
+        assertThatThrownBy(() -> tokenService.validateAccessToken(INVALID_TOKEN))
                 .isInstanceOf(CustomJwtException.class)
                 .hasMessageContaining(ExceptionCode.JWT_UNKNOWN_ERROR.getMessage());
     }
@@ -113,17 +118,18 @@ class TokenServiceImplTest {
     @Test
     void 액세스_토큰으로_인증을_생성한다() {
         // given
-        final String accessToken = tokenService.createAccessToken(member);
+        final String request = tokenService.createAccessToken(member);
 
         // when
-        final Authentication excepted = tokenService.getAuthenticationFrom(accessToken);
+        final Authentication response = tokenService.getAuthenticationFrom(request);
 
         // then
-        assertThat(excepted).isNotNull();
-        assertThat(excepted.getName()).isEqualTo("rowing0328");
-        assertThat(excepted.getAuthorities())
-                .extracting(GrantedAuthority::getAuthority)
-                .containsExactly("ROLE_USER");
+        assertAll(
+                () -> assertThat(response.getName()).isEqualTo(DEFAULT_USER_ID),
+                () -> assertThat(response.getAuthorities())
+                        .extracting(GrantedAuthority::getAuthority)
+                        .containsExactly(Authority.USER.getAuthority())
+        );
     }
 
     @Test

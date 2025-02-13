@@ -2,9 +2,9 @@ package org.toastit_v2.core.application.auth.mail.service;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestConstructor;
 import org.toastit_v2.common.exception.custom.CustomAuthMailException;
 import org.toastit_v2.common.response.code.ExceptionCode;
 import org.toastit_v2.core.application.auth.mail.port.AuthMailRepository;
@@ -17,21 +17,28 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.Mockito.*;
 import static org.toastit_v2.common.fixture.auth.AuthMailFixture.*;
 
-@SpringBootTest
 @ActiveProfiles("test")
+@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class AuthMailServiceImplTest {
 
-    @Autowired
-    private AuthMailService authMailService;
+    private final AuthMailService authMailService;
+    private final AuthMailRepository authMailRepository;
+    private final AuthMailCrudRepository authMailCrudRepository;
 
-    @Autowired
-    private AuthMailRepository authMailRepository;
-
-    @Autowired
-    private AuthMailCrudRepository authMailCrudRepository;
+    AuthMailServiceImplTest(
+            final AuthMailService authMailService,
+            final AuthMailRepository authMailRepository,
+            final AuthMailCrudRepository authMailCrudRepository
+    ) {
+        this.authMailService = authMailService;
+        this.authMailRepository = authMailRepository;
+        this.authMailCrudRepository = authMailCrudRepository;
+    }
 
     @AfterEach
     void tearDown() {
@@ -41,14 +48,17 @@ class AuthMailServiceImplTest {
     @Test
     void 인증_메일을_전송하고_저장한다() {
         // given
+        AuthMailRequest request = new AuthMailRequest(DEFAULT_EMAIL);
+
         // when
-        authMailService.send(new AuthMailRequest(DEFAULT_EMAIL));
+        authMailService.send(request);
 
         // then
         final Optional<AuthMail> response = authMailRepository.findById(DEFAULT_EMAIL);
-        assertThat(response).isPresent();
-        assertThat(response.get().getUserEmail()).isEqualTo(DEFAULT_EMAIL);
-        assertThat(response.get().getAuthCode()).isNotNull();
+        assertAll(
+                () -> assertThat(response.get().getUserEmail()).isEqualTo(DEFAULT_EMAIL),
+                () -> assertThat(response.get().getAuthCode()).isNotNull()
+        );
     }
 
     @Test
@@ -70,7 +80,7 @@ class AuthMailServiceImplTest {
         // when & then
         assertThatThrownBy(() -> authMailService.validateAuthMail(DEFAULT_EMAIL, "654321"))
                 .isInstanceOf(CustomAuthMailException.class)
-                .hasMessageContaining(ExceptionCode.AUTH_EMAIL_AUTH_NUMBER_ERROR.getMessage());
+                .hasMessageContaining(ExceptionCode.AUTH_MAIL_AUTH_NUMBER_ERROR.getMessage());
     }
 
     @Test
@@ -78,7 +88,7 @@ class AuthMailServiceImplTest {
         // when & then
         assertThatThrownBy(() -> authMailService.validateAuthMail("nonexistent@example.com", "123456"))
                 .isInstanceOf(CustomAuthMailException.class)
-                .hasMessageContaining(ExceptionCode.AUTH_EMAIL_EXPIRED_ERROR.getMessage());
+                .hasMessageContaining(ExceptionCode.AUTH_MAIL_EXPIRED_ERROR.getMessage());
     }
 
     @Test
