@@ -73,4 +73,11 @@ public class CraftCocktailController {
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(summary = "Report Craft Cocktail", description = "특정 ID의 칵테일 레시피를 신고합니다.")
+    @PostMapping("/{id}/report")
+    public ResponseEntity<Void> report(@PathVariable Long id) {
+        craftCocktailService.reportById(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

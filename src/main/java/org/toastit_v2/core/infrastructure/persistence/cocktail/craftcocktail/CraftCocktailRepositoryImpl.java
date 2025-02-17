@@ -19,14 +19,14 @@ public class CraftCocktailRepositoryImpl implements CraftCocktailRepository {
     @Override
     public Optional<CraftCocktail> findById(Long id) {
         return repository.findById(id)
-                .filter(entity -> !entity.isDeleted()); // 비활성화된 게시물 제외
+                .filter(entity -> !entity.isDisplay()); // 비활성화된 게시물 제외
     }
 
     @Override
     public List<CraftCocktail> findAll() {
         return repository.findAll()
                 .stream()
-                .filter(entity -> !entity.isDeleted()) // 비활성화된 게시물 제외
+                .filter(entity -> !entity.isDisplay()) // 비활성화된 게시물 제외
                 .toList();
     }
 
@@ -53,6 +53,16 @@ public class CraftCocktailRepositoryImpl implements CraftCocktailRepository {
         );
 
         entity.setDeleted(true); // 실제 삭제 대신 비활성화
+        repository.save(entity);
+    }
+
+    @Override
+    public void reportById(Long id) {
+        CraftCocktail entity = repository.findById(id)
+                .orElseThrow(
+                        () -> new CustomCraftCocktailException(ExceptionCode.USER_NOT_FOUND)
+                );
+        entity.report(); //신고된 게시물 비활성화
         repository.save(entity);
     }
 
