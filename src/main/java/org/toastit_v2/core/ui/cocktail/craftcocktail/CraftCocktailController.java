@@ -18,7 +18,7 @@ import java.util.List;
 @Validated
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/craftcocktail")
+@RequestMapping("/v2/craftcocktail")
 public class CraftCocktailController {
 
     private final CraftCocktailService craftCocktailService;
@@ -40,6 +40,9 @@ public class CraftCocktailController {
         return ResponseEntity.ok(craftCocktails);
     }
 
+    /**
+     * 로그인,이미지 로직 추가예정
+     */
     @Operation(summary = "Save a New Craft Cocktail", description = "새로운 칵테일 레시피를 저장합니다.")
     @PostMapping
     public ResponseEntity<CraftCocktail> save(@RequestBody @Validated CraftCocktail craftCocktail) {
@@ -67,6 +70,13 @@ public class CraftCocktailController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         craftCocktailService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "Report Craft Cocktail", description = "특정 ID의 칵테일 레시피를 신고합니다.")
+    @PostMapping("/{id}/report")
+    public ResponseEntity<Void> report(@PathVariable Long id) {
+        craftCocktailService.reportById(id);
         return ResponseEntity.noContent().build();
     }
 
