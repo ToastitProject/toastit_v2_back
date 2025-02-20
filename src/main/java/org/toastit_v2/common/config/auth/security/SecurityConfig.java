@@ -40,7 +40,8 @@ public class SecurityConfig {
             "/v2/mixie-docs/**",
             "/v2/member/**",
             "/v2/auth/**",
-            "/v2/cocktails/**"
+            "/v2/cocktails/**",
+            "/v2/craftcocktails/**"
     };
 
     private final TokenService tokenService;

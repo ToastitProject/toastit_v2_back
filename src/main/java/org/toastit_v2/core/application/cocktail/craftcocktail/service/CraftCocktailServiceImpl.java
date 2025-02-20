@@ -44,4 +44,11 @@ public class CraftCocktailServiceImpl implements CraftCocktailService {
         craftCocktailRepository.deleteById(id);
     }
 
+    public void reportById(Long id) {
+        craftCocktailRepository.findById(id)
+                .orElseThrow(() -> new CustomCraftCocktailException(ExceptionCode.USER_NOT_FOUND));
+
+        craftCocktailRepository.reportById(id);
+    }
+
 }

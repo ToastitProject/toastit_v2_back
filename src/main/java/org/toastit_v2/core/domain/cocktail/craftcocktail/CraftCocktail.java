@@ -33,14 +33,18 @@ public class CraftCocktail {
     @JoinColumn(name = "user_id", nullable = false)
     private Member user;
 
-    private boolean isDeleted = false;
+    private boolean isDisplay = false;
 
-    public boolean isDeleted() {
-        return isDeleted;
+    public boolean isDisplay() {
+        return isDisplay;
     }
 
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
+    public void setDeleted(boolean displayed) {
+        isDisplay = displayed;
+    }
+
+    public void report() {
+        this.isDisplay = true; //신고된 게시물 비활성화
     }
 
 }
