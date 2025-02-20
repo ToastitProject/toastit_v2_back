@@ -7,6 +7,7 @@ import org.toastit_v2.core.domain.member.Member;
 @Entity
 @Table(name = "craft_cocktails")
 @Getter
+@Setter
 @Builder
 @EqualsAndHashCode
 @AllArgsConstructor
