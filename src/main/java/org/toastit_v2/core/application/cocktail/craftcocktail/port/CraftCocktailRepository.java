@@ -17,4 +17,6 @@ public interface CraftCocktailRepository {
 
     void deleteById(Long id);
 
+    void reportById(Long id);
+
 }

@@ -139,6 +139,16 @@ public class CommonExceptionHandler {
     }
 
     /**
+     * Craft Cocktail Review 관련 작업 중 발생하는 경우를 나타냅니다.
+     */
+    @ExceptionHandler(CustomCraftCocktailException.class)
+    protected ResponseEntity<ExceptionResponse> handleCustomCraftReviewUnnAuthorizedAccessException(CustomCraftCocktailException ex) {
+        log.error("Craft Cocktail Review Exception", ex);
+        return buildErrorResponse(ex);
+    }
+
+
+    /**
      * JWT(Json Web Token) 처리 과정에서 발생하는 경우를 나타냅니다.
      */
     @ExceptionHandler(CustomJwtException.class)

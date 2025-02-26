@@ -11,22 +11,16 @@ import org.toastit_v2.core.domain.cocktail.craftcocktail.CraftCocktail;
 
 import java.util.List;
 
-@Tag(
-        name = "CraftCocktail",
-        description = "레시피 입력 기능 API"
-)
+@Tag(name = "CraftCocktail", description = "레시피 입력 기능 API")
 @Validated
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/craftcocktail")
+@RequestMapping("/v2/craftcocktail")
 public class CraftCocktailController {
 
     private final CraftCocktailService craftCocktailService;
 
-    @Operation(
-            summary = "Find Craft Cocktail by ID",
-            description = "특정 ID로 칵테일 레시피를 조회합니다."
-    )
+    @Operation(summary = "Find Craft Cocktail by ID", description = "특정 ID로 칵테일 레시피를 조회합니다.")
     @GetMapping("/{id}")
     public ResponseEntity<CraftCocktail> getById(@PathVariable Long id) {
         CraftCocktail craftCocktail = craftCocktailService.findById(id);
@@ -67,6 +61,13 @@ public class CraftCocktailController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         craftCocktailService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "Report Craft Cocktail", description = "특정 ID의 칵테일 레시피를 신고합니다.")
+    @PostMapping("/{id}/report")
+    public ResponseEntity<Void> report(@PathVariable Long id) {
+        craftCocktailService.reportById(id);
         return ResponseEntity.noContent().build();
     }
 

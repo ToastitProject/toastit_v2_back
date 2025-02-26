@@ -10,7 +10,9 @@ import org.toastit_v2.common.response.code.ExceptionCode;
 import org.toastit_v2.core.application.cocktail.craftcocktail.port.CraftCocktailRepository;
 import org.toastit_v2.core.application.member.port.MemberRepository;
 import org.toastit_v2.core.domain.cocktail.craftcocktail.CraftCocktail;
+import org.toastit_v2.core.domain.cocktail.craftcocktail.CraftCocktailReview;
 import org.toastit_v2.core.domain.member.Member;
+import org.toastit_v2.core.infrastructure.persistence.cocktail.craftcocktail.CraftCocktailReviewRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,8 +20,9 @@ import java.util.Optional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class CraftCocktailServiceImpl implements CraftCocktailService {
+public class CraftCocktailReviewServiceImpl implements CraftCocktailReviewService {
 
+    private final CraftCocktailReviewRepository reviewRepository;
     private final CraftCocktailRepository craftCocktailRepository;
     private final MemberRepository memberRepository;
 
@@ -33,52 +36,47 @@ public class CraftCocktailServiceImpl implements CraftCocktailService {
                 .orElseThrow(() -> new CustomCraftCocktailException(ExceptionCode.USER_NOT_FOUND));
     }
 
-    public CraftCocktail findById(Long id) {
-        return craftCocktailRepository.findById(id)
-                .orElseThrow(() -> new CustomCraftCocktailException(ExceptionCode.FAIL_CREATE_CRAFT_COCKTAIL));
-    }
-
-    public List<CraftCocktail> findAll() {
-        return craftCocktailRepository.findAll();
-    }
-
-    public CraftCocktail save(CraftCocktail craftCocktail) {
+    @Override
+    public CraftCocktailReview saveReview(Long craftCocktailId, CraftCocktailReview review) {
         Member authenticatedUser = getAuthenticatedUser();
-        craftCocktail.setUser(authenticatedUser);
-        return craftCocktailRepository.save(craftCocktail);
-    }
-
-    public CraftCocktail update(CraftCocktail craftCocktail) {
-        Member authenticatedUser = getAuthenticatedUser();
-        CraftCocktail existingCocktail = craftCocktailRepository.findById(craftCocktail.getId())
+        CraftCocktail craftCocktail = craftCocktailRepository.findById(craftCocktailId)
                 .orElseThrow(() -> new CustomCraftCocktailException(ExceptionCode.FAIL_CREATE_CRAFT_COCKTAIL));
 
-        if (!existingCocktail.getUser().equals(authenticatedUser)) {
+        review.setCraftCocktail(craftCocktail);
+        review.setUser(authenticatedUser);
+        return reviewRepository.save(review);
+    }
+
+    @Override
+    public CraftCocktailReview updateReview(Long reviewId, CraftCocktailReview review) {
+        Member authenticatedUser = getAuthenticatedUser();
+        CraftCocktailReview existingComment = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new CustomCraftCocktailException(ExceptionCode.COMMENT_NOT_FOUND));
+
+        if (!existingComment.getUser().equals(authenticatedUser)) {
             throw new CustomCraftCocktailException(ExceptionCode.UNAUTHORIZED_ACCESS);
         }
 
-        return craftCocktailRepository.update(craftCocktail);
+        existingComment.setContent(review.getContent());
+        return reviewRepository.save(existingComment);
     }
 
-
-    public void deleteById(Long id) {
+    @Override
+    public void deleteReview(Long commentId) {
         Member authenticatedUser = getAuthenticatedUser();
-        CraftCocktail existingCocktail = craftCocktailRepository.findById(id)
-                .orElseThrow(() -> new CustomCraftCocktailException(ExceptionCode.USER_NOT_FOUND));
+        CraftCocktailReview existingComment = reviewRepository.findById(commentId)
+                .orElseThrow(() -> new CustomCraftCocktailException(ExceptionCode.COMMENT_NOT_FOUND));
 
-        if (!existingCocktail.getUser().equals(authenticatedUser)) {
+        if (!existingComment.getUser().equals(authenticatedUser)) {
             throw new CustomCraftCocktailException(ExceptionCode.UNAUTHORIZED_ACCESS);
         }
 
-        craftCocktailRepository.deleteById(id);
+        reviewRepository.deleteById(commentId);
     }
 
-
-    public void reportById(Long id) {
-        craftCocktailRepository.findById(id)
-                .orElseThrow(() -> new CustomCraftCocktailException(ExceptionCode.USER_NOT_FOUND));
-
-        craftCocktailRepository.reportById(id);
+    @Override
+    public List<CraftCocktailReview> getReviewsByCraftCocktailId(Long craftCocktailId) {
+        return reviewRepository.findByCraftCocktailId(craftCocktailId);
     }
 
 }
