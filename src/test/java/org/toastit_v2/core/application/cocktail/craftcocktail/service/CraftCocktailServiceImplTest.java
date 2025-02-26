@@ -132,8 +132,7 @@ class CraftCocktailServiceImplTest {
 
         // then
         assertThat(savedCocktail).isEqualTo(craftCocktail);
-        assertThat(savedCock
-                tail.getUser()).isEqualTo(authenticatedUser);
+        assertThat(savedCocktail.getUser()).isEqualTo(authenticatedUser);
     }
 
     @Test
