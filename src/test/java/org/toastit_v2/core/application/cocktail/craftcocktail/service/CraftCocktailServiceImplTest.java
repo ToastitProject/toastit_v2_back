@@ -132,8 +132,8 @@ class CraftCocktailServiceImplTest {
 
         // then
         assertThat(savedCocktail).isEqualTo(craftCocktail);
-        // 저장 시 인증된 사용자가 작성자로 설정되었는지 확인
-        assertThat(savedCocktail.getUser()).isEqualTo(authenticatedUser);
+        assertThat(savedCock
+                tail.getUser()).isEqualTo(authenticatedUser);
     }
 
     @Test

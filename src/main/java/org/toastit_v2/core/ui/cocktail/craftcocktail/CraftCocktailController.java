@@ -11,10 +11,7 @@ import org.toastit_v2.core.domain.cocktail.craftcocktail.CraftCocktail;
 
 import java.util.List;
 
-@Tag(
-        name = "CraftCocktail",
-        description = "레시피 입력 기능 API"
-)
+@Tag(name = "CraftCocktail", description = "레시피 입력 기능 API")
 @Validated
 @RestController
 @RequiredArgsConstructor
@@ -23,10 +20,7 @@ public class CraftCocktailController {
 
     private final CraftCocktailService craftCocktailService;
 
-    @Operation(
-            summary = "Find Craft Cocktail by ID",
-            description = "특정 ID로 칵테일 레시피를 조회합니다."
-    )
+    @Operation(summary = "Find Craft Cocktail by ID", description = "특정 ID로 칵테일 레시피를 조회합니다.")
     @GetMapping("/{id}")
     public ResponseEntity<CraftCocktail> getById(@PathVariable Long id) {
         CraftCocktail craftCocktail = craftCocktailService.findById(id);
@@ -40,9 +34,6 @@ public class CraftCocktailController {
         return ResponseEntity.ok(craftCocktails);
     }
 
-    /**
-     * 로그인,이미지 로직 추가예정
-     */
     @Operation(summary = "Save a New Craft Cocktail", description = "새로운 칵테일 레시피를 저장합니다.")
     @PostMapping
     public ResponseEntity<CraftCocktail> save(@RequestBody @Validated CraftCocktail craftCocktail) {

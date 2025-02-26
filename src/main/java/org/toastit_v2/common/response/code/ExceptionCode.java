@@ -48,6 +48,7 @@ public enum ExceptionCode {
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "작성자를 찾을 수 없습니다.", 404),
     RECIPE_SAVE_FAILURE(HttpStatus.INTERNAL_SERVER_ERROR, "레시피 저장 중 오류가 발생하였습니다.", 500),
     UNAUTHORIZED_ACCESS(HttpStatus.UNAUTHORIZED, "권한이 없는 사용자입니다.", 401),
+    COMMENT_NOT_FOUND(HttpStatus.UNAUTHORIZED, "댓글을 찾을 수 없습니다.", 404),
 
     /**
      * Member Exception Code
