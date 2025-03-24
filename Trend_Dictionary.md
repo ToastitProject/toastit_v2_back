@@ -2,9 +2,8 @@
 |---------------------|-------------------------------------|-----------------------------------------------------------|
 | 트렌드 칵테일          | Trend Cocktail                       | 검색량이 증가한 칵테일 목록을 제공하는 서비스                        |
 | 오늘의 추천 칵테일      | TODAY’S RECOMMENDED COCKTAIL       | 사용자에게 추천하는 칵테일 항목                                     |
-| 구글스 픽              | Google's Pick                        | Google Trend API를 통해 검색량이 증가한 칵테일 목록                  |
-| 네이버스 픽            | Naver's Pick                         | Naver Trend API를 통해 검색량이 증가한 칵테일 목록                   |
-| 믹시스 픽              | Mixie's Pick                         | Mixie 페이지에서 추천하는 칵테일 목록                               |
+| 구글 트랜드 에이피아이     | Google Trend API                    | Google Trend API를 통해 받은 칵테일 키워드에 대한 검색어 변화량       |
+| 네이버 트랜드 에이피아이    | Naver Trend API                     | Naver Trend API를 통해 받은 칵테일 키워드에 대한 검색어 변화량         |
 | 칵테일                | Cocktail                             | 다양한 재료를 혼합하여 만든 음료                                   |
 | 검색량                | Search Volume                        | 특정 칵테일에 대한 검색 횟수                                     |
 | 이미지                | Image                                | 칵테일의 시각적 표현                                            |
@@ -20,6 +19,8 @@
 | 칵테일 기본 정보        | Cocktail Basic Information           | 칵테일의 이름 및 이미지를 포함한 기본 정보 제공                     |
 | 로그인 사용자 추천 알고리즘 | Logged-in User Recommendation Algorithm | 로그인 사용자를 위한 추천 알고리즘 데이터                            |
 | 비로그인 사용자 추천 알고리즘 | Non-Logged-in User Recommendation Algorithm | 비로그인 사용자를 위한 추천 알고리즘 데이터                        |
+| 칵테일 찾기 버튼        | Cocktail Find Button                 | 칵테일 찾기 페이지로 이동하는 버튼                                 |
+| 로그인 문구             | Login Message                        | 비로그인 사용자의 경우 로그인 페이지로 연결되는 문구                  |
 
 
 ####
